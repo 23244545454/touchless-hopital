@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Overview — Touchless HMS</title>
+  <meta name="description" content="Detailed system overview of the Touchless Hospital Management System including architecture, actor roles, and workflow." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/overview.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html" class="active">Overview</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html">Live Demo</a>
+    <a href="mockups.html">UI Mockups</a>
+    <a href="demo.html" class="nav-cta">Try Demo →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <span class="badge badge-teal">System Overview</span>
+      <h1>How the System Works</h1>
+      <p>A complete picture of the Touchless HMS architecture, actor roles, data flow, and technology stack.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ACTORS ═══ -->
+  <section class="section" id="actors">
+    <p class="section-label reveal">User Roles</p>
+    <h2 class="section-title reveal">System Actors</h2>
+    <p class="section-subtitle reveal">Four primary user personas interact with the system through different interfaces depending on their environment.</p>
+    <div class="grid-4 reveal" data-stagger>
+      <div class="actor-card glass-card">
+        <div class="actor-avatar">👨‍⚕️</div>
+        <h4>Surgeon</h4>
+        <span class="badge badge-teal">Touchless Only</span>
+        <p>Operates entirely via Leap Motion in the OR. Views patient vitals, records, and imaging hands-free.</p>
+      </div>
+      <div class="actor-card glass-card">
+        <div class="actor-avatar">👩‍⚕️</div>
+        <h4>Nurse</h4>
+        <span class="badge badge-teal">Touchless (Ward)</span>
+        <p>Manages patient alarms, medication schedules, and ward displays using gesture control.</p>
+      </div>
+      <div class="actor-card glass-card">
+        <div class="actor-avatar">🧑‍⚕️</div>
+        <h4>Doctor</h4>
+        <span class="badge badge-blue">Hybrid</span>
+        <p>Uses traditional touch in clinics for appointments and prescriptions; touchless in sterile areas.</p>
+      </div>
+      <div class="actor-card glass-card">
+        <div class="actor-avatar">🧑</div>
+        <h4>Outpatient</h4>
+        <span class="badge badge-purple">Touch / Mobile</span>
+        <p>Books appointments and views results through the Flutter patient mobile app.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ WORKFLOW ═══ -->
+  <section class="section" id="workflow">
+    <p class="section-label reveal">Data Flow</p>
+    <h2 class="section-title reveal">System Workflow</h2>
+    <div class="workflow-grid reveal">
+
+      <!-- Touch Path -->
+      <div class="flow-column touch-col">
+        <div class="flow-header"><span>📱</span> Touch Interface Path</div>
+        <div class="flow-node outpatient">
+          <div class="node-icon">🧑</div>
+          <div>
+            <strong>Outpatient / Doctor</strong>
+            <p>Logs in via Flutter mobile app</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node app">
+          <div class="node-icon">📱</div>
+          <div>
+            <strong>Flutter Patient App</strong>
+            <p>Book appointment, view history</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node firebase">
+          <div class="node-icon">🔥</div>
+          <div>
+            <strong>Firebase Firestore</strong>
+            <p>Stores appointments &amp; records</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node notify">
+          <div class="node-icon">🔔</div>
+          <div>
+            <strong>Notification &amp; Confirmation</strong>
+            <p>Real-time push to doctor</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Legend -->
+      <div class="flow-center">
+        <div class="center-badge">
+          <div class="center-icon">🔄</div>
+          <span>Firebase<br/>Real-time Sync</span>
+        </div>
+      </div>
+
+      <!-- Touchless Path -->
+      <div class="flow-column touchless-col">
+        <div class="flow-header"><span>✋</span> Touchless Interface Path</div>
+        <div class="flow-node surgeon">
+          <div class="node-icon">👨‍⚕️</div>
+          <div>
+            <strong>Surgeon / Nurse</strong>
+            <p>Enters sterile OR or ward</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node leap">
+          <div class="node-icon">✋</div>
+          <div>
+            <strong>Leap Motion Controller</strong>
+            <p>Captures 3D hand skeleton data</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node python">
+          <div class="node-icon">🐍</div>
+          <div>
+            <strong>Python Middleware</strong>
+            <p>Translates gestures → commands via WebSocket</p>
+          </div>
+        </div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-node flutter">
+          <div class="node-icon">💙</div>
+          <div>
+            <strong>Flutter Dashboard</strong>
+            <p>Renders touchless UI with audio/visual feedback</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ ARCHITECTURE ═══ -->
+  <section class="section" id="architecture">
+    <p class="section-label reveal">Architecture</p>
+    <h2 class="section-title reveal">System Components</h2>
+    <div class="arch-grid reveal">
+      <div class="arch-layer" id="layer-hardware">
+        <div class="arch-layer-label">Hardware Layer</div>
+        <div class="arch-layer-items">
+          <div class="arch-item">Leap Motion Controller</div>
+          <div class="arch-item">Mobile Device (Patient)</div>
+          <div class="arch-item">OR Display Screen</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇</div>
+      <div class="arch-layer" id="layer-middleware">
+        <div class="arch-layer-label">Middleware Layer</div>
+        <div class="arch-layer-items">
+          <div class="arch-item">Python Gesture SDK</div>
+          <div class="arch-item">WebSocket Server</div>
+          <div class="arch-item">Firebase Auth Module</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇</div>
+      <div class="arch-layer" id="layer-frontend">
+        <div class="arch-layer-label">Frontend Layer</div>
+        <div class="arch-layer-items">
+          <div class="arch-item">Flutter — Touchless Dashboard</div>
+          <div class="arch-item">Flutter — Patient Mobile App</div>
+          <div class="arch-item">Doctor Portal (Web)</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇</div>
+      <div class="arch-layer" id="layer-backend">
+        <div class="arch-layer-label">Backend Layer</div>
+        <div class="arch-layer-items">
+          <div class="arch-item">Firebase Firestore</div>
+          <div class="arch-item">Firebase Auth</div>
+          <div class="arch-item">Cloud Functions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TECH STACK ═══ -->
+  <section class="section" id="techstack">
+    <p class="section-label reveal">Technology</p>
+    <h2 class="section-title reveal">Technology Stack</h2>
+    <div class="grid-3 reveal" data-stagger>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">✋</div>
+        <h4>Leap Motion SDK</h4>
+        <p>Infrared 3D skeletal tracking of hands at 120fps for sub-millimeter gesture accuracy.</p>
+        <span class="badge badge-teal">Hardware Input</span>
+      </div>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">🐍</div>
+        <h4>Python Middleware</h4>
+        <p>Processes raw Leap Motion data via the official SDK, classifies gestures, and emits events over WebSocket.</p>
+        <span class="badge badge-purple">Backend Logic</span>
+      </div>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">💙</div>
+        <h4>Flutter Frontend</h4>
+        <p>Cross-platform UI framework for both the patient app and the OR touchless dashboard with real-time updates.</p>
+        <span class="badge badge-blue">Frontend</span>
+      </div>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">🔥</div>
+        <h4>Firebase</h4>
+        <p>Firestore real-time database + Authentication + Cloud Functions for serverless backend operations.</p>
+        <span class="badge badge-red">Backend / DB</span>
+      </div>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">🔔</div>
+        <h4>Push Notifications</h4>
+        <p>Firebase Cloud Messaging delivers alerts to staff devices for urgent patient events.</p>
+        <span class="badge badge-teal">Communication</span>
+      </div>
+      <div class="tech-card glass-card">
+        <div class="tech-logo">🔐</div>
+        <h4>Role-based Auth</h4>
+        <p>Firebase Auth with custom claims enforces role separation: Surgeon / Nurse / Doctor / Patient views.</p>
+        <span class="badge badge-purple">Security</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

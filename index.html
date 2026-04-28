@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Touchless HMS — Touchless Hospital Management System</title>
+  <meta name="description" content="A prototype demonstrating a hybrid touchless hospital management system using Leap Motion technology for sterile environments." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🏥</div>
+    Touchless<span>HMS</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html">Live Demo</a>
+    <a href="mockups.html">UI Mockups</a>
+    <a href="demo.html" class="nav-cta">Try Demo →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="hero">
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="badge badge-teal">🌐 Prototype Demo</span>
+        <span class="badge badge-blue">Leap Motion Technology</span>
+      </div>
+      <h1 class="hero-title reveal">
+        The Future of<br/>
+        <span class="gradient-text">Touchless Hospitals</span>
+      </h1>
+      <p class="hero-subtitle reveal">
+        A hybrid hospital management system that eliminates contamination risk in sterile environments 
+        through hand-gesture control — powered by Leap Motion and built for surgeons, nurses, and patients.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="demo.html" class="btn btn-primary">✋ Try Gesture Demo</a>
+        <a href="overview.html" class="btn btn-outline">Explore System →</a>
+      </div>
+      <div class="hero-stats reveal" data-stagger>
+        <div class="stat-item">
+          <span class="stat-number" data-count="73" data-suffix="%">0%</span>
+          <span class="stat-label">HAI Reduction Potential</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="4" data-suffix=" Roles">0</span>
+          <span class="stat-label">User Personas Supported</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="0" data-suffix=" Touch">0</span>
+          <span class="stat-label">Required in OR Mode</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal-right">
+      <div class="hand-mockup">
+        <div class="hand-ring r1"></div>
+        <div class="hand-ring r2"></div>
+        <div class="hand-ring r3"></div>
+        <div class="hand-icon">✋</div>
+        <div class="scan-line"></div>
+        <div class="data-point dp1">Patient Records</div>
+        <div class="data-point dp2">Vital Signs</div>
+        <div class="data-point dp3">Alarms</div>
+        <div class="data-point dp4">Navigation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEM STATEMENT ═══ -->
+  <section class="section" id="problem">
+    <p class="section-label reveal">The Challenge</p>
+    <h2 class="section-title reveal">Why Touchless Matters in Hospitals</h2>
+    <p class="section-subtitle reveal">
+      Hospital-acquired infections remain one of the leading causes of preventable patient death.
+      Traditional touch interfaces in sterile environments are a silent threat.
+    </p>
+    <div class="grid-3 reveal" data-stagger id="problem-cards">
+      <div class="glass-card problem-card">
+        <div class="problem-icon">🦠</div>
+        <h4>Cross-Contamination Risk</h4>
+        <p>Surgeons and nurses touching screens during procedures can transfer pathogens to patients, equipment, and surfaces.</p>
+      </div>
+      <div class="glass-card problem-card">
+        <div class="problem-icon">🧤</div>
+        <h4>Sterile Gown Compromise</h4>
+        <p>Gloved hands interacting with standard interfaces breach sterile protocols, requiring re-gloving and costly delays.</p>
+      </div>
+      <div class="glass-card problem-card">
+        <div class="problem-icon">⏱️</div>
+        <h4>Workflow Interruptions</h4>
+        <p>Staff must step away from critical tasks to operate traditional systems, impacting patient safety and care efficiency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOLUTION ═══ -->
+  <section class="solution-section section-full" id="solution">
+    <div class="section">
+      <p class="section-label reveal">The Solution</p>
+      <h2 class="section-title reveal">A Hybrid, Human-Centered System</h2>
+      <div class="solution-split">
+        <div class="solution-side touch reveal-left">
+          <div class="solution-header">
+            <div class="solution-icon touch-icon">📱</div>
+            <div>
+              <h3>Traditional Touch</h3>
+              <span class="badge badge-blue">Non-Sterile Zones</span>
+            </div>
+          </div>
+          <p>For outpatient appointments and administrative tasks where infection risk is lower.</p>
+          <ul class="feature-list">
+            <li>✅ Patient mobile app (Flutter)</li>
+            <li>✅ Doctor appointment portal</li>
+            <li>✅ Admin record management</li>
+            <li>✅ Billing &amp; scheduling</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="badge badge-purple">Flutter</span>
+            <span class="badge badge-blue">Firebase</span>
+            <span class="badge badge-teal">REST API</span>
+          </div>
+        </div>
+        <div class="solution-divider">
+          <div class="divider-line"></div>
+          <div class="divider-badge">VS</div>
+          <div class="divider-line"></div>
+        </div>
+        <div class="solution-side touchless reveal-right">
+          <div class="solution-header">
+            <div class="solution-icon touchless-icon">✋</div>
+            <div>
+              <h3>Touchless Gesture</h3>
+              <span class="badge badge-teal">Sterile Zones</span>
+            </div>
+          </div>
+          <p>Leap Motion-powered hand tracking enables full system control without physical contact.</p>
+          <ul class="feature-list">
+            <li>✅ OR surgeon interface</li>
+            <li>✅ Nurse station alarms</li>
+            <li>✅ Patient ward display</li>
+            <li>✅ Real-time vital monitoring</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="badge badge-teal">Leap Motion</span>
+            <span class="badge badge-purple">Python SDK</span>
+            <span class="badge badge-blue">Flutter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="section" id="how">
+    <p class="section-label reveal">Technology</p>
+    <h2 class="section-title reveal">How Leap Motion Enables This</h2>
+    <p class="section-subtitle reveal">The Leap Motion Controller uses infrared cameras and optical sensors to track hands and fingers in 3D space with sub-millimeter accuracy — no contact required.</p>
+    <div class="leap-explainer reveal">
+      <div class="leap-step" data-step="1">
+        <div class="step-dot">1</div>
+        <div class="step-content">
+          <h4>Sense</h4>
+          <p>Leap Motion infrared sensors detect hand position, orientation, and individual finger joints.</p>
+        </div>
+      </div>
+      <div class="leap-arrow">→</div>
+      <div class="leap-step" data-step="2">
+        <div class="step-dot">2</div>
+        <div class="step-content">
+          <h4>Interpret</h4>
+          <p>Python middleware maps raw skeletal data to gestures: swipe, point, grab, pinch.</p>
+        </div>
+      </div>
+      <div class="leap-arrow">→</div>
+      <div class="leap-step" data-step="3">
+        <div class="step-dot">3</div>
+        <div class="step-content">
+          <h4>Execute</h4>
+          <p>Flutter frontend receives commands via WebSocket and updates the UI in real time.</p>
+        </div>
+      </div>
+      <div class="leap-arrow">→</div>
+      <div class="leap-step" data-step="4">
+        <div class="step-dot">4</div>
+        <div class="step-content">
+          <h4>Feedback</h4>
+          <p>Audio beep + visual highlight confirm the action without requiring touch confirmation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GESTURE SHOWCASE ═══ -->
+  <section class="gesture-showcase-section section-full" id="gestures">
+    <div class="section">
+      <p class="section-label reveal">Supported Gestures</p>
+      <h2 class="section-title reveal">Gesture Vocabulary</h2>
+      <div class="grid-4 reveal" data-stagger>
+        <div class="gesture-card glass-card">
+          <div class="gesture-anim swipe-anim">👋</div>
+          <h4>Swipe</h4>
+          <p>Navigate between pages, dismiss alerts, scroll through records.</p>
+        </div>
+        <div class="gesture-card glass-card">
+          <div class="gesture-anim point-anim">☝️</div>
+          <h4>Point / Select</h4>
+          <p>Hover finger over element for 1 second to trigger selection.</p>
+        </div>
+        <div class="gesture-card glass-card">
+          <div class="gesture-anim pinch-anim">🤏</div>
+          <h4>Pinch</h4>
+          <p>Zoom into patient records, medical images, or vital charts.</p>
+        </div>
+        <div class="gesture-card glass-card">
+          <div class="gesture-anim grab-anim">✊</div>
+          <h4>Grab / Hold</h4>
+          <p>Confirm critical actions (drug administration, alarm acknowledgement).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="section cta-section" id="cta">
+    <div class="cta-card glass-card reveal">
+      <h2>Ready to Explore the System?</h2>
+      <p>Interact with our gesture simulator, explore UML diagrams, or view the UI mockups.</p>
+      <div class="cta-actions">
+        <a href="demo.html" class="btn btn-primary">✋ Live Gesture Demo</a>
+        <a href="overview.html" class="btn btn-outline">System Overview</a>
+        <a href="diagrams.html" class="btn btn-ghost">UML Diagrams</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end page-wrapper -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <p style="font-size:0.875rem;margin-top:0.25rem;color:var(--text-muted)">A Prototype Concept — Kuwait University Graduate Project</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html">Demo</a>
+    <a href="mockups.html">Mockups</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Touchless Hospital Management System · Kuwait University</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gesture Demo — Touchless HMS</title>
+  <meta name="description" content="Interactive touchless gesture simulator. Use mouse movements or webcam to control a simulated OR dashboard."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/demo.css"/>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html" class="active">Live Demo</a>
+    <a href="mockups.html">UI Mockups</a>
+    <a href="demo.html" class="nav-cta">Try Demo →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <span class="badge badge-teal">Interactive Demo</span>
+      <h1>Gesture Control Simulator</h1>
+      <p>Simulate touchless hand gestures to control a virtual OR dashboard. Mouse mode is always available; enable webcam for real hand tracking.</p>
+    </div>
+  </div>
+
+  <div class="demo-layout section">
+    <!-- Left: Instructions + Controls -->
+    <div class="demo-sidebar reveal-left">
+      <div class="glass-card instruction-card">
+        <h3>🖱️ Mouse Controls</h3>
+        <ul class="instruction-list">
+          <li><kbd>Drag Left/Right</kbd> Swipe to navigate records</li>
+          <li><kbd>Drag Up/Down</kbd> Scroll through data</li>
+          <li><kbd>Click</kbd> Tap / Select element</li>
+          <li><kbd>Scroll Wheel</kbd> Pinch zoom in/out</li>
+          <li><kbd>Hover 1s</kbd> on buttons to activate</li>
+        </ul>
+      </div>
+
+      <div class="glass-card instruction-card">
+        <h3>📷 Webcam Mode</h3>
+        <p style="font-size:0.875rem;margin-bottom:1rem;">Enable camera to use real hand tracking via Handtrack.js (Leap Motion simulation).</p>
+        <button class="btn btn-outline" id="webcam-btn" style="width:100%">Enable Webcam</button>
+        <div class="webcam-status" id="webcam-status">Mouse mode active</div>
+        <video id="webcam-video" autoplay playsinline muted style="display:none;width:100%;border-radius:var(--radius-md);margin-top:0.75rem;"></video>
+      </div>
+
+      <div class="glass-card">
+        <h3>📊 Gesture Log</h3>
+        <div class="gesture-log" id="gesture-log">
+          <div class="log-empty">Waiting for gestures…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center: Gesture Canvas -->
+    <div class="demo-canvas-wrap reveal">
+      <div class="canvas-label">✋ Move mouse here to control</div>
+      <canvas id="gesture-canvas" width="560" height="380"></canvas>
+    </div>
+
+    <!-- Right: OR Dashboard Panel -->
+    <div class="demo-dashboard reveal-right">
+      <div class="dashboard-header">
+        <span class="dash-badge">🔴 OR Live</span>
+        <span class="dash-title">Operating Room Dashboard</span>
+        <span class="dash-time" id="dash-time">--:--</span>
+      </div>
+
+      <!-- Patient Info Card -->
+      <div class="dash-card" id="patient-card">
+        <div class="dash-card-label">Current Patient</div>
+        <div class="patient-name" id="patient-name">Sarah Al-Mansouri</div>
+        <div class="patient-meta">
+          <span>Age: 42</span> · <span>Blood: O+</span> · <span>OR-3</span>
+        </div>
+        <div class="patient-status">🟢 Stable</div>
+      </div>
+
+      <!-- Vital Signs -->
+      <div class="vitals-grid">
+        <div class="vital-item" id="vital-hr">
+          <div class="vital-icon">❤️</div>
+          <div class="vital-value" id="v-hr">72</div>
+          <div class="vital-unit">BPM</div>
+          <div class="vital-label">Heart Rate</div>
+        </div>
+        <div class="vital-item" id="vital-bp">
+          <div class="vital-icon">🩺</div>
+          <div class="vital-value" id="v-bp">120/80</div>
+          <div class="vital-unit">mmHg</div>
+          <div class="vital-label">Blood Pressure</div>
+        </div>
+        <div class="vital-item" id="vital-o2">
+          <div class="vital-icon">💨</div>
+          <div class="vital-value" id="v-o2">98</div>
+          <div class="vital-unit">% SpO2</div>
+          <div class="vital-label">Oxygen</div>
+        </div>
+        <div class="vital-item" id="vital-temp">
+          <div class="vital-icon">🌡️</div>
+          <div class="vital-value" id="v-temp">36.8</div>
+          <div class="vital-unit">°C</div>
+          <div class="vital-label">Temperature</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons (Gesture-Interactive) -->
+      <div class="dash-actions-label">Hover over a button for 1 second to activate:</div>
+      <div class="dash-actions">
+        <button class="gesture-btn btn-next" id="btn-next">⏭ Next Record</button>
+        <button class="gesture-btn btn-prev" id="btn-prev">⏮ Prev Record</button>
+        <button class="gesture-btn btn-alarm" id="btn-alarm">🔔 Alarm Off</button>
+        <button class="gesture-btn btn-zoom" id="btn-zoom">🔍 Zoom Image</button>
+        <button class="gesture-btn btn-meds" id="btn-meds">💊 Medications</button>
+        <button class="gesture-btn btn-nav" id="btn-nav">🏠 Main Menu</button>
+      </div>
+
+      <!-- Alerts -->
+      <div class="dash-alert" id="dash-alert" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/gestures.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Clock ──
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('dash-time').textContent =
+      now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+  }
+  updateClock(); setInterval(updateClock, 1000);
+
+  // ── Vitals simulation ──
+  function randomize(base, delta) {
+    return (base + (Math.random() - 0.5) * delta).toFixed(1);
+  }
+  setInterval(() => {
+    document.getElementById('v-hr').textContent   = Math.round(68 + Math.random() * 12);
+    document.getElementById('v-o2').textContent   = Math.round(96 + Math.random() * 3);
+    document.getElementById('v-temp').textContent = randomize(36.8, 0.4);
+  }, 3000);
+
+  // ── Patient records rotation ──
+  const patients = [
+    { name: 'Sarah Al-Mansouri', age: 42, blood: 'O+', room: 'OR-3', status: '🟢 Stable' },
+    { name: 'Ahmed Al-Rashidi',  age: 57, blood: 'A-', room: 'OR-1', status: '🟡 Monitoring' },
+    { name: 'Fatima Al-Zahra',  age: 35, blood: 'B+', room: 'OR-5', status: '🟢 Stable' },
+    { name: 'Khalid Al-Mutairi', age: 65, blood: 'AB+', room: 'OR-2', status: '🔴 Critical' },
+  ];
+  let currentPatient = 0;
+
+  function showPatient(idx) {
+    const p = patients[idx];
+    document.getElementById('patient-name').textContent = p.name;
+    document.querySelector('.patient-meta').innerHTML =
+      `<span>Age: ${p.age}</span> · <span>Blood: ${p.blood}</span> · <span>${p.room}</span>`;
+    document.querySelector('.patient-status').textContent = p.status;
+    const card = document.getElementById('patient-card');
+    card.style.borderColor = 'var(--teal)';
+    card.style.boxShadow = '0 0 20px rgba(0,212,170,0.3)';
+    setTimeout(() => { card.style.borderColor = ''; card.style.boxShadow = ''; }, 800);
+  }
+
+  function showAlert(msg, color = 'var(--teal)') {
+    const el = document.getElementById('dash-alert');
+    el.textContent = msg; el.style.display = 'block'; el.style.borderColor = color;
+    setTimeout(() => { el.style.display = 'none'; }, 3000);
+  }
+
+  // ── Gesture Button Actions ──
+  document.getElementById('btn-next').addEventListener('click', () => {
+    currentPatient = (currentPatient + 1) % patients.length;
+    showPatient(currentPatient); showAlert('➡ Next patient record loaded');
+  });
+  document.getElementById('btn-prev').addEventListener('click', () => {
+    currentPatient = (currentPatient - 1 + patients.length) % patients.length;
+    showPatient(currentPatient); showAlert('⬅ Previous patient record loaded');
+  });
+  document.getElementById('btn-alarm').addEventListener('click', () => {
+    showAlert('🔔 Alarm acknowledged — patient vitals stable', 'var(--red-alert)');
+  });
+  document.getElementById('btn-zoom').addEventListener('click', () => {
+    showAlert('🔍 Medical image zoomed in 2×');
+  });
+  document.getElementById('btn-meds').addEventListener('click', () => {
+    showAlert('💊 Medication schedule opened');
+  });
+  document.getElementById('btn-nav').addEventListener('click', () => {
+    showAlert('🏠 Returning to main menu…');
+  });
+
+  // ── Init Gesture Engine (Mouse Mode) ──
+  const canvas = document.getElementById('gesture-canvas');
+  GestureEngine.initMouseMode(canvas);
+
+  const logEl = document.getElementById('gesture-log');
+  function addLog(text, color = 'var(--teal)') {
+    const item = document.createElement('div');
+    item.className = 'log-item'; item.style.color = color;
+    item.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+    logEl.innerHTML = '';
+    logEl.appendChild(item);
+    // keep last 6
+    if (logEl.children.length > 6) logEl.removeChild(logEl.firstChild);
+  }
+  logEl.innerHTML = '';
+
+  GestureEngine.on('swipe', data => {
+    addLog(`Swipe ${data.direction} (${Math.round(data.distance)}px)`);
+    if (data.direction === 'right') document.getElementById('btn-next').click();
+    if (data.direction === 'left')  document.getElementById('btn-prev').click();
+  });
+  GestureEngine.on('tap', () => addLog('Tap / Select'));
+  GestureEngine.on('pinch', data => {
+    addLog(`Pinch ${data.direction}`);
+    document.getElementById('btn-zoom').click();
+  });
+
+  // ── Webcam Button ──
+  const webcamBtn = document.getElementById('webcam-btn');
+  const webcamVideo = document.getElementById('webcam-video');
+  const webcamStatus = document.getElementById('webcam-status');
+  webcamBtn.addEventListener('click', async () => {
+    webcamVideo.style.display = 'block';
+    webcamStatus.textContent = 'Loading Handtrack.js model…';
+    // Load Handtrack.js dynamically
+    if (typeof handTrack === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js';
+      document.head.appendChild(s);
+      s.onload = () => GestureEngine.initWebcamMode(webcamVideo, canvas, webcamStatus);
+    } else {
+      await GestureEngine.initWebcamMode(webcamVideo, canvas, webcamStatus);
+    }
+  });
+});
+</script>
+</body>
+</html>

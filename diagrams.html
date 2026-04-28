@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UML Diagrams — Touchless HMS</title>
+  <meta name="description" content="UML diagrams for the Touchless Hospital Management System: Use Case, Sequence, Component, ER, and Class diagrams."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/diagrams.css"/>
+  <!-- Mermaid.js -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="diagrams.html" class="active">Diagrams</a>
+    <a href="demo.html">Live Demo</a>
+    <a href="mockups.html">UI Mockups</a>
+    <a href="demo.html" class="nav-cta">Try Demo →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <span class="badge badge-purple">UML Diagrams</span>
+      <h1>System Design Diagrams</h1>
+      <p>Visual representations of the system architecture, actor interactions, data flow, and database structure.</p>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="section-sm">
+    <div class="diagram-tabs reveal" role="tablist">
+      <button class="tab-btn active" data-tab="usecase" role="tab">Use Case</button>
+      <button class="tab-btn" data-tab="sequence" role="tab">Sequence</button>
+      <button class="tab-btn" data-tab="component" role="tab">Component</button>
+      <button class="tab-btn" data-tab="er" role="tab">ER Diagram</button>
+      <button class="tab-btn" data-tab="class" role="tab">Class Diagram</button>
+    </div>
+
+    <!-- Use Case Diagram -->
+    <div class="diagram-panel active reveal" id="tab-usecase">
+      <div class="diagram-header">
+        <h3>Use Case Diagram</h3>
+        <p>Actors and their interactions with the system modules.</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid">
+flowchart LR
+  subgraph Actors["👥 Actors"]
+    A1(["👨‍⚕️ Surgeon"])
+    A2(["👩‍⚕️ Nurse"])
+    A3(["🧑‍⚕️ Doctor"])
+    A4(["🧑 Outpatient"])
+  end
+
+  subgraph System["🏥 Touchless HMS"]
+    subgraph Touchless["✋ Touchless Module"]
+      UC1["View Patient Records"]
+      UC2["Navigate Medical Images"]
+      UC3["Acknowledge Alarms"]
+      UC4["Monitor Vital Signs"]
+      UC5["Control OR Display"]
+    end
+    subgraph Touch["📱 Touch Module"]
+      UC6["Book Appointment"]
+      UC7["View Medical History"]
+      UC8["Manage Prescriptions"]
+      UC9["Admin Dashboard"]
+    end
+    subgraph Auth["🔐 Auth"]
+      UC10["Login / Logout"]
+      UC11["Role Management"]
+    end
+  end
+
+  A1 --> UC1
+  A1 --> UC2
+  A1 --> UC5
+  A2 --> UC3
+  A2 --> UC4
+  A2 --> UC1
+  A3 --> UC8
+  A3 --> UC9
+  A3 --> UC1
+  A4 --> UC6
+  A4 --> UC7
+  A1 & A2 & A3 & A4 --> UC10
+  UC10 --> UC11
+
+  style Touchless fill:#0d2e2a,stroke:#00d4aa,color:#f0f6ff
+  style Touch fill:#0d1a2e,stroke:#3b82f6,color:#f0f6ff
+  style Auth fill:#1a0d2e,stroke:#8b5cf6,color:#f0f6ff
+        </div>
+      </div>
+    </div>
+
+    <!-- Sequence Diagram -->
+    <div class="diagram-panel" id="tab-sequence">
+      <div class="diagram-header">
+        <h3>Sequence Diagram</h3>
+        <p>Step-by-step interaction: Surgeon → Leap Motion → Python → Flutter → Firebase.</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid">
+sequenceDiagram
+  actor Surgeon
+  participant LM as Leap Motion
+  participant PY as Python Middleware
+  participant WS as WebSocket Server
+  participant FL as Flutter Dashboard
+  participant FB as Firebase Firestore
+
+  Surgeon->>LM: Perform gesture (swipe right)
+  LM->>PY: Raw skeleton data (3D coordinates)
+  PY->>PY: Classify gesture type
+  PY->>WS: Emit {gesture: "swipe_right", confidence: 0.94}
+  WS->>FL: WebSocket message received
+  FL->>FB: Fetch next patient record
+  FB-->>FL: Patient data (JSON)
+  FL->>FL: Render updated UI
+  FL-->>Surgeon: Visual feedback (highlight) + Audio beep
+  Note over FL: Zero physical contact required
+        </div>
+      </div>
+    </div>
+
+    <!-- Component Diagram -->
+    <div class="diagram-panel" id="tab-component">
+      <div class="diagram-header">
+        <h3>Component Diagram</h3>
+        <p>How system components communicate with each other.</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid">
+flowchart TB
+  subgraph Hardware["🔧 Hardware"]
+    LM["Leap Motion\nController"]
+    MOB["Mobile Device\n(Patient)"]
+  end
+
+  subgraph Middleware["🐍 Python Middleware"]
+    SDK["Leap Motion\nPython SDK"]
+    GC["Gesture Classifier"]
+    WSS["WebSocket Server\n:8765"]
+  end
+
+  subgraph Frontend["💙 Flutter Applications"]
+    DA["Touchless Dashboard\n(OR / Ward)"]
+    PA["Patient Mobile App"]
+  end
+
+  subgraph Backend["🔥 Firebase"]
+    AUTH["Firebase Auth"]
+    FS["Firestore DB"]
+    CF["Cloud Functions"]
+    FCM["Cloud Messaging"]
+  end
+
+  LM -->|USB / BLE| SDK
+  SDK --> GC
+  GC --> WSS
+  WSS -->|WebSocket| DA
+  MOB --> PA
+  DA -->|REST + WS| FS
+  PA -->|REST| FS
+  FS --> CF
+  CF --> FCM
+  FCM --> MOB
+  DA --> AUTH
+  PA --> AUTH
+
+  style Hardware fill:#1a0d2e,stroke:#8b5cf6
+  style Middleware fill:#0d2218,stroke:#00d4aa
+  style Frontend fill:#0d1a2e,stroke:#3b82f6
+  style Backend fill:#2e0d0d,stroke:#ef4444
+        </div>
+      </div>
+    </div>
+
+    <!-- ER Diagram -->
+    <div class="diagram-panel" id="tab-er">
+      <div class="diagram-header">
+        <h3>Entity-Relationship Diagram</h3>
+        <p>Database structure for users, appointments, medical records, and system logs.</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid">
+erDiagram
+  USER {
+    string userId PK
+    string name
+    string email
+    string role
+    string passwordHash
+    datetime createdAt
+  }
+  PATIENT {
+    string patientId PK
+    string userId FK
+    string bloodType
+    string allergies
+    date dateOfBirth
+  }
+  DOCTOR {
+    string doctorId PK
+    string userId FK
+    string specialty
+    string licenseNo
+    string department
+  }
+  APPOINTMENT {
+    string appointmentId PK
+    string patientId FK
+    string doctorId FK
+    datetime scheduledAt
+    string status
+    string notes
+  }
+  MEDICAL_RECORD {
+    string recordId PK
+    string patientId FK
+    string doctorId FK
+    string diagnosis
+    string prescription
+    datetime recordDate
+  }
+  VITAL_SIGNS {
+    string vitalId PK
+    string patientId FK
+    float heartRate
+    float bloodPressure
+    float temperature
+    float spO2
+    datetime recordedAt
+  }
+  GESTURE_LOG {
+    string logId PK
+    string userId FK
+    string gestureType
+    float confidence
+    datetime timestamp
+    string actionTriggered
+  }
+
+  USER ||--o{ PATIENT : "is a"
+  USER ||--o{ DOCTOR  : "is a"
+  PATIENT ||--o{ APPOINTMENT : "has"
+  DOCTOR  ||--o{ APPOINTMENT : "manages"
+  PATIENT ||--o{ MEDICAL_RECORD : "has"
+  DOCTOR  ||--o{ MEDICAL_RECORD : "creates"
+  PATIENT ||--o{ VITAL_SIGNS : "has"
+  USER    ||--o{ GESTURE_LOG : "generates"
+        </div>
+      </div>
+    </div>
+
+    <!-- Class Diagram -->
+    <div class="diagram-panel" id="tab-class">
+      <div class="diagram-header">
+        <h3>Class Diagram</h3>
+        <p>Object-oriented design of core system classes and their relationships.</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid">
+classDiagram
+  class User {
+    +String userId
+    +String name
+    +String email
+    +String role
+    +login()
+    +logout()
+    +getProfile()
+  }
+  class Patient {
+    +String patientId
+    +String bloodType
+    +List~String~ allergies
+    +bookAppointment()
+    +viewRecords()
+    +viewVitals()
+  }
+  class Doctor {
+    +String doctorId
+    +String specialty
+    +String department
+    +viewPatientList()
+    +createRecord()
+    +manageAppointments()
+  }
+  class Appointment {
+    +String appointmentId
+    +DateTime scheduledAt
+    +String status
+    +confirm()
+    +cancel()
+    +reschedule()
+  }
+  class MedicalRecord {
+    +String recordId
+    +String diagnosis
+    +String prescription
+    +DateTime recordDate
+    +update()
+    +delete()
+  }
+  class GestureController {
+    +String gestureType
+    +Float confidence
+    +detectGesture()
+    +classify()
+    +emitEvent()
+  }
+  class LeapMotionSDK {
+    +connect()
+    +getHandData()
+    +getFingerPositions()
+    +calibrate()
+  }
+  class FlutterDashboard {
+    +renderUI()
+    +updateDisplay()
+    +playFeedback()
+    +receiveCommand()
+  }
+
+  User <|-- Patient
+  User <|-- Doctor
+  Patient "1" --> "*" Appointment
+  Doctor "1" --> "*" Appointment
+  Patient "1" --> "*" MedicalRecord
+  Doctor "1" --> "*" MedicalRecord
+  LeapMotionSDK --> GestureController
+  GestureController --> FlutterDashboard
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end section-sm -->
+</div><!-- end page-wrapper -->
+
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Initialize Mermaid with dark theme
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      background: '#0d1626',
+      primaryColor: '#00d4aa',
+      primaryTextColor: '#f0f6ff',
+      primaryBorderColor: '#00d4aa',
+      lineColor: '#475569',
+      secondaryColor: '#0d1a2e',
+      tertiaryColor: '#1a0d2e',
+      edgeLabelBackground: '#0d1626',
+      nodeBorder: '#00d4aa',
+    },
+    flowchart: { curve: 'basis', htmlLabels: true },
+    sequence: { actorMargin: 80, noteMargin: 10, messageMargin: 40 },
+  });
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.diagram-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UI Mockups — Touchless HMS</title>
+  <meta name="description" content="UI mockups for the Touchless Hospital Management System: Patient app, Doctor dashboard, and Surgeon OR interface."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/mockups.css"/>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html">Live Demo</a>
+    <a href="mockups.html" class="active">UI Mockups</a>
+    <a href="demo.html" class="nav-cta">Try Demo →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <span class="badge badge-blue">UI Mockups</span>
+      <h1>Interface Designs</h1>
+      <p>Interactive mockups for all three system interfaces: patient mobile app, doctor dashboard, and surgical OR display.</p>
+    </div>
+  </div>
+
+  <!-- ═══ MOCKUP 1: Patient App ═══ -->
+  <section class="section" id="patient-app">
+    <div class="mockup-intro reveal">
+      <div>
+        <p class="section-label">Interface 1</p>
+        <h2 class="section-title">Patient Mobile App</h2>
+        <p>Traditional touch interface for outpatients to book appointments, view medical history, and receive notifications. Built with Flutter for iOS &amp; Android.</p>
+        <div class="mockup-badges">
+          <span class="badge badge-blue">Flutter</span>
+          <span class="badge badge-teal">Firebase</span>
+          <span class="badge badge-purple">Touch UI</span>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-row reveal">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="patient-screen">
+          <div class="app-screen active" id="ps-home">
+            <div class="app-statusbar"><span>9:41 AM</span><span>📶 🔋</span></div>
+            <div class="app-header">
+              <div class="app-greeting">
+                <div class="app-avatar">SA</div>
+                <div>
+                  <div class="app-name">Sarah Al-Mansouri</div>
+                  <div class="app-role">Patient ID: #P-2841</div>
+                </div>
+              </div>
+              <div class="app-notif">🔔</div>
+            </div>
+            <div class="app-quick-actions">
+              <div class="quick-action" onclick="switchScreen('ps-book')">
+                <div class="qa-icon">📅</div><div class="qa-label">Book Appt</div>
+              </div>
+              <div class="quick-action" onclick="switchScreen('ps-records')">
+                <div class="qa-icon">📋</div><div class="qa-label">Records</div>
+              </div>
+              <div class="quick-action">
+                <div class="qa-icon">💊</div><div class="qa-label">Meds</div>
+              </div>
+              <div class="quick-action">
+                <div class="qa-icon">🧪</div><div class="qa-label">Lab Tests</div>
+              </div>
+            </div>
+            <div class="app-section-title">Upcoming Appointments</div>
+            <div class="appt-card">
+              <div class="appt-date">Mon, May 5 · 10:00 AM</div>
+              <div class="appt-doctor">Dr. Al-Rashidi — Cardiology</div>
+              <div class="appt-loc">📍 Clinic B, Floor 3</div>
+              <div class="appt-status confirmed">✅ Confirmed</div>
+            </div>
+            <div class="appt-card">
+              <div class="appt-date">Fri, May 9 · 2:30 PM</div>
+              <div class="appt-doctor">Dr. Fatima — Lab Results</div>
+              <div class="appt-loc">📍 Lab Center, Floor 1</div>
+              <div class="appt-status pending">⏳ Pending</div>
+            </div>
+            <div class="app-section-title">Latest Vitals</div>
+            <div class="vitals-row">
+              <div class="mini-vital"><span>72</span><small>BPM</small></div>
+              <div class="mini-vital"><span>120/80</span><small>BP</small></div>
+              <div class="mini-vital"><span>98%</span><small>O₂</small></div>
+              <div class="mini-vital"><span>36.8°</span><small>Temp</small></div>
+            </div>
+          </div>
+
+          <div class="app-screen" id="ps-book">
+            <div class="app-statusbar"><span>9:41 AM</span><span>📶 🔋</span></div>
+            <div class="app-back" onclick="switchScreen('ps-home')">← Back</div>
+            <div class="screen-title">Book Appointment</div>
+            <div class="form-label">Select Specialty</div>
+            <div class="specialty-grid">
+              <div class="specialty-btn active">❤️ Cardiology</div>
+              <div class="specialty-btn">🧠 Neurology</div>
+              <div class="specialty-btn">🦷 Dental</div>
+              <div class="specialty-btn">👁 Ophthalmology</div>
+            </div>
+            <div class="form-label">Select Doctor</div>
+            <div class="doctor-option selected">
+              <div class="doc-avatar">AR</div>
+              <div><div class="doc-name">Dr. Ahmed Al-Rashidi</div><div class="doc-spec">Cardiologist · 14 yrs exp.</div></div>
+            </div>
+            <div class="doctor-option">
+              <div class="doc-avatar">SH</div>
+              <div><div class="doc-name">Dr. Sara Hassan</div><div class="doc-spec">Cardiologist · 8 yrs exp.</div></div>
+            </div>
+            <div class="form-label">Choose Date &amp; Time</div>
+            <div class="date-picker">
+              <div class="date-chip active">Mon<br/><b>5</b></div>
+              <div class="date-chip">Tue<br/><b>6</b></div>
+              <div class="date-chip">Wed<br/><b>7</b></div>
+              <div class="date-chip">Thu<br/><b>8</b></div>
+            </div>
+            <button class="app-btn" onclick="showBookingSuccess()">Confirm Booking</button>
+          </div>
+
+          <div class="app-screen" id="ps-records">
+            <div class="app-statusbar"><span>9:41 AM</span><span>📶 🔋</span></div>
+            <div class="app-back" onclick="switchScreen('ps-home')">← Back</div>
+            <div class="screen-title">Medical Records</div>
+            <div class="record-item">
+              <div class="rec-date">12 Apr 2026</div>
+              <div class="rec-title">Blood Panel Results</div>
+              <div class="rec-sub">Hematology · Normal</div>
+              <span class="rec-badge normal">✅ Normal</span>
+            </div>
+            <div class="record-item">
+              <div class="rec-date">28 Mar 2026</div>
+              <div class="rec-title">Cardiology Consultation</div>
+              <div class="rec-sub">Dr. Al-Rashidi · Cardiology</div>
+              <span class="rec-badge normal">✅ Reviewed</span>
+            </div>
+            <div class="record-item">
+              <div class="rec-date">10 Feb 2026</div>
+              <div class="rec-title">Chest X-Ray</div>
+              <div class="rec-sub">Radiology · Mild findings</div>
+              <span class="rec-badge attention">⚠ Note</span>
+            </div>
+          </div>
+        </div>
+        <div class="phone-home-bar"></div>
+      </div>
+
+      <div class="mockup-features">
+        <h3>Patient App Features</h3>
+        <div class="feature-item">
+          <div class="fi-icon">📅</div>
+          <div><strong>Appointment Booking</strong><p>Select specialty, doctor, and time slot with real-time availability from Firebase.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📋</div>
+          <div><strong>Medical Records</strong><p>View diagnoses, lab results, prescriptions, and imaging history securely.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">🔔</div>
+          <div><strong>Push Notifications</strong><p>Receive reminders, appointment confirmations, and lab result alerts via FCM.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">💊</div>
+          <div><strong>Medication Tracker</strong><p>Daily medication schedule with dosage reminders and refill alerts.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ MOCKUP 2: Doctor Dashboard ═══ -->
+  <section class="section" id="doctor-dashboard">
+    <div class="mockup-intro reveal">
+      <div>
+        <p class="section-label">Interface 2</p>
+        <h2 class="section-title">Doctor's Touchless Dashboard</h2>
+        <p>Large, spatially-zoned buttons optimized for gesture-based interaction. Designed for clinic consultations with Leap Motion or fallback touch.</p>
+        <div class="mockup-badges">
+          <span class="badge badge-teal">Leap Motion</span>
+          <span class="badge badge-blue">Flutter Web</span>
+          <span class="badge badge-purple">Hybrid</span>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-row reveal">
+      <div class="desktop-frame">
+        <div class="desktop-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="titlebar-text">Touchless HMS — Doctor Dashboard</span></div>
+        <div class="desktop-screen">
+          <div class="doc-sidebar">
+            <div class="doc-logo">🏥</div>
+            <div class="doc-nav">
+              <div class="doc-nav-item active">📋 Patients</div>
+              <div class="doc-nav-item">📅 Schedule</div>
+              <div class="doc-nav-item">📊 Analytics</div>
+              <div class="doc-nav-item">💊 Prescriptions</div>
+              <div class="doc-nav-item">⚙️ Settings</div>
+            </div>
+            <div class="doc-profile">
+              <div class="doc-avatar-sm">DR</div>
+              <div class="doc-profile-info">
+                <div class="doc-profile-name">Dr. Al-Rashidi</div>
+                <div class="doc-profile-role">Cardiologist</div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-main">
+            <div class="doc-topbar">
+              <div class="doc-page-title">Today's Patients</div>
+              <div class="doc-gesture-indicator"><span class="gesture-dot"></span> Gesture Mode: ON</div>
+            </div>
+            <div class="doc-patient-list">
+              <div class="doc-patient-row active">
+                <div class="dpr-num">1</div>
+                <div class="dpr-info"><div class="dpr-name">Sarah Al-Mansouri</div><div class="dpr-detail">10:00 AM · Follow-up · OR-3</div></div>
+                <div class="dpr-status">🟢 In Room</div>
+                <button class="dpr-action">Open →</button>
+              </div>
+              <div class="doc-patient-row">
+                <div class="dpr-num">2</div>
+                <div class="dpr-info"><div class="dpr-name">Ahmed Al-Rashidi</div><div class="dpr-detail">11:30 AM · Consultation</div></div>
+                <div class="dpr-status">⏳ Waiting</div>
+                <button class="dpr-action">Open →</button>
+              </div>
+              <div class="doc-patient-row">
+                <div class="dpr-num">3</div>
+                <div class="dpr-info"><div class="dpr-name">Fatima Al-Zahra</div><div class="dpr-detail">1:00 PM · Lab Review</div></div>
+                <div class="dpr-status">📋 Scheduled</div>
+                <button class="dpr-action">Open →</button>
+              </div>
+            </div>
+            <div class="doc-gesture-zone">
+              <div class="gz-title">✋ Gesture Action Zone</div>
+              <div class="gz-buttons">
+                <div class="gz-btn next">⏭<br/><small>Next Patient</small></div>
+                <div class="gz-btn prev">⏮<br/><small>Previous</small></div>
+                <div class="gz-btn approve">✅<br/><small>Approve Rx</small></div>
+                <div class="gz-btn dismiss">🔕<br/><small>Dismiss Alert</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ MOCKUP 3: Surgeon OR Interface ═══ -->
+  <section class="section" id="surgeon-interface">
+    <div class="mockup-intro reveal">
+      <div>
+        <p class="section-label">Interface 3</p>
+        <h2 class="section-title">Surgeon &amp; Nurse OR Interface</h2>
+        <p>Full-screen, touch-free display for operating rooms. Designed for maximum readability at a distance and gesture-only navigation.</p>
+        <div class="mockup-badges">
+          <span class="badge badge-teal">Leap Motion Only</span>
+          <span class="badge badge-red">Sterile Zone</span>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-row or-row reveal">
+      <div class="or-frame">
+        <div class="or-header">
+          <span class="or-badge-red">● LIVE</span>
+          <span class="or-title">OPERATING ROOM 3 — CARDIAC SURGERY</span>
+          <span class="or-time" id="or-time">--:--:--</span>
+          <span class="or-gesture-on">✋ Gesture: Active</span>
+        </div>
+        <div class="or-body">
+          <div class="or-patient-panel">
+            <div class="or-panel-title">PATIENT</div>
+            <div class="or-patient-name">Sarah Al-Mansouri</div>
+            <div class="or-patient-detail">Female · 42yrs · O+ · MRN: 2841</div>
+            <div class="or-patient-procedure">Coronary Bypass Graft (CABG)</div>
+            <div class="or-team">
+              <div class="or-team-item">🧑‍⚕️ Lead: Dr. Khalid</div>
+              <div class="or-team-item">👩‍⚕️ Assist: Nurse Reem</div>
+              <div class="or-team-item">💉 Anesthesia: Dr. Sara</div>
+            </div>
+          </div>
+          <div class="or-vitals-panel">
+            <div class="or-panel-title">VITALS (LIVE)</div>
+            <div class="or-vital-big"><span class="or-vital-val" id="or-hr">74</span><span class="or-vital-lbl">HR (BPM)</span></div>
+            <div class="or-vital-big"><span class="or-vital-val spo2" id="or-o2">99</span><span class="or-vital-lbl">SpO₂ %</span></div>
+            <div class="or-vital-big"><span class="or-vital-val bp">118/76</span><span class="or-vital-lbl">BP mmHg</span></div>
+            <div class="or-vital-big"><span class="or-vital-val temp">36.6</span><span class="or-vital-lbl">Temp °C</span></div>
+          </div>
+          <div class="or-actions-panel">
+            <div class="or-panel-title">GESTURE CONTROLS</div>
+            <div class="or-action-btn">⏭ Next Record</div>
+            <div class="or-action-btn">📷 Imaging</div>
+            <div class="or-action-btn">💉 Anesthesia Log</div>
+            <div class="or-action-btn alarm">🚨 Acknowledge Alarm</div>
+            <div class="or-action-btn">📝 Surgical Notes</div>
+            <div class="or-action-btn">🏠 Main Menu</div>
+          </div>
+        </div>
+        <div class="or-footer">
+          <span>Surgery Start: 08:15 · Elapsed: <span id="or-elapsed">01:26:43</span></span>
+          <span>All interactions touchless — Leap Motion active</span>
+          <span>🔴 Recording</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="overview.html">Overview</a>
+    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// ── Patient App screen navigation ──
+function switchScreen(id) {
+  document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function showBookingSuccess() {
+  alert('✅ Appointment booked successfully!\nDr. Ahmed Al-Rashidi · Mon May 5 · 10:00 AM');
+  switchScreen('ps-home');
+}
+
+// ── OR Clock ──
+function orClock() {
+  const now = new Date();
+  const el = document.getElementById('or-time');
+  if (el) el.textContent = now.toLocaleTimeString('en-US', {hour12:false});
+  // Elapsed counter (fixed offset)
+  const el2 = document.getElementById('or-elapsed');
+  if (el2) {
+    const start = new Date(); start.setHours(8,15,0);
+    const diff = Math.floor((now - start) / 1000);
+    const h = Math.floor(diff/3600).toString().padStart(2,'0');
+    const m = Math.floor((diff%3600)/60).toString().padStart(2,'0');
+    const s = (diff%60).toString().padStart(2,'0');
+    el2.textContent = `${h}:${m}:${s}`;
+  }
+  // Randomize OR vitals
+  const hrEl = document.getElementById('or-hr');
+  const o2El = document.getElementById('or-o2');
+  if (hrEl) hrEl.textContent = Math.round(70 + Math.random()*10);
+  if (o2El) o2El.textContent = Math.round(97 + Math.random()*3);
+}
+orClock(); setInterval(orClock, 1000);
+
+// ── Specialty & doctor selection ──
+document.querySelectorAll('.specialty-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.specialty-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('.doctor-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.doctor-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+  });
+});
+document.querySelectorAll('.date-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+document.querySelectorAll('.gz-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.style.background = 'rgba(0,212,170,0.25)';
+    btn.style.borderColor = 'var(--teal)';
+    setTimeout(() => { btn.style.background = ''; btn.style.borderColor = ''; }, 600);
+  });
+});
+</script>
+</body>
+</html>

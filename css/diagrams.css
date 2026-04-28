@@ -1,0 +1,26 @@
+/* ── Diagrams Page Styles ── */
+
+.diagram-tabs {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2rem; padding: 0.5rem;
+  background: var(--bg-secondary); border-radius: var(--radius-md);
+  border: 1px solid var(--border-glass);
+}
+.tab-btn {
+  padding: 0.6rem 1.25rem; border-radius: var(--radius-sm);
+  font-size: 0.875rem; font-weight: 600; cursor: pointer;
+  border: none; background: transparent; color: var(--text-secondary);
+  transition: var(--transition); font-family: var(--font-body);
+}
+.tab-btn:hover { color: var(--text-primary); background: var(--bg-card); }
+.tab-btn.active { background: linear-gradient(135deg, var(--teal), var(--blue-accent)); color: #fff; }
+
+.diagram-panel { display: none; }
+.diagram-panel.active { display: block; }
+
+.diagram-header { margin-bottom: 1.5rem; }
+.diagram-header h3 { margin-bottom: 0.4rem; }
+.diagram-header p { font-size: 0.9rem; }
+
+.diagram-box svg { max-width: 100%; }
+.mermaid { text-align: center; }
