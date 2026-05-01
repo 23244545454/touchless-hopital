@@ -42,16 +42,16 @@
   position: absolute; border-radius: 50%; border: 1px solid;
   animation: pulse-ring 3s ease-in-out infinite;
 }
-.r1 { width: 120px; height: 120px; border-color: rgba(0,212,170,0.6); animation-delay: 0s; }
-.r2 { width: 200px; height: 200px; border-color: rgba(0,212,170,0.3); animation-delay: 0.6s; }
-.r3 { width: 280px; height: 280px; border-color: rgba(0,212,170,0.15); animation-delay: 1.2s; }
+.r1 { width: 120px; height: 120px; border-color: rgba(0,229,184,0.65); animation-delay: 0s; }
+.r2 { width: 200px; height: 200px; border-color: rgba(0,229,184,0.32); animation-delay: 0.6s; }
+.r3 { width: 280px; height: 280px; border-color: rgba(0,229,184,0.14); animation-delay: 1.2s; }
 @keyframes pulse-ring {
   0%,100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.05); opacity: 0.6; }
 }
 .hand-icon {
   font-size: 4rem; z-index: 2; position: relative;
-  filter: drop-shadow(0 0 20px rgba(0,212,170,0.6));
+  filter: drop-shadow(0 0 24px rgba(0,229,184,0.7));
   animation: float-hand 3.5s ease-in-out infinite;
 }
 @keyframes float-hand {
@@ -68,8 +68,8 @@
 
 .data-point {
   position: absolute; font-size: 0.7rem; font-weight: 600;
-  color: var(--teal); background: rgba(0,212,170,0.1);
-  border: 1px solid rgba(0,212,170,0.35); border-radius: 100px;
+  color: var(--teal); background: rgba(0,229,184,0.1);
+  border: 1px solid rgba(0,229,184,0.3); border-radius: 100px;
   padding: 0.2rem 0.6rem; white-space: nowrap;
   animation: data-float 4s ease-in-out infinite;
 }
@@ -89,7 +89,7 @@
 
 /* ─ Solution Section ─ */
 .solution-section {
-  background: linear-gradient(180deg, transparent 0%, rgba(13,22,38,0.6) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(30,41,59,0.5) 50%, transparent 100%);
 }
 .solution-split {
   display: flex; gap: 0; align-items: stretch;
@@ -113,8 +113,8 @@
 }
 .solution-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
 .solution-icon { font-size: 2rem; width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; }
-.touch-icon { background: rgba(59,130,246,0.15); }
-.touchless-icon { background: rgba(0,212,170,0.15); }
+.touch-icon     { background: rgba(96,165,250,0.15); }
+.touchless-icon { background: rgba(0,229,184,0.15); }
 .solution-header h3 { margin-bottom: 0.3rem; }
 .feature-list { margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .feature-list li { font-size: 0.9rem; color: var(--text-secondary); }
@@ -140,7 +140,7 @@
 
 /* ─ Gesture Cards ─ */
 .gesture-showcase-section {
-  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0,212,170,0.06), transparent);
+  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0,229,184,0.07), transparent);
 }
 .gesture-card { text-align: center; }
 .gesture-anim {
