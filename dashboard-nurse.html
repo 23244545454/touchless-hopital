@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nurse Station — Touchless HMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard-nurse.css"/>
+</head>
+<body class="nurse-body">
+
+<!-- Floating Gesture Cursor -->
+<div id="gesture-cursor" aria-hidden="true">
+  <div class="gc-ring"></div><div class="gc-dot"></div>
+  <svg class="gc-progress" viewBox="0 0 60 60">
+    <circle class="gc-track" cx="30" cy="30" r="26"/>
+    <circle class="gc-fill" cx="30" cy="30" r="26" id="gc-fill-el"/>
+  </svg>
+</div>
+<div id="gesture-toast" aria-live="polite"></div>
+
+<div class="nurse-layout">
+
+  <!-- Top Bar -->
+  <header class="nurse-topbar">
+    <div class="ntb-left">
+      <div class="ntb-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span> <small>— Nurse Station</small></div>
+      <div class="badge badge-blue">💉 Cardiology Ward · Floor 3</div>
+    </div>
+    <div class="ntb-right">
+      <div class="gesture-mode-pill"><span class="gm-dot"></span> Gesture Mode: <strong>ON</strong></div>
+      <div class="ntb-clock" id="ntb-clock">--:--</div>
+      <a href="departments.html" class="ntb-link gesture-target">🏥 Depts</a>
+      <a href="login.html" class="ntb-logout gesture-target">⏻ Logout</a>
+    </div>
+  </header>
+
+  <div class="nurse-content">
+
+    <!-- Alarms Panel -->
+    <div class="alarms-panel glass-card">
+      <div class="ap-title">🚨 Active Alarms</div>
+      <div class="alarm-list" id="alarm-list">
+        <div class="alarm-item critical" id="alarm-1">
+          <div class="ai-info"><div class="ai-name">Khalid Al-Mutairi — ICU-2</div><div class="ai-msg">⚠ SpO₂ dropped to 91% — Immediate attention</div></div>
+          <button class="ai-dismiss gesture-target" data-alarm="alarm-1">🔕 Dismiss</button>
+        </div>
+        <div class="alarm-item warning" id="alarm-2">
+          <div class="ai-info"><div class="ai-name">Ahmed Al-Rashidi — C-308</div><div class="ai-msg">HR elevated: 102 BPM · Monitor</div></div>
+          <button class="ai-dismiss gesture-target" data-alarm="alarm-2">🔕 Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ward Bed Map -->
+    <div class="ward-section">
+      <div class="ward-header"><h2>Ward Bed Map — Cardiology Floor 3</h2></div>
+      <div class="bed-map" id="bed-map">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Vitals Monitor -->
+    <div class="vitals-monitor glass-card">
+      <div class="vm-title">📊 Live Vitals — Selected Patient</div>
+      <div class="vm-patient" id="vm-patient-name">Select a bed to monitor</div>
+      <div class="vm-grid" id="vm-grid">
+        <div class="vmg-item"><div class="vmg-val" id="vn-hr">—</div><div class="vmg-lbl">❤️ HR (BPM)</div></div>
+        <div class="vmg-item"><div class="vmg-val" id="vn-bp">—</div><div class="vmg-lbl">🩺 BP</div></div>
+        <div class="vmg-item green"><div class="vmg-val" id="vn-spo2">—</div><div class="vmg-lbl">💨 SpO₂%</div></div>
+        <div class="vmg-item yellow"><div class="vmg-val" id="vn-temp">—</div><div class="vmg-lbl">🌡️ Temp °C</div></div>
+      </div>
+    </div>
+
+    <!-- Patient List -->
+    <div class="nurse-patients glass-card">
+      <div class="np-title">👥 Assigned Patients</div>
+      <div class="np-list" id="np-list"><!-- Rendered by JS --></div>
+    </div>
+
+  </div><!-- end nurse-content -->
+
+  <!-- Gesture Zone -->
+  <footer class="gesture-zone">
+    <div class="gz-info"><div class="gz-hand-anim">✋</div><div><div class="gz-title">Gesture Zone</div><div class="gz-hint">Hover 1.5s to activate · Drag to swipe</div></div></div>
+    <canvas id="gesture-canvas" width="280" height="60"></canvas>
+    <div class="gz-buttons">
+      <button class="gz-btn gesture-target gz-dismiss" id="gz-dismiss-all">🔕<small>Dismiss All</small></button>
+      <button class="gz-btn gesture-target" id="gz-prev-pt">⏮<small>Prev</small></button>
+      <button class="gz-btn gesture-target" id="gz-next-pt">⏭<small>Next</small></button>
+      <button class="gz-btn gesture-target gz-approve" id="gz-acknowledge">✅<small>Acknowledge</small></button>
+    </div>
+  </footer>
+
+</div>
+
+<script src="js/permissions.js"></script>
+<script src="js/gestures.js"></script>
+<script src="js/dashboard-nurse.js"></script>
+</body>
+</html>

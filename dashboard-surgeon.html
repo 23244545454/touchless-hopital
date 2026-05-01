@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surgeon OR Interface — Touchless HMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard-surgeon.css"/>
+</head>
+<body class="or-body">
+
+<!-- Floating Gesture Cursor -->
+<div id="gesture-cursor" aria-hidden="true">
+  <div class="gc-ring"></div><div class="gc-dot"></div>
+  <svg class="gc-progress" viewBox="0 0 60 60">
+    <circle class="gc-track" cx="30" cy="30" r="26"/>
+    <circle class="gc-fill" cx="30" cy="30" r="26" id="gc-fill-el"/>
+  </svg>
+</div>
+<div id="gesture-toast" aria-live="polite"></div>
+
+<!-- OR HEADER -->
+<header class="or-header">
+  <div class="orh-left">
+    <span class="or-live-badge">● LIVE</span>
+    <span class="or-room-title">OPERATING ROOM 3 — CARDIAC SURGERY</span>
+    <span class="badge badge-red">🔴 STERILE ZONE</span>
+  </div>
+  <div class="orh-right">
+    <div class="or-gesture-active">✋ Gesture: <strong>ACTIVE</strong></div>
+    <div class="or-clock" id="or-clock">--:--:--</div>
+    <a href="login.html" class="or-exit gesture-target">⏻ Exit OR</a>
+  </div>
+</header>
+
+<!-- OR BODY -->
+<div class="or-layout">
+
+  <!-- Patient Panel -->
+  <div class="or-panel or-patient-panel">
+    <div class="orp-label">PATIENT</div>
+    <div class="orp-name" id="orp-name">Khalid Al-Mutairi</div>
+    <div class="orp-detail">Male · 65 yrs · AB+ · MRN: 0774</div>
+    <div class="orp-procedure">Emergency CABG — Coronary Bypass</div>
+    <div class="orp-team">
+      <div class="ort-item">⚕️ Lead: Dr. Khalid Al-Rashidi</div>
+      <div class="ort-item">👩‍⚕️ Assist: Nurse Reem Al-Zahra</div>
+      <div class="ort-item">💉 Anesthesia: Dr. Sara Hassan</div>
+      <div class="ort-item">🔬 Scrub Nurse: Fatima Yousif</div>
+    </div>
+    <div class="orp-timer-section">
+      <div class="orp-tlabel">SURGERY ELAPSED</div>
+      <div class="orp-timer" id="or-elapsed">00:00:00</div>
+    </div>
+  </div>
+
+  <!-- Vitals Panel -->
+  <div class="or-panel or-vitals-panel">
+    <div class="orp-label">VITALS (LIVE)</div>
+    <div class="orv-big"><div class="orv-val" id="or-hr">76</div><div class="orv-lbl">HR (BPM)</div></div>
+    <div class="orv-big"><div class="orv-val spo2" id="or-spo2">98</div><div class="orv-lbl">SpO₂ %</div></div>
+    <div class="orv-big"><div class="orv-val bp" id="or-bp">110/70</div><div class="orv-lbl">BP mmHg</div></div>
+    <div class="orv-big"><div class="orv-val temp" id="or-temp">36.4</div><div class="orv-lbl">Temp °C</div></div>
+    <div class="orv-big"><div class="orv-val rr" id="or-etco2">32</div><div class="orv-lbl">EtCO₂ mmHg</div></div>
+  </div>
+
+  <!-- Gesture Controls -->
+  <div class="or-panel or-controls-panel">
+    <div class="orp-label">GESTURE CONTROLS</div>
+    <div class="or-ctrl-grid">
+      <button class="or-ctrl-btn gesture-target" data-action="next">⏭<span>Next Record</span></button>
+      <button class="or-ctrl-btn gesture-target" data-action="imaging">📷<span>Imaging</span></button>
+      <button class="or-ctrl-btn gesture-target" data-action="anesthesia">💉<span>Anesthesia Log</span></button>
+      <button class="or-ctrl-btn gesture-target" data-action="notes">📝<span>Surgical Notes</span></button>
+      <button class="or-ctrl-btn or-alarm-btn gesture-target" data-action="alarm">🚨<span>Acknowledge Alarm</span></button>
+      <button class="or-ctrl-btn gesture-target" data-action="meds">💊<span>Medications</span></button>
+    </div>
+  </div>
+
+  <!-- Gesture Canvas Zone -->
+  <div class="or-canvas-panel">
+    <div class="orc-label">✋ GESTURE INPUT ZONE — Drag to Navigate · Hover 1.5s to Activate</div>
+    <canvas id="gesture-canvas" width="100%" height="80"></canvas>
+    <div class="orc-hint">Mouse simulation active · Webcam Leap Motion in production</div>
+  </div>
+
+</div><!-- end or-layout -->
+
+<!-- OR Footer -->
+<footer class="or-footer">
+  <span>Surgery Start: 08:15 · <span id="or-footer-elapsed">Calculating…</span></span>
+  <span id="or-action-log">All interactions touchless — Leap Motion active</span>
+  <span>🔴 Recording · Sterile Zone Active</span>
+</footer>
+
+<script src="js/permissions.js"></script>
+<script src="js/gestures.js"></script>
+<script src="js/dashboard-surgeon.js"></script>
+</body>
+</html>

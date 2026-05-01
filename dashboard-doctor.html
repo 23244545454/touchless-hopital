@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Dashboard — Touchless HMS</title>
+  <meta name="description" content="Touchless gesture-controlled doctor dashboard. Navigate appointments and patient records hands-free."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard-doctor.css"/>
+</head>
+<body class="dash-body">
+
+<!-- Floating Gesture Cursor (injected by JS) -->
+<div id="gesture-cursor" aria-hidden="true">
+  <div class="gc-ring"></div>
+  <div class="gc-dot"></div>
+  <svg class="gc-progress" viewBox="0 0 60 60">
+    <circle class="gc-track" cx="30" cy="30" r="26"/>
+    <circle class="gc-fill"  cx="30" cy="30" r="26" id="gc-fill-el"/>
+  </svg>
+</div>
+
+<!-- Gesture Activated Toast -->
+<div id="gesture-toast" aria-live="polite"></div>
+
+<!-- ═══ LAYOUT ═══ -->
+<div class="dash-layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="dash-sidebar" id="dash-sidebar">
+    <div class="ds-logo">
+      <div class="logo-icon">🏥</div>
+      <span>Touchless<b>HMS</b></span>
+    </div>
+
+    <nav class="ds-nav" aria-label="Dashboard navigation">
+      <button class="ds-nav-item active gesture-target" data-tab="appointments" id="nav-appointments">
+        <span class="dsni-icon">📅</span><span class="dsni-label">Appointments</span>
+        <span class="dsni-count" id="appt-count">6</span>
+      </button>
+      <button class="ds-nav-item gesture-target" data-tab="patients" id="nav-patients">
+        <span class="dsni-icon">👥</span><span class="dsni-label">Patients</span>
+        <span class="dsni-count">5</span>
+      </button>
+      <button class="ds-nav-item gesture-target" data-tab="departments" id="nav-departments">
+        <span class="dsni-icon">🏥</span><span class="dsni-label">Departments</span>
+      </button>
+      <button class="ds-nav-item gesture-target" data-tab="prescriptions" id="nav-prescriptions">
+        <span class="dsni-icon">💊</span><span class="dsni-label">Prescriptions</span>
+      </button>
+      <button class="ds-nav-item gesture-target" data-tab="analytics" id="nav-analytics">
+        <span class="dsni-icon">📊</span><span class="dsni-label">Analytics</span>
+      </button>
+    </nav>
+
+    <div class="ds-footer">
+      <div class="ds-profile">
+        <div class="ds-avatar">AR</div>
+        <div class="ds-profile-info">
+          <div class="ds-name">Dr. Al-Rashidi</div>
+          <div class="ds-role">Cardiology · Floor 3</div>
+        </div>
+      </div>
+      <a href="login.html" class="ds-logout gesture-target">⏻ Logout</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN AREA ── -->
+  <div class="dash-main">
+
+    <!-- Top Bar -->
+    <header class="dash-topbar">
+      <div class="dtb-left">
+        <button class="sidebar-toggle gesture-target" id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+        <div class="dtb-title" id="dtb-title">Today's Appointments</div>
+        <div class="dtb-dept badge badge-teal">❤️ Cardiology</div>
+      </div>
+      <div class="dtb-right">
+        <div class="gesture-mode-pill" id="gesture-pill">
+          <span class="gm-dot"></span> Gesture Mode: <strong id="gm-status">ON</strong>
+        </div>
+        <div class="dtb-clock" id="dtb-clock">--:--</div>
+        <button class="dtb-notif gesture-target" aria-label="Notifications">🔔<span class="notif-badge">2</span></button>
+        <button class="dtb-cam-btn gesture-target" id="cam-toggle-btn" title="Toggle Webcam Hand Tracking">📷</button>
+        <a href="departments.html" class="dtb-dept-link gesture-target" title="Departments">🏥</a>
+      </div>
+    </header>
+
+    <!-- Content Panels -->
+    <div class="dash-content" id="dash-content">
+
+      <!-- ══ TAB: APPOINTMENTS ══ -->
+      <section class="dash-tab active" id="tab-appointments">
+        <div class="tab-header">
+          <h2>Today's Schedule</h2>
+          <div class="tab-date" id="today-date"></div>
+        </div>
+
+        <div class="appt-timeline" id="appt-timeline">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- ══ TAB: PATIENTS ══ -->
+      <section class="dash-tab" id="tab-patients">
+        <div class="patients-layout">
+          <!-- Patient List -->
+          <div class="patient-list-panel">
+            <div class="plp-header">
+              <h2>Patient List</h2>
+              <div class="plp-search">
+                <input type="search" placeholder="🔍 Search patients…" id="patient-search" class="search-input"/>
+              </div>
+            </div>
+            <div class="patient-list" id="patient-list"><!-- Rendered by JS --></div>
+          </div>
+
+          <!-- Patient Record Viewer -->
+          <div class="patient-record-panel" id="patient-record-panel">
+            <div class="prp-empty" id="prp-empty">
+              <div class="prp-empty-icon">👆</div>
+              <p>Select a patient or use<br/><strong>swipe gestures</strong> to navigate</p>
+            </div>
+            <div class="prp-content" id="prp-content" style="display:none">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ TAB: DEPARTMENTS ══ -->
+      <section class="dash-tab" id="tab-departments">
+        <div class="tab-header"><h2>Hospital Departments</h2></div>
+        <div class="dept-mini-grid" id="dept-mini-grid"><!-- Rendered by JS --></div>
+      </section>
+
+      <!-- ══ TAB: PRESCRIPTIONS ══ -->
+      <section class="dash-tab" id="tab-prescriptions">
+        <div class="tab-header"><h2>Prescriptions</h2></div>
+        <div class="rx-layout">
+          <div class="rx-form glass-card">
+            <h3>Write New Prescription</h3>
+            <div class="rx-field"><label>Patient</label>
+              <select class="form-input" id="rx-patient">
+                <option value="">— Select patient —</option>
+              </select>
+            </div>
+            <div class="rx-field"><label>Medication</label>
+              <input class="form-input" type="text" id="rx-med" placeholder="e.g. Amlodipine 5mg"/></div>
+            <div class="rx-field"><label>Dosage &amp; Frequency</label>
+              <input class="form-input" type="text" id="rx-dose" placeholder="e.g. Once daily (OD)"/></div>
+            <div class="rx-field"><label>Duration</label>
+              <input class="form-input" type="text" id="rx-duration" placeholder="e.g. 30 days"/></div>
+            <div class="rx-field"><label>Notes</label>
+              <textarea class="form-input" id="rx-notes" rows="3" placeholder="Additional instructions…"></textarea></div>
+            <button class="btn btn-primary gesture-target" id="rx-submit">💊 Issue Prescription</button>
+          </div>
+          <div class="rx-history glass-card">
+            <h3>Recent Prescriptions</h3>
+            <div id="rx-list"><!-- Rendered by JS --></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ TAB: ANALYTICS ══ -->
+      <section class="dash-tab" id="tab-analytics">
+        <div class="tab-header"><h2>Department Analytics</h2></div>
+        <div class="analytics-grid">
+          <div class="an-card glass-card"><div class="an-num">5</div><div class="an-label">Patients Today</div><div class="an-sub">+1 from yesterday</div></div>
+          <div class="an-card glass-card"><div class="an-num">3</div><div class="an-label">Stable Patients</div><div class="an-sub">60% of ward</div></div>
+          <div class="an-card glass-card an-warn"><div class="an-num">1</div><div class="an-label">Critical Alerts</div><div class="an-sub">ICU-2 · P-0774</div></div>
+          <div class="an-card glass-card"><div class="an-num">12</div><div class="an-label">Prescriptions</div><div class="an-sub">This week</div></div>
+          <div class="an-card glass-card"><div class="an-num">98%</div><div class="an-label">Avg. SpO₂</div><div class="an-sub">Cardiology ward</div></div>
+          <div class="an-card glass-card"><div class="an-num">74</div><div class="an-label">Avg. Heart Rate</div><div class="an-sub">BPM across ward</div></div>
+        </div>
+        <div class="vital-trend glass-card" style="margin-top:1.5rem">
+          <h3>Patient Status Distribution</h3>
+          <div class="trend-bars">
+            <div class="trend-bar-item"><div class="tb-label">Stable</div><div class="tb-bar"><div class="tb-fill stable" style="width:60%">3</div></div></div>
+            <div class="trend-bar-item"><div class="tb-label">Monitoring</div><div class="tb-bar"><div class="tb-fill monitoring" style="width:20%">1</div></div></div>
+            <div class="trend-bar-item"><div class="tb-label">Critical</div><div class="tb-bar"><div class="tb-fill critical" style="width:20%">1</div></div></div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- end dash-content -->
+
+    <!-- ══ TOUCHLESS GESTURE ZONE ══ -->
+    <footer class="gesture-zone" id="gesture-zone">
+      <div class="gz-info">
+        <div class="gz-hand-anim" id="gz-hand-live">✋</div>
+        <div>
+          <div class="gz-title">Gesture Control Zone</div>
+          <div class="gz-hint" id="gz-hint-text">📷 Click camera icon for live hand tracking · Drag to swipe</div>
+        </div>
+      </div>
+      <canvas id="gesture-canvas" width="320" height="70" aria-label="Gesture input area"></canvas>
+      <div class="gz-buttons">
+        <button class="gz-btn gesture-target" id="gz-prev"   data-action="prev">   ⏮<small>Prev</small></button>
+        <button class="gz-btn gesture-target" id="gz-next"   data-action="next">   ⏭<small>Next</small></button>
+        <button class="gz-btn gesture-target" id="gz-open"   data-action="open">   📋<small>Open</small></button>
+        <button class="gz-btn gesture-target gz-approve" id="gz-approve" data-action="approve">✅<small>Approve</small></button>
+        <button class="gz-btn gesture-target gz-dismiss" id="gz-dismiss" data-action="dismiss">🔕<small>Dismiss</small></button>
+      </div>
+    </footer>
+
+  </div><!-- end dash-main -->
+</div><!-- end dash-layout -->
+
+<!-- MediaPipe Hands -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<!-- HMS Scripts -->
+<script src="js/permissions.js"></script>
+<script src="js/gestures.js"></script>
+<script src="js/webcam-gesture.js"></script>
+<script src="js/dashboard-doctor.js"></script>
+</body>
+</html>

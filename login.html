@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Touchless Hospital Management System</title>
+  <meta name="description" content="Secure login portal for the Touchless Hospital Management System. Access your role-based dashboard." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body class="login-body">
+
+<!-- Animated Background -->
+<canvas id="login-canvas" aria-hidden="true"></canvas>
+
+<!-- Floating Orbs -->
+<div class="orb orb-1" aria-hidden="true"></div>
+<div class="orb orb-2" aria-hidden="true"></div>
+<div class="orb orb-3" aria-hidden="true"></div>
+
+<!-- ═══ LOGIN WRAPPER ═══ -->
+<div class="login-wrapper">
+
+  <!-- Left Panel — Branding -->
+  <aside class="login-brand" aria-label="System branding">
+    <div class="brand-content">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">🏥</div>
+        Touchless<span>HMS</span>
+      </a>
+
+      <div class="brand-headline">
+        <h1>Welcome Back</h1>
+        <p>Access your secure, touchless hospital dashboard. Identify your role to continue.</p>
+      </div>
+
+      <!-- Role Cards -->
+      <div class="role-showcase">
+        <div class="role-chip active" data-role="patient">
+          <span class="role-chip-icon">🧑‍⚕️</span>
+          <div>
+            <strong>Patient</strong>
+            <small>Book & track appointments</small>
+          </div>
+        </div>
+        <div class="role-chip" data-role="doctor">
+          <span class="role-chip-icon">👨‍⚕️</span>
+          <div>
+            <strong>Doctor</strong>
+            <small>Patient records & scheduling</small>
+          </div>
+        </div>
+        <div class="role-chip" data-role="nurse">
+          <span class="role-chip-icon">💉</span>
+          <div>
+            <strong>Nurse</strong>
+            <small>Ward monitoring & vitals</small>
+          </div>
+        </div>
+        <div class="role-chip" data-role="surgeon">
+          <span class="role-chip-icon">✋</span>
+          <div>
+            <strong>Surgeon</strong>
+            <small>OR gesture interface</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Pills -->
+      <div class="brand-features">
+        <div class="feature-pill">🔒 End-to-End Encrypted</div>
+        <div class="feature-pill">✋ Gesture-Ready Interface</div>
+        <div class="feature-pill">🏥 Kuwait University Project</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Panel — Login Form -->
+  <main class="login-main" id="login-form-panel">
+
+    <div class="login-card glass-card">
+
+      <!-- Card Header -->
+      <div class="login-card-header">
+        <div class="lch-icon" id="role-icon">🧑‍⚕️</div>
+        <div>
+          <h2 id="role-title">Patient Login</h2>
+          <p id="role-desc">Sign in to your patient portal</p>
+        </div>
+      </div>
+
+      <!-- Role Selector (mobile) -->
+      <div class="role-tabs" id="role-tabs" aria-label="Select your role">
+        <button class="role-tab active" data-role="patient" aria-pressed="true">Patient</button>
+        <button class="role-tab" data-role="doctor" aria-pressed="false">Doctor</button>
+        <button class="role-tab" data-role="nurse" aria-pressed="false">Nurse</button>
+        <button class="role-tab" data-role="surgeon" aria-pressed="false">Surgeon</button>
+      </div>
+
+      <!-- Form -->
+      <form class="login-form" id="login-form" novalidate>
+
+        <div class="form-group" id="fg-id">
+          <label for="user-id" class="form-label">
+            <span class="label-icon">🪪</span>
+            <span id="id-label">Patient ID / Civil ID</span>
+          </label>
+          <div class="input-wrap">
+            <input
+              type="text"
+              id="user-id"
+              name="userId"
+              class="form-input"
+              placeholder="e.g. P-2024-00123"
+              autocomplete="username"
+              required
+            />
+            <span class="input-icon" aria-hidden="true">🪪</span>
+          </div>
+          <span class="field-hint" id="id-hint">Enter your Civil ID or assigned Patient ID</span>
+        </div>
+
+        <div class="form-group">
+          <label for="user-password" class="form-label">
+            <span class="label-icon">🔑</span>
+            Password
+          </label>
+          <div class="input-wrap">
+            <input
+              type="password"
+              id="user-password"
+              name="password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-password" id="toggle-pwd" aria-label="Show or hide password">
+              <span id="eye-icon">👁️</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Surgeon-only: Gesture Auth option -->
+        <div class="gesture-auth-toggle" id="gesture-toggle" style="display:none;">
+          <div class="gate-divider"><span>or authenticate with</span></div>
+          <button type="button" class="btn-gesture-auth" id="gesture-auth-btn" aria-label="Authenticate with hand gesture">
+            <span class="ga-hand">✋</span>
+            <div>
+              <strong>Gesture Authentication</strong>
+              <small>Hold your hand steady for 3 seconds</small>
+            </div>
+            <span class="ga-arrow">→</span>
+          </button>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-wrap" for="remember-me">
+            <input type="checkbox" id="remember-me" name="remember" />
+            <span class="checkbox-custom"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link" id="forgot-link">Forgot password?</a>
+        </div>
+
+        <!-- Error Message -->
+        <div class="form-error" id="form-error" aria-live="polite" role="alert" style="display:none;">
+          <span>⚠️</span>
+          <span id="error-text">Invalid credentials. Please try again.</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-login" id="login-btn">
+          <span class="btn-login-text" id="login-btn-text">Sign In as Patient</span>
+          <span class="btn-login-icon">→</span>
+          <span class="btn-loader" id="btn-loader" style="display:none;">
+            <span class="spinner"></span>
+          </span>
+        </button>
+
+      </form>
+
+      <!-- Demo Accounts -->
+      <div class="demo-section">
+        <div class="gate-divider"><span>Quick Demo Access</span></div>
+        <div class="demo-accounts" id="demo-accounts">
+          <button class="demo-account" data-email="patient@hms.kw" data-pass="demo1234" data-role="patient">
+            <span>🧑‍⚕️</span> Patient Demo
+          </button>
+          <button class="demo-account" data-email="doctor@hms.kw" data-pass="demo1234" data-role="doctor">
+            <span>👨‍⚕️</span> Doctor Demo
+          </button>
+          <button class="demo-account" data-email="nurse@hms.kw" data-pass="demo1234" data-role="nurse">
+            <span>💉</span> Nurse Demo
+          </button>
+          <button class="demo-account" data-email="surgeon@hms.kw" data-pass="demo1234" data-role="surgeon">
+            <span>✋</span> Surgeon Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer links -->
+      <p class="login-footer-note">
+        Need access? <a href="mailto:admin@hms.kw">Contact the administrator</a>
+      </p>
+
+    </div><!-- end .login-card -->
+
+    <!-- Back to site -->
+    <div class="back-home">
+      <a href="index.html" class="back-link">← Back to main site</a>
+    </div>
+
+  </main><!-- end .login-main -->
+
+</div><!-- end .login-wrapper -->
+
+<!-- Gesture Modal -->
+<div class="gesture-modal" id="gesture-modal" role="dialog" aria-modal="true" aria-label="Gesture authentication" style="display:none;">
+  <div class="gesture-modal-content glass-card">
+    <button class="gesture-modal-close" id="gesture-modal-close" aria-label="Close gesture authentication">✕</button>
+    <div class="gesture-scan-area">
+      <div class="gesture-ring gr1"></div>
+      <div class="gesture-ring gr2"></div>
+      <div class="gesture-ring gr3"></div>
+      <div class="gesture-hand-icon">✋</div>
+      <div class="gesture-scan-line"></div>
+    </div>
+    <h3>Gesture Authentication</h3>
+    <p id="gesture-status">Hold your open hand steady above the Leap Motion sensor</p>
+    <div class="gesture-progress-bar">
+      <div class="gesture-progress-fill" id="gesture-progress"></div>
+    </div>
+    <p class="gesture-tip">🔒 Sterile-mode authentication · No physical contact required</p>
+  </div>
+</div>
+<div class="modal-backdrop" id="modal-backdrop" style="display:none;"></div>
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

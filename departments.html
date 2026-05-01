@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Departments — Touchless HMS</title>
+  <meta name="description" content="All 12 departments of the Touchless Hospital Management System — staffing, zones, and gesture-readiness."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/departments.css"/>
+</head>
+<body>
+<nav class="nav" id="main-nav">
+  <a href="index.html" class="nav-logo"><div class="logo-icon">🏥</div>Touchless<span>HMS</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="overview.html">Overview</a>
+    <a href="departments.html" class="active">Departments</a>
+    <a href="diagrams.html">Diagrams</a>
+    <a href="demo.html">Live Demo</a>
+    <a href="mockups.html">UI Mockups</a>
+    <a href="login.html" class="nav-cta">Login →</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <span class="badge badge-teal">12 Departments</span>
+      <h1>Hospital Departments</h1>
+      <p>All clinical and support departments — their staff, zones, bed capacity, and touchless gesture-readiness status.</p>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="dept-stats-bar">
+    <div class="dept-stat"><span class="ds-num">12</span><span class="ds-label">Departments</span></div>
+    <div class="dept-stat"><span class="ds-num">325+</span><span class="ds-label">Staff Members</span></div>
+    <div class="dept-stat"><span class="ds-num">204</span><span class="ds-label">Patient Beds</span></div>
+    <div class="dept-stat"><span class="ds-num">7</span><span class="ds-label">Touchless-Enabled</span></div>
+    <div class="dept-stat"><span class="ds-num">3</span><span class="ds-label">Sterile Zones</span></div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="section-sm">
+    <div class="dept-filter" id="dept-filter">
+      <button class="filter-btn active" data-filter="all">All Departments</button>
+      <button class="filter-btn" data-filter="sterile">🔴 Sterile Zones</button>
+      <button class="filter-btn" data-filter="semi-sterile">🟡 Semi-Sterile</button>
+      <button class="filter-btn" data-filter="non-sterile">🟢 Non-Sterile</button>
+      <button class="filter-btn" data-filter="touchless">✋ Touchless-Enabled</button>
+    </div>
+  </div>
+
+  <!-- Department Grid -->
+  <div class="section" style="padding-top:0">
+    <div class="dept-grid" id="dept-grid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- Permission Matrix -->
+  <div class="section" id="permissions">
+    <p class="section-label reveal">Access Control</p>
+    <h2 class="section-title reveal">Role Permission Matrix</h2>
+    <p class="section-subtitle reveal">Each system role grants access to specific features based on clinical responsibility and infection-control requirements.</p>
+    <div class="perm-table-wrap reveal">
+      <table class="perm-table">
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th><span class="role-badge patient">🧑‍⚕️ Patient</span></th>
+            <th><span class="role-badge doctor">👨‍⚕️ Doctor</span></th>
+            <th><span class="role-badge nurse">💉 Nurse</span></th>
+            <th><span class="role-badge surgeon">✋ Surgeon</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>View own medical records</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+          <tr><td>Book appointments</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+          <tr><td>View assigned patient list</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>View patient records &amp; vitals</td><td class="no">—</td><td class="yes">✅</td><td class="partial">👁 Read-only</td><td class="yes">✅</td></tr>
+          <tr><td>Edit / write patient notes</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="partial">📝 OR notes</td></tr>
+          <tr><td>Write prescriptions</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="yes">✅</td></tr>
+          <tr><td>Acknowledge alarms</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>Access OR interface</td><td class="no">—</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>Touchless gesture control</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>View departments &amp; analytics</td><td class="no">—</td><td class="yes">✅</td><td class="partial">🏥 Depts only</td><td class="partial">🏥 Depts only</td></tr>
+          <tr><td>Manage schedule &amp; appointments</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">Touchless<span>HMS</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="departments.html">Departments</a>
+    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="login.html">Login</a>
+  </div>
+  <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/permissions.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('dept-grid');
+
+  function zoneClass(z) {
+    return { 'sterile':'zone-sterile', 'semi-sterile':'zone-semi', 'non-sterile':'zone-non' }[z] || '';
+  }
+  function zoneLabel(z) {
+    return { 'sterile':'🔴 Sterile Zone', 'semi-sterile':'🟡 Semi-Sterile', 'non-sterile':'🟢 Non-Sterile' }[z] || z;
+  }
+
+  function renderDepts(list) {
+    grid.innerHTML = '';
+    list.forEach((d, i) => {
+      const card = document.createElement('div');
+      card.className = `dept-card glass-card ${zoneClass(d.zone)} reveal`;
+      card.dataset.zone = d.zone;
+      card.dataset.touchless = d.touchless;
+      card.style.transitionDelay = `${(i % 4) * 0.08}s`;
+      card.innerHTML = `
+        <div class="dept-card-top">
+          <div class="dept-icon">${d.icon}</div>
+          <div class="dept-badges">
+            <span class="dept-zone-badge ${zoneClass(d.zone)}">${zoneLabel(d.zone)}</span>
+            ${d.touchless ? '<span class="dept-tl-badge">✋ Touchless</span>' : ''}
+          </div>
+        </div>
+        <h3 class="dept-name">${d.name}</h3>
+        <div class="dept-abbr">${d.abbr}</div>
+        <p class="dept-desc">${d.desc}</p>
+        <div class="dept-meta">
+          <div class="dm-item"><span class="dm-icon">👤</span><span>${d.head}</span></div>
+          <div class="dept-stats-mini">
+            <div class="dsm"><strong>${d.staff}</strong><small>Staff</small></div>
+            ${d.beds > 0 ? `<div class="dsm"><strong>${d.beds}</strong><small>Beds</small></div>` : ''}
+            <div class="dsm"><strong>${d.floor}</strong><small>Location</small></div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    // Make all cards visible with a slight stagger
+    setTimeout(() => {
+      grid.querySelectorAll('.dept-card').forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), i * 40);
+      });
+    }, 50);
+  }
+
+  renderDepts(HMS.DEPARTMENTS);
+
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      if (f === 'all') { renderDepts(HMS.DEPARTMENTS); return; }
+      if (f === 'touchless') { renderDepts(HMS.DEPARTMENTS.filter(d => d.touchless)); return; }
+      renderDepts(HMS.DEPARTMENTS.filter(d => d.zone === f));
+    });
+  });
+
+  // Also make static reveal elements visible
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }, 300);
+});
+</script>
+</body>
+</html>

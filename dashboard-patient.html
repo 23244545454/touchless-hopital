@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Portal — Touchless HMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard-patient.css"/>
+</head>
+<body class="portal-body">
+
+<div class="portal-layout">
+  <!-- Top Bar -->
+  <header class="portal-topbar">
+    <div class="ptb-logo"><div class="logo-icon">🏥</div> Touchless<span>HMS</span></div>
+    <div class="ptb-right">
+      <div class="ptb-clock" id="ptb-clock">--:--</div>
+      <div class="ptb-notif">🔔</div>
+      <a href="login.html" class="ptb-logout">⏻</a>
+    </div>
+  </header>
+
+  <!-- Patient Header Card -->
+  <div class="patient-welcome">
+    <div class="pw-avatar">SA</div>
+    <div>
+      <h1 class="pw-name">Sarah Al-Mansouri</h1>
+      <div class="pw-meta">Patient ID: P-2841 · Cardiology Outpatient</div>
+    </div>
+    <div class="pw-status badge badge-teal">🟢 Stable</div>
+  </div>
+
+  <!-- Permission Notice -->
+  <div class="perm-notice">
+    🔒 Patient Portal — You have access to your own records, appointments, vitals, and medications only.
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="portal-tabs" id="portal-tabs">
+    <button class="ptab active" data-tab="home">🏠 Home</button>
+    <button class="ptab" data-tab="appointments">📅 Appointments</button>
+    <button class="ptab" data-tab="records">📋 Records</button>
+    <button class="ptab" data-tab="medications">💊 Medications</button>
+  </div>
+
+  <!-- Content -->
+  <div class="portal-content">
+
+    <!-- HOME -->
+    <section class="ptab-panel active" id="ptab-home">
+      <h2 class="panel-title">My Health Summary</h2>
+      <div class="vitals-mini-row">
+        <div class="vm-item"><div class="vm-val">74</div><div class="vm-lbl">❤️ BPM</div></div>
+        <div class="vm-item"><div class="vm-val">120/80</div><div class="vm-lbl">🩺 BP</div></div>
+        <div class="vm-item"><div class="vm-val">98%</div><div class="vm-lbl">💨 SpO₂</div></div>
+        <div class="vm-item"><div class="vm-val">36.8°</div><div class="vm-lbl">🌡️ Temp</div></div>
+      </div>
+      <div class="quick-cards">
+        <div class="qc glass-card" onclick="switchPTab('appointments')">
+          <div class="qc-icon">📅</div><div class="qc-label">Next Appointment</div>
+          <div class="qc-val">Mon May 5 · 10:00 AM</div><div class="qc-sub">Dr. Al-Rashidi · Cardiology</div>
+        </div>
+        <div class="qc glass-card" onclick="switchPTab('records')">
+          <div class="qc-icon">📋</div><div class="qc-label">Latest Record</div>
+          <div class="qc-val">Blood Panel</div><div class="qc-sub">12 Apr 2026 · Normal</div>
+        </div>
+        <div class="qc glass-card" onclick="switchPTab('medications')">
+          <div class="qc-icon">💊</div><div class="qc-label">Active Medications</div>
+          <div class="qc-val">3 medications</div><div class="qc-sub">Next dose: 8:00 PM</div>
+        </div>
+      </div>
+      <div class="diagnosis-card glass-card">
+        <div class="dc-label">Current Diagnosis</div>
+        <div class="dc-value">Hypertensive Heart Disease</div>
+        <div class="dc-note">Managed with medication. Follow-up in 4 weeks.</div>
+        <div class="dc-allergy">⚠️ Allergies: <strong>Penicillin, Sulfa drugs</strong></div>
+      </div>
+    </section>
+
+    <!-- APPOINTMENTS -->
+    <section class="ptab-panel" id="ptab-appointments">
+      <h2 class="panel-title">My Appointments</h2>
+      <div class="appt-list">
+        <div class="apl-item upcoming">
+          <div class="apl-date">Mon, May 5 · 10:00 AM</div>
+          <div class="apl-doc">Dr. Ahmed Al-Rashidi — Cardiology</div>
+          <div class="apl-loc">📍 Clinic B, Floor 3</div>
+          <span class="apl-badge confirmed">✅ Confirmed</span>
+        </div>
+        <div class="apl-item">
+          <div class="apl-date">Fri, May 9 · 2:30 PM</div>
+          <div class="apl-doc">Dr. Reem Al-Zahra — Lab Results</div>
+          <div class="apl-loc">📍 Lab Center, Floor 1</div>
+          <span class="apl-badge pending">⏳ Pending</span>
+        </div>
+      </div>
+      <h3 class="panel-subtitle">Book New Appointment</h3>
+      <div class="book-form glass-card">
+        <div class="bf-field"><label>Specialty</label>
+          <select class="form-input"><option>❤️ Cardiology</option><option>🧠 Neurology</option><option>🦴 Orthopedics</option></select>
+        </div>
+        <div class="bf-field"><label>Preferred Date</label>
+          <input type="date" class="form-input"/></div>
+        <div class="bf-field"><label>Preferred Time</label>
+          <select class="form-input"><option>09:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>02:00 PM</option></select>
+        </div>
+        <button class="btn btn-primary" style="width:100%" onclick="bookAppt()">📅 Request Appointment</button>
+      </div>
+    </section>
+
+    <!-- RECORDS -->
+    <section class="ptab-panel" id="ptab-records">
+      <h2 class="panel-title">My Medical Records</h2>
+      <div class="rec-notice">🔒 Read-only access. Contact your doctor to add or edit records.</div>
+      <div class="records-list">
+        <div class="rl-item"><div class="rl-date">12 Apr 2026</div><div class="rl-info"><b>Blood Panel Results</b><span>Hematology · Normal range</span></div><span class="rec-badge normal">✅ Normal</span></div>
+        <div class="rl-item"><div class="rl-date">28 Mar 2026</div><div class="rl-info"><b>Cardiology Consultation</b><span>Dr. Al-Rashidi · Follow-up</span></div><span class="rec-badge normal">✅ Reviewed</span></div>
+        <div class="rl-item"><div class="rl-date">10 Feb 2026</div><div class="rl-info"><b>Chest X-Ray</b><span>Radiology · Mild findings noted</span></div><span class="rec-badge attention">⚠ Note</span></div>
+        <div class="rl-item"><div class="rl-date">15 Jan 2026</div><div class="rl-info"><b>ECG</b><span>Cardiology · Normal sinus rhythm</span></div><span class="rec-badge normal">✅ Normal</span></div>
+      </div>
+    </section>
+
+    <!-- MEDICATIONS -->
+    <section class="ptab-panel" id="ptab-medications">
+      <h2 class="panel-title">My Medications</h2>
+      <div class="med-cards">
+        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Amlodipine 5mg</div><div class="mc-dose">Once daily (OD) · 08:00 AM</div><div class="mc-note">Take with or without food. For blood pressure.</div></div>
+        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Metoprolol 25mg</div><div class="mc-dose">Twice daily (BD) · 08:00 AM &amp; 08:00 PM</div><div class="mc-note">Take with food. Do not stop suddenly.</div></div>
+        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Aspirin 81mg</div><div class="mc-dose">Once daily (OD) · 08:00 AM</div><div class="mc-note">Take after meals. Blood thinner — report any bruising.</div></div>
+      </div>
+    </section>
+
+  </div><!-- end portal-content -->
+</div>
+
+<script src="js/permissions.js"></script>
+<script>
+function switchPTab(name) {
+  document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.ptab-panel').forEach(p => p.classList.toggle('active', p.id === 'ptab-' + name));
+}
+document.querySelectorAll('.ptab').forEach(t => t.addEventListener('click', () => switchPTab(t.dataset.tab)));
+function bookAppt() { alert('✅ Appointment request submitted!\nYou will receive a confirmation notification.'); }
+setInterval(() => {
+  const c = document.getElementById('ptb-clock');
+  if (c) c.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+}, 1000);
+</script>
+</body>
+</html>

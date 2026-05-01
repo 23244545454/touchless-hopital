@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
   <title>UML Diagrams — Touchless HMS</title>
   <meta name="description" content="UML diagrams for the Touchless Hospital Management System: Use Case, Sequence, Component, ER, and Class diagrams."/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/diagrams.css"/>
+  <link rel="stylesheet" href="css/style.css?v=2"/>
+  <link rel="stylesheet" href="css/diagrams.css?v=2"/>
   <!-- Mermaid.js -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
@@ -16,10 +18,11 @@
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="overview.html">Overview</a>
+    <a href="departments.html">Departments</a>
     <a href="diagrams.html" class="active">Diagrams</a>
     <a href="demo.html">Live Demo</a>
     <a href="mockups.html">UI Mockups</a>
-    <a href="demo.html" class="nav-cta">Try Demo →</a>
+    <a href="login.html" class="nav-cta">Login →</a>
   </div>
   <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
@@ -136,51 +139,53 @@ sequenceDiagram
         <h3>Component Diagram</h3>
         <p>How system components communicate with each other.</p>
       </div>
-      <div class="diagram-box">
-        <div class="mermaid">
-flowchart TB
-  subgraph Hardware["🔧 Hardware"]
-    LM["Leap Motion\nController"]
-    MOB["Mobile Device\n(Patient)"]
-  end
-
-  subgraph Middleware["🐍 Python Middleware"]
-    SDK["Leap Motion\nPython SDK"]
-    GC["Gesture Classifier"]
-    WSS["WebSocket Server\n:8765"]
-  end
-
-  subgraph Frontend["💙 Flutter Applications"]
-    DA["Touchless Dashboard\n(OR / Ward)"]
-    PA["Patient Mobile App"]
-  end
-
-  subgraph Backend["🔥 Firebase"]
-    AUTH["Firebase Auth"]
-    FS["Firestore DB"]
-    CF["Cloud Functions"]
-    FCM["Cloud Messaging"]
-  end
-
-  LM -->|USB / BLE| SDK
-  SDK --> GC
-  GC --> WSS
-  WSS -->|WebSocket| DA
-  MOB --> PA
-  DA -->|REST + WS| FS
-  PA -->|REST| FS
-  FS --> CF
-  CF --> FCM
-  FCM --> MOB
-  DA --> AUTH
-  PA --> AUTH
-
-  style Hardware fill:#1a0d2e,stroke:#8b5cf6
-  style Middleware fill:#0d2218,stroke:#00d4aa
-  style Frontend fill:#0d1a2e,stroke:#3b82f6
-  style Backend fill:#2e0d0d,stroke:#ef4444
+        <div class="comp-diagram" id="comp-diagram-svg">
+          <!-- LAYER COLUMNS -->
+          <div class="comp-col" style="border-color:#8b5cf6">
+            <div class="comp-col-title" style="color:#8b5cf6">🔧 Hardware</div>
+            <div class="comp-node" id="cn-lm">Leap Motion<br>Controller</div>
+            <div class="comp-node" id="cn-mob" style="margin-top:1.5rem">Mobile Device<br><small style="opacity:.7">(Patient)</small></div>
+          </div>
+          <div class="comp-arrow-col">
+            <div class="comp-arrow-line" style="top:30%">→<span>USB/BLE</span></div>
+            <div class="comp-arrow-line" style="top:70%">←<span>Push Notif.</span></div>
+          </div>
+          <div class="comp-col" style="border-color:#00d4aa">
+            <div class="comp-col-title" style="color:#00d4aa">🐍 Python Middleware</div>
+            <div class="comp-node" id="cn-sdk">Leap Python SDK</div>
+            <div class="comp-node" id="cn-gc" style="margin-top:.75rem">Gesture Classifier</div>
+            <div class="comp-node" id="cn-wss" style="margin-top:.75rem">WebSocket Server<br><small style="opacity:.7">port 8765</small></div>
+          </div>
+          <div class="comp-arrow-col">
+            <div class="comp-arrow-line" style="top:28%">→<span>WebSocket</span></div>
+            <div class="comp-arrow-line" style="top:58%">→<span>REST</span></div>
+          </div>
+          <div class="comp-col" style="border-color:#3b82f6">
+            <div class="comp-col-title" style="color:#3b82f6">💙 Flutter Apps</div>
+            <div class="comp-node" id="cn-da">Touchless Dashboard<br><small style="opacity:.7">OR / Ward</small></div>
+            <div class="comp-node" id="cn-pa" style="margin-top:1.5rem">Patient Mobile App</div>
+          </div>
+          <div class="comp-arrow-col">
+            <div class="comp-arrow-line" style="top:28%">→<span>Firestore</span></div>
+            <div class="comp-arrow-line" style="top:58%">→<span>Firestore</span></div>
+          </div>
+          <div class="comp-col" style="border-color:#ef4444">
+            <div class="comp-col-title" style="color:#ef4444">🔥 Firebase</div>
+            <div class="comp-node" id="cn-auth">Firebase Auth</div>
+            <div class="comp-node" id="cn-fs" style="margin-top:.75rem">Firestore DB</div>
+            <div class="comp-node" id="cn-cf" style="margin-top:.75rem">Cloud Functions</div>
+            <div class="comp-node" id="cn-fcm" style="margin-top:.75rem">Cloud Messaging</div>
+          </div>
         </div>
-      </div>
+        <style>
+          .comp-diagram{display:flex;align-items:stretch;gap:0;width:100%;min-height:260px;overflow-x:auto}
+          .comp-col{flex:1;min-width:140px;border:1.5px solid;border-radius:12px;padding:1rem .75rem;display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.03)}
+          .comp-col-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;text-align:center}
+          .comp-node{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.5rem .75rem;font-size:.72rem;line-height:1.4;text-align:center;width:100%;color:#f0f6ff}
+          .comp-arrow-col{display:flex;flex-direction:column;justify-content:space-around;align-items:center;width:60px;min-width:60px;position:relative}
+          .comp-arrow-line{position:absolute;display:flex;flex-direction:column;align-items:center;color:#00d4aa;font-size:.95rem;left:50%;transform:translateX(-50%)}
+          .comp-arrow-line span{font-size:.58rem;color:#94a3b8;white-space:nowrap;margin-top:2px}
+        </style>
     </div>
 
     <!-- ER Diagram -->
@@ -189,75 +194,103 @@ flowchart TB
         <h3>Entity-Relationship Diagram</h3>
         <p>Database structure for users, appointments, medical records, and system logs.</p>
       </div>
-      <div class="diagram-box">
-        <div class="mermaid">
-erDiagram
-  USER {
-    string userId PK
-    string name
-    string email
-    string role
-    string passwordHash
-    datetime createdAt
-  }
-  PATIENT {
-    string patientId PK
-    string userId FK
-    string bloodType
-    string allergies
-    date dateOfBirth
-  }
-  DOCTOR {
-    string doctorId PK
-    string userId FK
-    string specialty
-    string licenseNo
-    string department
-  }
-  APPOINTMENT {
-    string appointmentId PK
-    string patientId FK
-    string doctorId FK
-    datetime scheduledAt
-    string status
-    string notes
-  }
-  MEDICAL_RECORD {
-    string recordId PK
-    string patientId FK
-    string doctorId FK
-    string diagnosis
-    string prescription
-    datetime recordDate
-  }
-  VITAL_SIGNS {
-    string vitalId PK
-    string patientId FK
-    float heartRate
-    float bloodPressure
-    float temperature
-    float spO2
-    datetime recordedAt
-  }
-  GESTURE_LOG {
-    string logId PK
-    string userId FK
-    string gestureType
-    float confidence
-    datetime timestamp
-    string actionTriggered
-  }
-
-  USER ||--o{ PATIENT : "is a"
-  USER ||--o{ DOCTOR  : "is a"
-  PATIENT ||--o{ APPOINTMENT : "has"
-  DOCTOR  ||--o{ APPOINTMENT : "manages"
-  PATIENT ||--o{ MEDICAL_RECORD : "has"
-  DOCTOR  ||--o{ MEDICAL_RECORD : "creates"
-  PATIENT ||--o{ VITAL_SIGNS : "has"
-  USER    ||--o{ GESTURE_LOG : "generates"
+      <div class="er-diagram">
+        <!-- Row 1: USER centre -->
+        <div class="er-row er-top">
+          <div class="er-entity" style="border-color:#8b5cf6">
+            <div class="er-title" style="background:#1a0d2e;color:#c4b5fd">USER</div>
+            <div class="er-field"><span class="er-pk">PK</span> userId : string</div>
+            <div class="er-field">name : string</div>
+            <div class="er-field">email : string</div>
+            <div class="er-field">role : string</div>
+            <div class="er-field">passwordHash : string</div>
+            <div class="er-field">createdAt : datetime</div>
+          </div>
+        </div>
+        <!-- Relation labels row -->
+        <div class="er-rel-row">
+          <span class="er-rel-lbl">||—o{ is a</span>
+          <span class="er-rel-lbl">||—o{ is a</span>
+          <span class="er-rel-lbl">||—o{ generates</span>
+        </div>
+        <!-- Row 2: PATIENT · DOCTOR · GESTURE_LOG -->
+        <div class="er-row">
+          <div class="er-entity" style="border-color:#3b82f6">
+            <div class="er-title" style="background:#0d1a2e;color:#93c5fd">PATIENT</div>
+            <div class="er-field"><span class="er-pk">PK</span> patientId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> userId : string</div>
+            <div class="er-field">bloodType : string</div>
+            <div class="er-field">allergies : string</div>
+            <div class="er-field">dateOfBirth : date</div>
+          </div>
+          <div class="er-entity" style="border-color:#00d4aa">
+            <div class="er-title" style="background:#0d2218;color:#6ee7b7">DOCTOR</div>
+            <div class="er-field"><span class="er-pk">PK</span> doctorId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> userId : string</div>
+            <div class="er-field">specialty : string</div>
+            <div class="er-field">licenseNo : string</div>
+            <div class="er-field">department : string</div>
+          </div>
+          <div class="er-entity" style="border-color:#f59e0b">
+            <div class="er-title" style="background:#1c1408;color:#fcd34d">GESTURE_LOG</div>
+            <div class="er-field"><span class="er-pk">PK</span> logId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> userId : string</div>
+            <div class="er-field">gestureType : string</div>
+            <div class="er-field">confidence : float</div>
+            <div class="er-field">timestamp : datetime</div>
+            <div class="er-field">actionTriggered : string</div>
+          </div>
+        </div>
+        <!-- Relation labels row 2 -->
+        <div class="er-rel-row">
+          <span class="er-rel-lbl">||—o{ has &nbsp;·&nbsp; ||—o{ has &nbsp;·&nbsp; ||—o{ has</span>
+          <span class="er-rel-lbl">||—o{ manages &nbsp;·&nbsp; ||—o{ creates</span>
+        </div>
+        <!-- Row 3: APPOINTMENT · MEDICAL_RECORD · VITAL_SIGNS -->
+        <div class="er-row">
+          <div class="er-entity" style="border-color:#6366f1">
+            <div class="er-title" style="background:#13122e;color:#a5b4fc">APPOINTMENT</div>
+            <div class="er-field"><span class="er-pk">PK</span> appointmentId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> patientId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> doctorId : string</div>
+            <div class="er-field">scheduledAt : datetime</div>
+            <div class="er-field">status : string</div>
+            <div class="er-field">notes : string</div>
+          </div>
+          <div class="er-entity" style="border-color:#ef4444">
+            <div class="er-title" style="background:#2e0d0d;color:#fca5a5">MEDICAL_RECORD</div>
+            <div class="er-field"><span class="er-pk">PK</span> recordId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> patientId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> doctorId : string</div>
+            <div class="er-field">diagnosis : string</div>
+            <div class="er-field">prescription : string</div>
+            <div class="er-field">recordDate : datetime</div>
+          </div>
+          <div class="er-entity" style="border-color:#4ade80">
+            <div class="er-title" style="background:#0d2218;color:#86efac">VITAL_SIGNS</div>
+            <div class="er-field"><span class="er-pk">PK</span> vitalId : string</div>
+            <div class="er-field"><span class="er-fk">FK</span> patientId : string</div>
+            <div class="er-field">heartRate : float</div>
+            <div class="er-field">bloodPressure : float</div>
+            <div class="er-field">temperature : float</div>
+            <div class="er-field">spO2 : float</div>
+            <div class="er-field">recordedAt : datetime</div>
+          </div>
         </div>
       </div>
+      <style>
+        .er-diagram{display:flex;flex-direction:column;gap:.75rem;padding:.5rem}
+        .er-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .er-top{justify-content:center}
+        .er-entity{background:rgba(255,255,255,.03);border:1.5px solid;border-radius:10px;overflow:hidden;min-width:170px;flex:1;max-width:240px}
+        .er-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.45rem .75rem;border-bottom:1px solid rgba(255,255,255,.07)}
+        .er-field{font-size:.68rem;padding:.25rem .75rem;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,.04);font-family:monospace}
+        .er-field:last-child{border-bottom:none}
+        .er-pk{background:rgba(250,204,21,.15);color:#fcd34d;border-radius:3px;padding:0 4px;font-size:.6rem;font-weight:700;margin-right:4px}
+        .er-fk{background:rgba(59,130,246,.15);color:#93c5fd;border-radius:3px;padding:0 4px;font-size:.6rem;font-weight:700;margin-right:4px}
+        .er-rel-row{display:flex;justify-content:space-around;padding:.1rem 1rem}
+        .er-rel-lbl{font-size:.65rem;color:#475569;font-style:italic;text-align:center}
+      </style>
     </div>
 
     <!-- Class Diagram -->
@@ -266,80 +299,151 @@ erDiagram
         <h3>Class Diagram</h3>
         <p>Object-oriented design of core system classes and their relationships.</p>
       </div>
-      <div class="diagram-box">
-        <div class="mermaid">
-classDiagram
-  class User {
-    +String userId
-    +String name
-    +String email
-    +String role
-    +login()
-    +logout()
-    +getProfile()
-  }
-  class Patient {
-    +String patientId
-    +String bloodType
-    +List~String~ allergies
-    +bookAppointment()
-    +viewRecords()
-    +viewVitals()
-  }
-  class Doctor {
-    +String doctorId
-    +String specialty
-    +String department
-    +viewPatientList()
-    +createRecord()
-    +manageAppointments()
-  }
-  class Appointment {
-    +String appointmentId
-    +DateTime scheduledAt
-    +String status
-    +confirm()
-    +cancel()
-    +reschedule()
-  }
-  class MedicalRecord {
-    +String recordId
-    +String diagnosis
-    +String prescription
-    +DateTime recordDate
-    +update()
-    +delete()
-  }
-  class GestureController {
-    +String gestureType
-    +Float confidence
-    +detectGesture()
-    +classify()
-    +emitEvent()
-  }
-  class LeapMotionSDK {
-    +connect()
-    +getHandData()
-    +getFingerPositions()
-    +calibrate()
-  }
-  class FlutterDashboard {
-    +renderUI()
-    +updateDisplay()
-    +playFeedback()
-    +receiveCommand()
-  }
-
-  User <|-- Patient
-  User <|-- Doctor
-  Patient "1" --> "*" Appointment
-  Doctor "1" --> "*" Appointment
-  Patient "1" --> "*" MedicalRecord
-  Doctor "1" --> "*" MedicalRecord
-  LeapMotionSDK --> GestureController
-  GestureController --> FlutterDashboard
+      <div class="cd-diagram">
+        <!-- Row 1: Base + Gesture system -->
+        <div class="cd-row">
+          <!-- User (base) -->
+          <div class="cd-class" style="border-color:#8b5cf6">
+            <div class="cd-name" style="background:#1a0d2e;color:#c4b5fd">User</div>
+            <div class="cd-section">
+              <div class="cd-member">+userId : String</div>
+              <div class="cd-member">+name : String</div>
+              <div class="cd-member">+email : String</div>
+              <div class="cd-member">+role : String</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+login()</div>
+              <div class="cd-method">+logout()</div>
+              <div class="cd-method">+getProfile()</div>
+            </div>
+          </div>
+          <!-- LeapMotionSDK -->
+          <div class="cd-class" style="border-color:#00d4aa">
+            <div class="cd-name" style="background:#0d2218;color:#6ee7b7">LeapMotionSDK</div>
+            <div class="cd-section"></div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+connect()</div>
+              <div class="cd-method">+getHandData()</div>
+              <div class="cd-method">+getFingerPositions()</div>
+              <div class="cd-method">+calibrate()</div>
+            </div>
+          </div>
+          <!-- GestureController -->
+          <div class="cd-class" style="border-color:#f59e0b">
+            <div class="cd-name" style="background:#1c1408;color:#fcd34d">GestureController</div>
+            <div class="cd-section">
+              <div class="cd-member">+gestureType : String</div>
+              <div class="cd-member">+confidence : Float</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+detectGesture()</div>
+              <div class="cd-method">+classify()</div>
+              <div class="cd-method">+emitEvent()</div>
+            </div>
+          </div>
+          <!-- FlutterDashboard -->
+          <div class="cd-class" style="border-color:#3b82f6">
+            <div class="cd-name" style="background:#0d1a2e;color:#93c5fd">FlutterDashboard</div>
+            <div class="cd-section"></div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+renderUI()</div>
+              <div class="cd-method">+updateDisplay()</div>
+              <div class="cd-method">+playFeedback()</div>
+              <div class="cd-method">+receiveCommand()</div>
+            </div>
+          </div>
+        </div>
+        <!-- Relationship labels -->
+        <div class="cd-rel-row">
+          <span class="cd-inh">◁── Patient extends User &nbsp;·&nbsp; Doctor extends User</span>
+          <span class="cd-assoc">LeapMotionSDK ──▷ GestureController ──▷ FlutterDashboard</span>
+        </div>
+        <!-- Row 2: Subclasses + Domain -->
+        <div class="cd-row">
+          <!-- Patient -->
+          <div class="cd-class" style="border-color:#3b82f6">
+            <div class="cd-name" style="background:#0d1a2e;color:#93c5fd">Patient <small style="font-size:.6rem;opacity:.6">extends User</small></div>
+            <div class="cd-section">
+              <div class="cd-member">+patientId : String</div>
+              <div class="cd-member">+bloodType : String</div>
+              <div class="cd-member">+allergies : List</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+bookAppointment()</div>
+              <div class="cd-method">+viewRecords()</div>
+              <div class="cd-method">+viewVitals()</div>
+            </div>
+          </div>
+          <!-- Doctor -->
+          <div class="cd-class" style="border-color:#00d4aa">
+            <div class="cd-name" style="background:#0d2218;color:#6ee7b7">Doctor <small style="font-size:.6rem;opacity:.6">extends User</small></div>
+            <div class="cd-section">
+              <div class="cd-member">+doctorId : String</div>
+              <div class="cd-member">+specialty : String</div>
+              <div class="cd-member">+department : String</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+viewPatientList()</div>
+              <div class="cd-method">+createRecord()</div>
+              <div class="cd-method">+manageAppointments()</div>
+            </div>
+          </div>
+          <!-- Appointment -->
+          <div class="cd-class" style="border-color:#6366f1">
+            <div class="cd-name" style="background:#13122e;color:#a5b4fc">Appointment</div>
+            <div class="cd-section">
+              <div class="cd-member">+appointmentId : String</div>
+              <div class="cd-member">+scheduledAt : DateTime</div>
+              <div class="cd-member">+status : String</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+confirm()</div>
+              <div class="cd-method">+cancel()</div>
+              <div class="cd-method">+reschedule()</div>
+            </div>
+          </div>
+          <!-- MedicalRecord -->
+          <div class="cd-class" style="border-color:#ef4444">
+            <div class="cd-name" style="background:#2e0d0d;color:#fca5a5">MedicalRecord</div>
+            <div class="cd-section">
+              <div class="cd-member">+recordId : String</div>
+              <div class="cd-member">+diagnosis : String</div>
+              <div class="cd-member">+prescription : String</div>
+              <div class="cd-member">+recordDate : DateTime</div>
+            </div>
+            <div class="cd-divider"></div>
+            <div class="cd-section">
+              <div class="cd-method">+update()</div>
+              <div class="cd-method">+delete()</div>
+            </div>
+          </div>
+        </div>
+        <!-- Association labels -->
+        <div class="cd-rel-row">
+          <span class="cd-assoc">Patient 1 ──▷ * Appointment &nbsp;·&nbsp; Doctor 1 ──▷ * Appointment</span>
+          <span class="cd-assoc">Patient 1 ──▷ * MedicalRecord &nbsp;·&nbsp; Doctor 1 ──▷ * MedicalRecord</span>
         </div>
       </div>
+      <style>
+        .cd-diagram{display:flex;flex-direction:column;gap:.6rem;padding:.5rem}
+        .cd-row{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap}
+        .cd-class{background:rgba(255,255,255,.03);border:1.5px solid;border-radius:10px;overflow:hidden;min-width:155px;flex:1;max-width:210px}
+        .cd-name{font-size:.75rem;font-weight:800;padding:.45rem .75rem;border-bottom:1px solid rgba(255,255,255,.07);letter-spacing:.03em}
+        .cd-section{padding:.3rem .75rem}
+        .cd-member{font-size:.67rem;color:#94a3b8;font-family:monospace;padding:.15rem 0}
+        .cd-method{font-size:.67rem;color:#00d4aa;font-family:monospace;padding:.15rem 0}
+        .cd-divider{height:1px;background:rgba(255,255,255,.07);margin:0 .75rem}
+        .cd-rel-row{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;padding:.2rem .5rem}
+        .cd-inh{font-size:.65rem;color:#a78bfa;font-style:italic}
+        .cd-assoc{font-size:.65rem;color:#60a5fa;font-style:italic}
+      </style>
     </div>
 
   </div><!-- end section-sm -->
