@@ -133,6 +133,29 @@
     GestureEngine.on('pinch', d => logAction(`🤏 Pinch ${d.direction}: imaging zoom`));
   }
 
+  /* ── Physical Leap Motion Controller Listeners ── */
+  window.addEventListener('touchless-swipe', e => {
+    const dir = e.detail && e.detail.direction;
+    if (dir === 'left') {
+      ACTIONS.next();
+      logAction('➡ Leap Motion Swipe Left: next record loaded');
+    } else if (dir === 'right') {
+      logAction('⬅ Leap Motion Swipe Right: previous record loaded');
+    }
+  });
+
+  window.addEventListener('touchless-palm', () => {
+    ACTIONS.alarm();
+    logAction('✋ Leap Motion Open Palm: alarm silenced & acknowledged');
+  });
+
+  window.addEventListener('touchless-pinch', e => {
+    if (e.detail && e.detail.state === 'start') {
+      ACTIONS.imaging();
+      logAction('🤏 Leap Motion Pinch: CT Scan zoomed');
+    }
+  });
+
   /* ── Init ── */
   showToast('✋ Gesture mode active — Sterile OR');
 

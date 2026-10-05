@@ -142,6 +142,7 @@
 
 <script src="js/main.js"></script>
 <script src="js/gestures.js"></script>
+<script src="js/leap-gesture.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -237,6 +238,26 @@ document.addEventListener('DOMContentLoaded', () => {
   GestureEngine.on('pinch', data => {
     addLog(`Pinch ${data.direction}`);
     document.getElementById('btn-zoom').click();
+  });
+
+  // ── Physical Leap Motion Controller Listeners ──
+  window.addEventListener('touchless-swipe', e => {
+    const dir = e.detail && e.detail.direction;
+    addLog(`Leap Swipe ${dir.toUpperCase()}`, '#00d4aa');
+    if (dir === 'left')  document.getElementById('btn-next').click();
+    if (dir === 'right') document.getElementById('btn-prev').click();
+  });
+
+  window.addEventListener('touchless-pinch', e => {
+    if (e.detail && e.detail.state === 'start') {
+      addLog('Leap Pinch Zoom', '#3b82f6');
+      document.getElementById('btn-zoom').click();
+    }
+  });
+
+  window.addEventListener('touchless-palm', () => {
+    addLog('Leap Open Palm (Alarm Silenced)', '#f59e0b');
+    document.getElementById('btn-alarm').click();
   });
 
   // ── Webcam Button ──

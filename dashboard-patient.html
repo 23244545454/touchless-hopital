@@ -134,12 +134,30 @@
 </div>
 
 <script src="js/permissions.js"></script>
+<script src="js/leap-gesture.js"></script>
 <script>
+const tabs = ['home', 'appointments', 'records', 'medications'];
+let curTabIdx = 0;
+
 function switchPTab(name) {
+  curTabIdx = Math.max(0, tabs.indexOf(name));
   document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
   document.querySelectorAll('.ptab-panel').forEach(p => p.classList.toggle('active', p.id === 'ptab-' + name));
 }
 document.querySelectorAll('.ptab').forEach(t => t.addEventListener('click', () => switchPTab(t.dataset.tab)));
+
+// Physical Leap Motion swipe to switch tabs
+window.addEventListener('touchless-swipe', e => {
+  const dir = e.detail && e.detail.direction;
+  if (dir === 'left') {
+    curTabIdx = (curTabIdx + 1) % tabs.length;
+    switchPTab(tabs[curTabIdx]);
+  } else if (dir === 'right') {
+    curTabIdx = (curTabIdx - 1 + tabs.length) % tabs.length;
+    switchPTab(tabs[curTabIdx]);
+  }
+});
+
 function bookAppt() { alert('✅ Appointment request submitted!\nYou will receive a confirmation notification.'); }
 setInterval(() => {
   const c = document.getElementById('ptb-clock');

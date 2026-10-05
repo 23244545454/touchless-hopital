@@ -235,7 +235,18 @@
   function startGestureSimulation() {
     let progress = 0;
     const phases = ['Detecting hand…', 'Hand locked ✋', 'Verifying identity…', 'Authenticated ✅'];
-    let phaseIdx = 0;
+
+    // Fast-track if real Leap Motion hand is detected
+    window.addEventListener('touchless-palm', () => {
+      progress = 95;
+      gestureStatus.textContent = 'Leap Motion Palm Verified ✅';
+      gestureProgress.style.width = '100%';
+      clearInterval(gestureInterval);
+      setTimeout(() => {
+        closeGestureModal();
+        window.location.href = 'dashboard-surgeon.html?role=surgeon&auth=leap';
+      }, 500);
+    }, { once: true });
 
     gestureInterval = setInterval(() => {
       progress += 1;

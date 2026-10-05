@@ -154,6 +154,26 @@
     showToast('✅ Acknowledged'); GestureEngine.playBeep(880,'sine',0.12);
   });
 
+  /* ── Physical Leap Motion Controller Listeners ── */
+  window.addEventListener('touchless-swipe', e => {
+    const dir = e.detail && e.detail.direction;
+    if (dir === 'left') {
+      selectedBedIdx = Math.min(beds.length - 1, selectedBedIdx + 1);
+      const b = beds[selectedBedIdx]; if (b && b.patient) loadVitals(b.patient);
+      showToast('➡ Leap Motion Swipe Left: Next Patient Bed');
+    } else if (dir === 'right') {
+      selectedBedIdx = Math.max(0, selectedBedIdx - 1);
+      const b = beds[selectedBedIdx]; if (b && b.patient) loadVitals(b.patient);
+      showToast('⬅ Leap Motion Swipe Right: Prev Patient Bed');
+    }
+  });
+
+  window.addEventListener('touchless-palm', () => {
+    document.querySelectorAll('.alarm-item').forEach(a => a.classList.add('dismissed'));
+    showToast('✋ Leap Motion Open Palm: All Alarms Dismissed & Silenced');
+    GestureEngine.playBeep(880, 'sine', 0.15);
+  });
+
   /* ── Init ── */
   renderBedMap();
   renderNursePatients();
