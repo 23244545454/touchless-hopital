@@ -18,7 +18,14 @@
   /* ─────────────────────────────────────────────────────────────
      CONFIGURATION & CONSTANTS
   ───────────────────────────────────────────────────────────── */
-  const WS_URLS = [
+  const isHttps = window.location.protocol === 'https:';
+
+  const WS_URLS = isHttps ? [
+    'wss://127.0.0.1:6436/v6.json',
+    'wss://localhost:6436/v6.json',
+    'ws://127.0.0.1:6437/v6.json',
+    'ws://localhost:6437/v6.json'
+  ] : [
     'ws://127.0.0.1:6437/v6.json',
     'ws://localhost:6437/v6.json',
     'ws://127.0.0.1:6437/v7.json',
