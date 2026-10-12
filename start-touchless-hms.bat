@@ -7,10 +7,10 @@ echo.
 
 where node >nul 2>nul
 if %ERRORLEVEL% equ 0 (
-    echo [OK] Node.js detected! Starting local server on port 3000...
+    echo [OK] Node.js detected! Starting REST API & SQLite Database server on port 3000...
     start /B node server.js
     timeout /t 2 /nobreak >nul
-    start http://localhost:3000/demo.html
+    start http://localhost:3000/dashboard-patient.html
     goto RUNNING
 )
 
@@ -19,12 +19,12 @@ if %ERRORLEVEL% equ 0 (
     echo [OK] Python detected! Starting local server on port 3000...
     start /B python -m http.server 3000
     timeout /t 2 /nobreak >nul
-    start http://localhost:3000/demo.html
+    start http://localhost:3000/dashboard-patient.html
     goto RUNNING
 )
 
 echo [INFO] Opening directly in your default browser...
-start demo.html
+start dashboard-patient.html
 
 :RUNNING
 echo.
