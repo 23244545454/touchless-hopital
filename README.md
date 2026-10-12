@@ -64,19 +64,21 @@ If you don't have the Leap Motion hardware:
 
 ---
 
-## 🖥️ System Dashboards
-1. **Surgeon OR Dashboard (`dashboard-surgeon.html`)**: Live surgical vitals (HR, SpO₂, EtCO₂), CT imaging viewer, elapsed timer, alarm silencing.
-2. **Doctor Workstation (`dashboard-doctor.html`)**: Clinic appointments, patient roster, e-prescriptions, and telemedicine.
-3. **Nurse Station (`dashboard-nurse.html`)**: Ward bed map (Floor 3 Cardiology & ICU) with touch-free alarm dismissal.
-4. **Patient Kiosk (`dashboard-patient.html`)**: Contactless check-in, appointments, and medication schedules.
-5. **Biometric Login (`login.html`)**: Touchless palm detection authentication.
-6. **Live Demo Playground (`demo.html`)**: Interactive gesture testing zone.
+## 🖥️ System Modules & Interfaces
+1. **Touchless Patient Appointment Kiosk (`dashboard-patient.html`)**: Interactive hands-free kiosk where patients register, search specialist doctors dynamically by department, and book appointments hands-free using Leap Motion gestures.
+2. **Doctor Clinical Workstation (`dashboard-doctor.html`)**: Real-time scheduled clinic appointments linked to the SQLite database, patient medical records, e-prescriptions, and vital monitoring.
+3. **Nurse Ward Station (`dashboard-nurse.html`)**: Floor 3 Cardiology & ICU bed map with telemetry vitals and touchless alarm dismissal.
+4. **Authentication Portal (`login.html`)**: Dual-mode login & patient registration connected to the backend REST API.
+5. **Interactive Gesture Simulator (`demo.html`)**: Testing and calibration sandbox for hand gestures and webcam tracking.
+6. **System Architecture & Database Report (`docs/database_documentation.md`)**: Full ER diagram, SQL schema specifications, foreign key definitions, and meeting notes for graduation reports.
 
 ---
 
 ## 🛠️ Technology Stack
-- **Frontend:** HTML5, CSS3 (Modern Glassmorphism & Dark Mode), Vanilla JavaScript.
-- **Hardware Integration:** Leap Motion Controller (LM-010) via WebSocket (`ws://127.0.0.1:6437/v6.json`).
+- **Frontend:** Semantic HTML5, Vanilla CSS3 (Glassmorphism design tokens), Native JavaScript (ES6+).
+- **Backend Server:** Node.js HTTP Server (`server.js`) with REST API endpoints (`/api/auth/*`, `/api/doctors`, `/api/departments`, `/api/appointments`, `/api/prescriptions`, `/api/vitals`).
+- **Database Engine:** Embedded Relational SQLite (`database/touchless_hms.db`) with full ANSI SQL schema (`database/schema.sql`), strict foreign key relations, and zero third-party npm dependencies.
+- **Hardware Integration:** Leap Motion Controller (Model LM-010) streaming raw skeleton frames via WebSocket (`ws://127.0.0.1:6437/v6.json`).
 - **Computer Vision Fallback:** Google MediaPipe Hands (Webcam Tracking).
-- **Audio Feedback:** Web Audio API (real-time auditory chimes for gestures).
-- **Local Server:** Zero-dependency Node.js HTTP server.
+- **Auditory Feedback:** Web Audio API (real-time frequency synthesize feedback for touchless gestures).
+

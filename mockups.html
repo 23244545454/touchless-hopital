@@ -15,7 +15,7 @@
     <a href="index.html">Home</a>
     <a href="overview.html">Overview</a>
     <a href="departments.html">Departments</a>
-    <a href="diagrams.html">Diagrams</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a>
     <a href="demo.html">Live Demo</a>
     <a href="mockups.html" class="active">UI Mockups</a>
     <a href="login.html" class="nav-cta">Login →</a>
@@ -256,16 +256,16 @@
 
   <div class="divider"></div>
 
-  <!-- ═══ MOCKUP 3: Surgeon OR Interface ═══ -->
-  <section class="section" id="surgeon-interface">
+  <!-- ═══ MOCKUP 3: Nurse Ward Station ═══ -->
+  <section class="section" id="nurse-interface">
     <div class="mockup-intro reveal">
       <div>
         <p class="section-label">Interface 3</p>
-        <h2 class="section-title">Surgeon &amp; Nurse OR Interface</h2>
-        <p>Full-screen, touch-free display for operating rooms. Designed for maximum readability at a distance and gesture-only navigation.</p>
+        <h2 class="section-title">Nurse Ward Station &amp; Vitals Display</h2>
+        <p>Full-screen, touch-free display for hospital wards. Designed for rapid telemetry observation, bed monitoring, and gesture-only alarm triage.</p>
         <div class="mockup-badges">
-          <span class="badge badge-teal">Leap Motion Only</span>
-          <span class="badge badge-red">Sterile Zone</span>
+          <span class="badge badge-teal">Leap Motion Active</span>
+          <span class="badge badge-blue">Ward Station</span>
         </div>
       </div>
     </div>
@@ -273,43 +273,43 @@
       <div class="or-frame">
         <div class="or-header">
           <span class="or-badge-red">● LIVE</span>
-          <span class="or-title">OPERATING ROOM 3 — CARDIAC SURGERY</span>
+          <span class="or-title">CARDIOLOGY WARD — FLOOR 3 BED MONITOR</span>
           <span class="or-time" id="or-time">--:--:--</span>
           <span class="or-gesture-on">✋ Gesture: Active</span>
         </div>
         <div class="or-body">
           <div class="or-patient-panel">
-            <div class="or-panel-title">PATIENT</div>
+            <div class="or-panel-title">ASSIGNED PATIENT</div>
             <div class="or-patient-name">Sarah Al-Mansouri</div>
-            <div class="or-patient-detail">Female · 42yrs · O+ · MRN: 2841</div>
-            <div class="or-patient-procedure">Coronary Bypass Graft (CABG)</div>
+            <div class="or-patient-detail">Female · 42yrs · O+ · Bed: C-304</div>
+            <div class="or-patient-procedure">Hypertensive Heart Disease (Observation)</div>
             <div class="or-team">
-              <div class="or-team-item">🧑‍⚕️ Lead: Dr. Khalid</div>
-              <div class="or-team-item">👩‍⚕️ Assist: Nurse Reem</div>
-              <div class="or-team-item">💉 Anesthesia: Dr. Sara</div>
+              <div class="or-team-item">🧑‍⚕️ Attending: Dr. Ahmed Al-Rashidi</div>
+              <div class="or-team-item">👩‍⚕️ Nurse: Fatima Al-Zahra</div>
+              <div class="or-team-item">💊 Status: Post-Medication Stable</div>
             </div>
           </div>
           <div class="or-vitals-panel">
-            <div class="or-panel-title">VITALS (LIVE)</div>
+            <div class="or-panel-title">TELEMETRY VITALS (LIVE)</div>
             <div class="or-vital-big"><span class="or-vital-val" id="or-hr">74</span><span class="or-vital-lbl">HR (BPM)</span></div>
             <div class="or-vital-big"><span class="or-vital-val spo2" id="or-o2">99</span><span class="or-vital-lbl">SpO₂ %</span></div>
             <div class="or-vital-big"><span class="or-vital-val bp">118/76</span><span class="or-vital-lbl">BP mmHg</span></div>
             <div class="or-vital-big"><span class="or-vital-val temp">36.6</span><span class="or-vital-lbl">Temp °C</span></div>
           </div>
           <div class="or-actions-panel">
-            <div class="or-panel-title">GESTURE CONTROLS</div>
-            <div class="or-action-btn">⏭ Next Record</div>
-            <div class="or-action-btn">📷 Imaging</div>
-            <div class="or-action-btn">💉 Anesthesia Log</div>
+            <div class="or-panel-title">TOUCHLESS CONTROLS</div>
+            <div class="or-action-btn">⏭ Next Patient Bed</div>
+            <div class="or-action-btn">📊 Vitals History</div>
+            <div class="or-action-btn">💊 Medication Schedule</div>
             <div class="or-action-btn alarm">🚨 Acknowledge Alarm</div>
-            <div class="or-action-btn">📝 Surgical Notes</div>
-            <div class="or-action-btn">🏠 Main Menu</div>
+            <div class="or-action-btn">📝 Nursing Log</div>
+            <div class="or-action-btn">🏠 Return to Map</div>
           </div>
         </div>
         <div class="or-footer">
-          <span>Surgery Start: 08:15 · Elapsed: <span id="or-elapsed">01:26:43</span></span>
+          <span>Shift Start: 07:00 · Elapsed: <span id="or-elapsed">04:15:20</span></span>
           <span>All interactions touchless — Leap Motion active</span>
-          <span>🔴 Recording</span>
+          <span>🟢 System Healthy</span>
         </div>
       </div>
     </div>
@@ -321,7 +321,7 @@
   <div class="footer-logo">Touchless<span>HMS</span></div>
   <div class="footer-links">
     <a href="index.html">Home</a><a href="overview.html">Overview</a>
-    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
   </div>
   <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
 </footer>

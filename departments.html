@@ -15,7 +15,7 @@
     <a href="index.html">Home</a>
     <a href="overview.html">Overview</a>
     <a href="departments.html" class="active">Departments</a>
-    <a href="diagrams.html">Diagrams</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a>
     <a href="demo.html">Live Demo</a>
     <a href="mockups.html">UI Mockups</a>
     <a href="login.html" class="nav-cta">Login →</a>
@@ -71,24 +71,22 @@
         <thead>
           <tr>
             <th>Permission</th>
-            <th><span class="role-badge patient">🧑‍⚕️ Patient</span></th>
+            <th><span class="role-badge patient">🧑 Patient</span></th>
             <th><span class="role-badge doctor">👨‍⚕️ Doctor</span></th>
             <th><span class="role-badge nurse">💉 Nurse</span></th>
-            <th><span class="role-badge surgeon">✋ Surgeon</span></th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>View own medical records</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
-          <tr><td>Book appointments</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
-          <tr><td>View assigned patient list</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
-          <tr><td>View patient records &amp; vitals</td><td class="no">—</td><td class="yes">✅</td><td class="partial">👁 Read-only</td><td class="yes">✅</td></tr>
-          <tr><td>Edit / write patient notes</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="partial">📝 OR notes</td></tr>
-          <tr><td>Write prescriptions</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="yes">✅</td></tr>
-          <tr><td>Acknowledge alarms</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
-          <tr><td>Access OR interface</td><td class="no">—</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td></tr>
-          <tr><td>Touchless gesture control</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
-          <tr><td>View departments &amp; analytics</td><td class="no">—</td><td class="yes">✅</td><td class="partial">🏥 Depts only</td><td class="partial">🏥 Depts only</td></tr>
-          <tr><td>Manage schedule &amp; appointments</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td></tr>
+          <tr><td>View own medical records</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td></tr>
+          <tr><td>Book appointments via Kiosk</td><td class="yes">✅</td><td class="no">—</td><td class="no">—</td></tr>
+          <tr><td>View assigned patient list</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>View patient records &amp; vitals</td><td class="no">—</td><td class="yes">✅</td><td class="partial">👁 Read-only</td></tr>
+          <tr><td>Edit / write clinical notes</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td></tr>
+          <tr><td>Write e-prescriptions</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td></tr>
+          <tr><td>Acknowledge vital alarms</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>Touchless gesture control (Leap)</td><td class="yes">✅ Kiosk</td><td class="yes">✅ Desk</td><td class="yes">✅ Ward</td></tr>
+          <tr><td>View hospital departments</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+          <tr><td>Manage doctor schedule</td><td class="no">—</td><td class="yes">✅</td><td class="no">—</td></tr>
         </tbody>
       </table>
     </div>
@@ -100,7 +98,7 @@
   <div class="footer-logo">Touchless<span>HMS</span></div>
   <div class="footer-links">
     <a href="index.html">Home</a><a href="departments.html">Departments</a>
-    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="login.html">Login</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a><a href="demo.html">Demo</a><a href="login.html">Login</a>
   </div>
   <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
 </footer>

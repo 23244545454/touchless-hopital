@@ -57,13 +57,6 @@
             <small>Ward monitoring & vitals</small>
           </div>
         </div>
-        <div class="role-chip" data-role="surgeon">
-          <span class="role-chip-icon">✋</span>
-          <div>
-            <strong>Surgeon</strong>
-            <small>OR gesture interface</small>
-          </div>
-        </div>
       </div>
 
       <!-- Feature Pills -->
@@ -80,8 +73,14 @@
 
     <div class="login-card glass-card">
 
+      <!-- Auth Mode Switcher (Sign In vs Register) -->
+      <div class="auth-mode-switch" style="display:flex;gap:0.5rem;margin-bottom:1.5rem;background:rgba(255,255,255,0.04);padding:0.35rem;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+        <button type="button" class="mode-btn active" id="btn-mode-login" style="flex:1;padding:0.6rem;border-radius:8px;border:none;background:var(--teal);color:#050c18;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">🔑 Sign In</button>
+        <button type="button" class="mode-btn" id="btn-mode-register" style="flex:1;padding:0.6rem;border-radius:8px;border:none;background:transparent;color:var(--text-secondary);font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">📝 Register (New Patient)</button>
+      </div>
+
       <!-- Card Header -->
-      <div class="login-card-header">
+      <div class="login-card-header" id="card-header">
         <div class="lch-icon" id="role-icon">🧑‍⚕️</div>
         <div>
           <h2 id="role-title">Patient Login</h2>
@@ -89,12 +88,16 @@
         </div>
       </div>
 
-      <!-- Role Selector (mobile) -->
+      <!-- Role Selector -->
       <div class="role-tabs" id="role-tabs" aria-label="Select your role">
         <button class="role-tab active" data-role="patient" aria-pressed="true">Patient</button>
         <button class="role-tab" data-role="doctor" aria-pressed="false">Doctor</button>
         <button class="role-tab" data-role="nurse" aria-pressed="false">Nurse</button>
-        <button class="role-tab" data-role="surgeon" aria-pressed="false">Surgeon</button>
+      </div>
+
+      <!-- Error Message Banner -->
+      <div class="form-error-banner" id="form-error" style="display:none;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:0.75rem 1rem;border-radius:10px;margin-bottom:1rem;font-size:0.85rem;">
+        <span id="error-text">Error message</span>
       </div>
 
       <!-- Form -->
@@ -180,21 +183,65 @@
 
       </form>
 
-      <!-- Demo Accounts -->
-      <div class="demo-section">
-        <div class="gate-divider"><span>Quick Demo Access</span></div>
+      <!-- 2. REGISTRATION FORM (New Patient) -->
+      <form class="login-form" id="register-form" style="display:none;" novalidate>
+        <div class="form-group">
+          <label class="form-label"><span>👤</span> Full Name</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="e.g. Jasem Al-Hasan" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span>✉️</span> Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="e.g. jasem@patient.kw" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span>🔑</span> Password</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span>🪪</span> Civil ID Number</label>
+          <input type="text" id="reg-civilid" class="form-input" placeholder="e.g. 296051201948" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span>📱</span> Phone Number</label>
+          <input type="tel" id="reg-phone" class="form-input" placeholder="e.g. +965 99112233" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span>🩸</span> Blood Type</label>
+          <select id="reg-blood" class="form-input" style="background:#0c1a2e;color:#fff;">
+            <option value="O+">O+ (Positive)</option>
+            <option value="O-">O- (Negative)</option>
+            <option value="A+">A+ (Positive)</option>
+            <option value="A-">A- (Negative)</option>
+            <option value="B+">B+ (Positive)</option>
+            <option value="B-">B- (Negative)</option>
+            <option value="AB+">AB+ (Positive)</option>
+            <option value="AB-">AB- (Negative)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-login" id="reg-btn" style="margin-top:1rem;">
+          <span id="reg-btn-text">Create Account & Sign In</span>
+          <span>→</span>
+        </button>
+      </form>
+
+      <!-- Database Demo Accounts -->
+      <div class="demo-section" id="demo-section">
+        <div class="gate-divider"><span>Database Demo Accounts</span></div>
         <div class="demo-accounts" id="demo-accounts">
-          <button class="demo-account" data-email="patient@hms.kw" data-pass="demo1234" data-role="patient">
-            <span>🧑‍⚕️</span> Patient Demo
+          <button class="demo-account" data-email="sarah@patient.kw" data-pass="password123" data-role="patient">
+            <span>🧑</span> Patient (Sarah)
           </button>
-          <button class="demo-account" data-email="doctor@hms.kw" data-pass="demo1234" data-role="doctor">
-            <span>👨‍⚕️</span> Doctor Demo
+          <button class="demo-account" data-email="ahmed@hospital.kw" data-pass="password123" data-role="doctor">
+            <span>👨‍⚕️</span> Doctor (Dr. Ahmed)
           </button>
-          <button class="demo-account" data-email="nurse@hms.kw" data-pass="demo1234" data-role="nurse">
-            <span>💉</span> Nurse Demo
-          </button>
-          <button class="demo-account" data-email="surgeon@hms.kw" data-pass="demo1234" data-role="surgeon">
-            <span>✋</span> Surgeon Demo
+          <button class="demo-account" data-email="fatima@nurse.kw" data-pass="password123" data-role="nurse">
+            <span>💉</span> Nurse (Fatima)
           </button>
         </div>
       </div>

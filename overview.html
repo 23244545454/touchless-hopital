@@ -15,7 +15,7 @@
     <a href="index.html">Home</a>
     <a href="overview.html" class="active">Overview</a>
     <a href="departments.html">Departments</a>
-    <a href="diagrams.html">Diagrams</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a>
     <a href="demo.html">Live Demo</a>
     <a href="mockups.html">UI Mockups</a>
     <a href="login.html" class="nav-cta">Login →</a>
@@ -40,28 +40,28 @@
     <p class="section-subtitle reveal">Four primary user personas interact with the system through different interfaces depending on their environment.</p>
     <div class="grid-4 reveal" data-stagger>
       <div class="actor-card glass-card">
-        <div class="actor-avatar">👨‍⚕️</div>
-        <h4>Surgeon</h4>
-        <span class="badge badge-teal">Touchless Only</span>
-        <p>Operates entirely via Leap Motion in the OR. Views patient vitals, records, and imaging hands-free.</p>
-      </div>
-      <div class="actor-card glass-card">
-        <div class="actor-avatar">👩‍⚕️</div>
-        <h4>Nurse</h4>
-        <span class="badge badge-teal">Touchless (Ward)</span>
-        <p>Manages patient alarms, medication schedules, and ward displays using gesture control.</p>
+        <div class="actor-avatar">🧑</div>
+        <h4>Patient / Visitor</h4>
+        <span class="badge badge-teal">Touchless Kiosk</span>
+        <p>Uses Leap Motion hand gestures at the hospital kiosk to register, browse specialist doctors, and book appointments hands-free.</p>
       </div>
       <div class="actor-card glass-card">
         <div class="actor-avatar">🧑‍⚕️</div>
         <h4>Doctor</h4>
-        <span class="badge badge-blue">Hybrid</span>
-        <p>Uses traditional touch in clinics for appointments and prescriptions; touchless in sterile areas.</p>
+        <span class="badge badge-blue">Clinical Desk</span>
+        <p>Reviews real-time appointment queues, evaluates patient medical histories, and issues electronic prescriptions.</p>
       </div>
       <div class="actor-card glass-card">
-        <div class="actor-avatar">🧑</div>
-        <h4>Outpatient</h4>
-        <span class="badge badge-purple">Touch / Mobile</span>
-        <p>Books appointments and views results through the Flutter patient mobile app.</p>
+        <div class="actor-avatar">👩‍⚕️</div>
+        <h4>Nurse</h4>
+        <span class="badge badge-teal">Ward Station</span>
+        <p>Monitors patient vitals, tracks bed occupancy, and acknowledges critical alarms touchlessly using gestures.</p>
+      </div>
+      <div class="actor-card glass-card">
+        <div class="actor-avatar">⚙️</div>
+        <h4>Administrator</h4>
+        <span class="badge badge-purple">System Admin</span>
+        <p>Oversees hospital departments, physician rosters, database records, and appointment schedules.</p>
       </div>
     </div>
   </section>
@@ -122,10 +122,10 @@
       <div class="flow-column touchless-col">
         <div class="flow-header"><span>✋</span> Touchless Interface Path</div>
         <div class="flow-node surgeon">
-          <div class="node-icon">👨‍⚕️</div>
+          <div class="node-icon">🧑</div>
           <div>
-            <strong>Surgeon / Nurse</strong>
-            <p>Enters sterile OR or ward</p>
+            <strong>Patient / Nurse</strong>
+            <p>Interacts at Touchless Kiosk or Ward</p>
           </div>
         </div>
         <div class="flow-arrow-down">↓</div>
@@ -239,8 +239,8 @@
       </div>
       <div class="tech-card glass-card">
         <div class="tech-logo">🔐</div>
-        <h4>Role-based Auth</h4>
-        <p>Firebase Auth with custom claims enforces role separation: Surgeon / Nurse / Doctor / Patient views.</p>
+        <h4>Role-based Auth & REST API</h4>
+        <p>Node.js backend with SQLite validates role access: Patient Kiosk, Doctor Workstation, and Nurse Station.</p>
         <span class="badge badge-purple">Security</span>
       </div>
     </div>
@@ -252,7 +252,7 @@
   <div class="footer-logo">Touchless<span>HMS</span></div>
   <div class="footer-links">
     <a href="index.html">Home</a><a href="overview.html">Overview</a>
-    <a href="diagrams.html">Diagrams</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
+    <a href="dashboard-patient.html">Patient Kiosk</a><a href="demo.html">Demo</a><a href="mockups.html">Mockups</a>
   </div>
   <p class="footer-copy">© 2026 Dana Alghareb · Kuwait University Graduate Project</p>
 </footer>

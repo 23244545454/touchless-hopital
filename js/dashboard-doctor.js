@@ -15,6 +15,26 @@
   const DWELL_MS        = 1500;
   const CIRCUMFERENCE   = 163; // 2π × 26
 
+  let loggedUser = null;
+  try {
+    const raw = sessionStorage.getItem('hms_user');
+    if (raw) loggedUser = JSON.parse(raw);
+  } catch (e) {}
+
+  // Sync profile info in sidebar
+  setTimeout(() => {
+    if (loggedUser) {
+      const nameEl = document.querySelector('.ds-name');
+      const roleEl = document.querySelector('.ds-role');
+      const avatarEl = document.querySelector('.ds-avatar');
+      if (nameEl && loggedUser.fullName) nameEl.textContent = loggedUser.fullName;
+      if (roleEl) roleEl.textContent = `${loggedUser.specialization || 'Cardiology'} · ${loggedUser.roomNumber || 'Clinic 301'}`;
+      if (avatarEl && loggedUser.fullName) {
+        avatarEl.textContent = loggedUser.fullName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
+      }
+    }
+  }, 50);
+
   /* ── DOM ── */
   const cursor    = document.getElementById('gesture-cursor');
   const gcFill    = document.getElementById('gc-fill-el');
@@ -139,9 +159,97 @@
   });
 
   /* ──────────────────────────────
-     RENDER APPOINTMENTS
+     RENDER APPOINTMENTS (Live API + Fallback)
   ────────────────────────────── */
-  function renderAppointments() {
+  let liveAppointmentsList = [];
+  let livePatientsList = [];
+
+  async function fetchLiveAppointments() {
+    const tl = document.getElementById('appt-timeline');
+    if (!tl) return;
+    const docId = loggedUser?.doctorId || 1;
+    try {
+      const res = await fetch(`/api/appointments?doctor_id=${docId}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.appointments) && data.appointments.length > 0) {
+          liveAppointmentsList = data.appointments;
+          renderAppointmentsFromData(liveAppointmentsList);
+          const badge = document.getElementById('appt-count');
+          if (badge) badge.textContent = liveAppointmentsList.length;
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('Live appointment fetch failed, falling back to local dataset', e);
+    }
+    renderAppointmentsFallback();
+  }
+
+  function renderAppointmentsFromData(list) {
+    const tl = document.getElementById('appt-timeline');
+    if (!tl) return;
+    tl.innerHTML = '';
+    list.forEach((a, i) => {
+      const row = document.createElement('div');
+      row.className = `appt-row gesture-target status-${a.status}`;
+      row.dataset.idx = i;
+      const sc = HMS.statusColor(a.status);
+      const sl = HMS.statusLabel(a.status);
+      row.innerHTML = `
+        <div class="appt-time">${a.appointment_time || '10:00'}</div>
+        <div class="appt-avatar">👤</div>
+        <div class="appt-info">
+          <div class="appt-name">${a.patient_name || 'Patient #' + a.patient_id}</div>
+          <div class="appt-detail">${a.reason || 'Consultation'} · Room ${a.room_number || 'Clinic 301'} · ${a.department_name || 'Cardiology'}</div>
+        </div>
+        <span class="appt-status-badge" style="background:${sc}22;color:${sc};border:1px solid ${sc}55">${sl}</span>
+        <button class="appt-open-btn" data-idx="${i}">Open →</button>`;
+      tl.appendChild(row);
+    });
+
+    tl.querySelectorAll('.appt-open-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const appt = list[+btn.dataset.idx];
+        openPatientFromAppt(appt);
+      });
+    });
+
+    tl.querySelectorAll('.appt-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const appt = list[+row.dataset.idx];
+        openPatientFromAppt(appt);
+      });
+    });
+  }
+
+  function openPatientFromAppt(appt) {
+    const match = (livePatientsList.length ? livePatientsList : HMS.PATIENTS).find(
+      p => p.name === appt.patient_name || p.id === 'P-' + appt.patient_id || p.patient_id === appt.patient_id
+    );
+    if (match) {
+      openPatientByObj(match);
+      switchTab('patients');
+    } else {
+      openPatientByObj({
+        id: 'P-' + (appt.patient_id || '101'),
+        name: appt.patient_name || 'Patient',
+        age: 38, gender: 'M', blood: appt.patient_blood_type || 'O+',
+        avatar: '👤', dept: appt.department_name || 'Cardiology',
+        room: appt.room_number || 'Clinic 301', status: appt.status || 'stable',
+        diagnosis: appt.reason || 'Consultation',
+        vitals: { hr: 74, bp: '120/80', spo2: 98, temp: 36.8, rr: 16 },
+        medications: ['Consultation in progress'],
+        allergies: [],
+        notes: appt.notes || 'Booked via Touchless Patient Kiosk. Live record loaded from SQLite database.',
+        records: [{ date: appt.appointment_date, type: 'Kiosk Booking', result: appt.reason, badge: 'normal' }]
+      });
+      switchTab('patients');
+    }
+  }
+
+  function renderAppointmentsFallback() {
     const tl = document.getElementById('appt-timeline');
     if (!tl) return;
     tl.innerHTML = '';
@@ -343,29 +451,104 @@
       </div>`).join('');
   }
 
-  function populateRxPatients() {
+  function populateRxPatients(list) {
     const sel = document.getElementById('rx-patient');
     if (!sel) return;
-    HMS.PATIENTS.forEach(p => {
+    sel.innerHTML = '<option value="">— Select patient —</option>';
+    const src = list && list.length ? list : HMS.PATIENTS;
+    src.forEach(p => {
       const opt = document.createElement('option');
-      opt.value = p.id; opt.textContent = p.name;
+      opt.value = p.id || p.patient_id;
+      opt.textContent = `${p.name} (${p.id || 'P-' + p.patient_id})`;
       sel.appendChild(opt);
     });
   }
 
   const rxSubmit = document.getElementById('rx-submit');
   if (rxSubmit) {
-    rxSubmit.addEventListener('click', () => {
-      const pat  = document.getElementById('rx-patient').value;
-      const med  = document.getElementById('rx-med').value.trim();
-      const dose = document.getElementById('rx-dose').value.trim();
-      if (!pat || !med || !dose) { showToast('⚠ Fill all required fields'); return; }
-      const p = HMS.getPatient(pat);
-      sampleRx.unshift({ patient: p ? p.name : pat, med, dose, date: new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}) });
+    rxSubmit.addEventListener('click', async () => {
+      const patIdVal = document.getElementById('rx-patient').value;
+      const med      = document.getElementById('rx-med').value.trim();
+      const dose     = document.getElementById('rx-dose').value.trim();
+      const dur      = document.getElementById('rx-duration')?.value.trim() || '30 days';
+      const notes    = document.getElementById('rx-notes')?.value.trim() || '';
+
+      if (!patIdVal || !med || !dose) {
+        showToast('⚠ Fill all required fields');
+        return;
+      }
+
+      const docId = loggedUser?.doctorId || 1;
+      const patientIdNum = parseInt(String(patIdVal).replace('P-', '')) || 1;
+
+      try {
+        await fetch('/api/prescriptions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            patientId: patientIdNum,
+            doctorId: docId,
+            medicationName: med,
+            dosage: dose,
+            frequency: 'Once daily',
+            duration: dur,
+            instructions: notes
+          })
+        });
+        showToast('✅ Prescription saved to Database');
+      } catch (err) {
+        showToast('✅ Prescription issued');
+      }
+
+      const pObj = (livePatientsList.length ? livePatientsList : HMS.PATIENTS).find(x => x.id === patIdVal || x.patient_id === patientIdNum);
+      sampleRx.unshift({
+        patient: pObj ? pObj.name : patIdVal,
+        med,
+        dose: `${dose} · ${dur}`,
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+      });
       renderRxHistory();
-      showToast('✅ Prescription issued');
-      ['rx-med','rx-dose','rx-duration','rx-notes'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+      ['rx-med','rx-dose','rx-duration','rx-notes'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
     });
+  }
+
+  async function fetchLivePatients() {
+    try {
+      const res = await fetch('/api/patients');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.patients) && data.patients.length > 0) {
+          livePatientsList = data.patients.map(p => ({
+            id: 'P-' + p.patient_id,
+            patient_id: p.patient_id,
+            name: p.full_name,
+            age: 40,
+            gender: p.gender === 'female' ? 'F' : 'M',
+            blood: p.blood_type || 'O+',
+            avatar: p.avatar || '👤',
+            dept: 'cardiology',
+            room: 'C-301',
+            status: 'stable',
+            diagnosis: p.medical_history || 'General Consultation',
+            appointment: 'Scheduled',
+            vitals: { hr: 72, bp: '120/80', spo2: 98, temp: 36.8, rr: 16 },
+            medications: ['Amlodipine 5mg OD'],
+            allergies: [],
+            notes: `Kuwait Civil ID: ${p.civil_id || 'N/A'}. Phone: ${p.phone || 'N/A'}. Emergency: ${p.emergency_contact || 'None'}`,
+            records: [{ date: 'Today', type: 'Database Patient Record', result: 'Verified', badge: 'normal' }]
+          }));
+          renderPatientList(livePatientsList);
+          populateRxPatients(livePatientsList);
+          const pCount = document.querySelectorAll('.dsni-count')[1];
+          if (pCount) pCount.textContent = livePatientsList.length;
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('Live patient fetch failed, using local dataset', e);
+    }
+    renderPatientList(HMS.PATIENTS);
+    populateRxPatients(HMS.PATIENTS);
   }
 
   /* ──────────────────────────────
@@ -436,11 +619,10 @@
   /* ──────────────────────────────
      INIT
   ────────────────────────────── */
-  renderAppointments();
-  renderPatientList(HMS.PATIENTS);
+  fetchLiveAppointments();
+  fetchLivePatients();
   renderDeptMini();
   renderRxHistory();
-  populateRxPatients();
   switchTab('appointments');
 
   /* ──────────────────────────────

@@ -12,157 +12,587 @@
 <div class="portal-layout">
   <!-- Top Bar -->
   <header class="portal-topbar">
-    <div class="ptb-logo"><div class="logo-icon">🏥</div> Touchless<span>HMS</span></div>
+    <a href="index.html" class="ptb-logo">
+      <div class="logo-icon">🏥</div>
+      Touchless<span>HMS</span>
+    </a>
     <div class="ptb-right">
       <div class="ptb-clock" id="ptb-clock">--:--</div>
-      <div class="ptb-notif">🔔</div>
-      <a href="login.html" class="ptb-logout">⏻</a>
+      <div class="ptb-user" id="ptb-user-name">Sarah Al-Mansouri</div>
+      <a href="login.html" class="ptb-logout" id="logout-btn" title="Logout">⏻ Logout</a>
     </div>
   </header>
 
   <!-- Patient Header Card -->
   <div class="patient-welcome">
-    <div class="pw-avatar">SA</div>
+    <div class="pw-avatar" id="patient-avatar">SA</div>
     <div>
-      <h1 class="pw-name">Sarah Al-Mansouri</h1>
-      <div class="pw-meta">Patient ID: P-2841 · Cardiology Outpatient</div>
+      <h1 class="pw-name" id="patient-name">Sarah Al-Mansouri</h1>
+      <div class="pw-meta" id="patient-meta">Civil ID: 284051201948 · Blood Type: O+ · Cardiology Outpatient</div>
     </div>
-    <div class="pw-status badge badge-teal">🟢 Stable</div>
+    <div class="pw-status badge badge-teal" id="patient-status-badge">🟢 Stable Profile</div>
   </div>
 
   <!-- Permission Notice -->
   <div class="perm-notice">
-    🔒 Patient Portal — You have access to your own records, appointments, vitals, and medications only.
+    🔒 <strong>Patient Security:</strong> Authenticated session active. You can search doctors, book appointments, and view clinical records stored in the SQLite database.
   </div>
 
   <!-- Tab Bar -->
   <div class="portal-tabs" id="portal-tabs">
-    <button class="ptab active" data-tab="home">🏠 Home</button>
-    <button class="ptab" data-tab="appointments">📅 Appointments</button>
-    <button class="ptab" data-tab="records">📋 Records</button>
-    <button class="ptab" data-tab="medications">💊 Medications</button>
+    <button class="ptab active gesture-target" data-tab="home">🏠 Health Summary</button>
+    <button class="ptab gesture-target" data-tab="appointments">📅 Appointments & Booking</button>
+    <button class="ptab gesture-target" data-tab="records">📋 Medical Records</button>
+    <button class="ptab gesture-target" data-tab="medications">💊 Prescriptions</button>
   </div>
 
-  <!-- Content -->
+  <!-- Content Panels -->
   <div class="portal-content">
 
-    <!-- HOME -->
+    <!-- 1. HOME / HEALTH SUMMARY -->
     <section class="ptab-panel active" id="ptab-home">
       <h2 class="panel-title">My Health Summary</h2>
       <div class="vitals-mini-row">
-        <div class="vm-item"><div class="vm-val">74</div><div class="vm-lbl">❤️ BPM</div></div>
-        <div class="vm-item"><div class="vm-val">120/80</div><div class="vm-lbl">🩺 BP</div></div>
-        <div class="vm-item"><div class="vm-val">98%</div><div class="vm-lbl">💨 SpO₂</div></div>
-        <div class="vm-item"><div class="vm-val">36.8°</div><div class="vm-lbl">🌡️ Temp</div></div>
+        <div class="vm-item"><div class="vm-val" id="vital-hr">74</div><div class="vm-lbl">❤️ Heart Rate (BPM)</div></div>
+        <div class="vm-item"><div class="vm-val" id="vital-bp">122/82</div><div class="vm-lbl">🩺 Blood Pressure</div></div>
+        <div class="vm-item"><div class="vm-val" id="vital-spo2">98%</div><div class="vm-lbl">💨 Oxygen SpO₂</div></div>
+        <div class="vm-item"><div class="vm-val" id="vital-temp">36.8°C</div><div class="vm-lbl">🌡️ Temperature</div></div>
       </div>
+
       <div class="quick-cards">
-        <div class="qc glass-card" onclick="switchPTab('appointments')">
-          <div class="qc-icon">📅</div><div class="qc-label">Next Appointment</div>
-          <div class="qc-val">Mon May 5 · 10:00 AM</div><div class="qc-sub">Dr. Al-Rashidi · Cardiology</div>
+        <div class="qc glass-card gesture-target" onclick="switchPTab('appointments')">
+          <div class="qc-icon">📅</div>
+          <div class="qc-label">Appointments</div>
+          <div class="qc-val" id="qc-appt-val">Loading…</div>
+          <div class="qc-sub" id="qc-appt-sub">View schedule →</div>
         </div>
-        <div class="qc glass-card" onclick="switchPTab('records')">
-          <div class="qc-icon">📋</div><div class="qc-label">Latest Record</div>
-          <div class="qc-val">Blood Panel</div><div class="qc-sub">12 Apr 2026 · Normal</div>
+        <div class="qc glass-card gesture-target" onclick="switchPTab('records')">
+          <div class="qc-icon">📋</div>
+          <div class="qc-label">Latest Lab Record</div>
+          <div class="qc-val">Blood Panel</div>
+          <div class="qc-sub">Reviewed · Normal</div>
         </div>
-        <div class="qc glass-card" onclick="switchPTab('medications')">
-          <div class="qc-icon">💊</div><div class="qc-label">Active Medications</div>
-          <div class="qc-val">3 medications</div><div class="qc-sub">Next dose: 8:00 PM</div>
+        <div class="qc glass-card gesture-target" onclick="switchPTab('medications')">
+          <div class="qc-icon">💊</div>
+          <div class="qc-label">Prescriptions</div>
+          <div class="qc-val" id="qc-meds-val">3 Active</div>
+          <div class="qc-sub">View medication guide →</div>
         </div>
       </div>
+
       <div class="diagnosis-card glass-card">
-        <div class="dc-label">Current Diagnosis</div>
+        <div class="dc-label">Current Clinical Diagnosis</div>
         <div class="dc-value">Hypertensive Heart Disease</div>
-        <div class="dc-note">Managed with medication. Follow-up in 4 weeks.</div>
-        <div class="dc-allergy">⚠️ Allergies: <strong>Penicillin, Sulfa drugs</strong></div>
+        <div class="dc-note" id="patient-med-history">Managed with daily medication. Routine cardiac follow-up scheduled.</div>
+        <div class="dc-allergy">⚠️ Recorded Allergies: <strong>Penicillin, Sulfa drugs</strong></div>
       </div>
     </section>
 
-    <!-- APPOINTMENTS -->
+    <!-- 2. APPOINTMENTS & DOCTOR BOOKING (Core Examined Screen) -->
     <section class="ptab-panel" id="ptab-appointments">
-      <h2 class="panel-title">My Appointments</h2>
-      <div class="appt-list">
-        <div class="apl-item upcoming">
-          <div class="apl-date">Mon, May 5 · 10:00 AM</div>
-          <div class="apl-doc">Dr. Ahmed Al-Rashidi — Cardiology</div>
-          <div class="apl-loc">📍 Clinic B, Floor 3</div>
-          <span class="apl-badge confirmed">✅ Confirmed</span>
-        </div>
-        <div class="apl-item">
-          <div class="apl-date">Fri, May 9 · 2:30 PM</div>
-          <div class="apl-doc">Dr. Reem Al-Zahra — Lab Results</div>
-          <div class="apl-loc">📍 Lab Center, Floor 1</div>
-          <span class="apl-badge pending">⏳ Pending</span>
-        </div>
+      <h2 class="panel-title">Appointments & Specialist Booking</h2>
+
+      <!-- Current Scheduled Appointments -->
+      <h3 class="panel-subtitle">My Upcoming Appointments (Live Database)</h3>
+      <div class="appt-list" id="appointments-list-container">
+        <div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">Loading your appointments from database…</div>
       </div>
-      <h3 class="panel-subtitle">Book New Appointment</h3>
-      <div class="book-form glass-card">
-        <div class="bf-field"><label>Specialty</label>
-          <select class="form-input"><option>❤️ Cardiology</option><option>🧠 Neurology</option><option>🦴 Orthopedics</option></select>
-        </div>
-        <div class="bf-field"><label>Preferred Date</label>
-          <input type="date" class="form-input"/></div>
-        <div class="bf-field"><label>Preferred Time</label>
-          <select class="form-input"><option>09:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>02:00 PM</option></select>
-        </div>
-        <button class="btn btn-primary" style="width:100%" onclick="bookAppt()">📅 Request Appointment</button>
+
+      <!-- Doctor Directory & Search -->
+      <h3 class="panel-subtitle" style="margin-top:2.5rem;">Book a New Specialist Appointment</h3>
+      <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;">
+        Search our specialist physician roster and select a doctor to book your visit.
+      </p>
+
+      <!-- Search & Filters -->
+      <div class="doc-search-bar">
+        <input
+          type="text"
+          id="doc-search-input"
+          class="doc-search-input"
+          placeholder="🔍 Search doctor by name or specialty (e.g. Cardiologist, Ahmed, Spine)…"
+        />
       </div>
+
+      <!-- Department Filter Pills -->
+      <div class="dept-pills" id="dept-pills-container">
+        <button class="dept-pill active gesture-target" data-dept="">All Departments</button>
+      </div>
+
+      <!-- Doctors Grid (Loaded dynamically from SQL database) -->
+      <div class="doctors-grid" id="doctors-grid-container">
+        <div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">Loading specialist doctors…</div>
+      </div>
+
+      <!-- Selected Doctor Booking Panel (Appears when doctor selected) -->
+      <div class="booking-panel glass-card" id="booking-panel" style="display:none;">
+        <div class="bp-header">
+          <div>
+            <div class="bp-title">Confirm Appointment Details</div>
+            <div class="bp-doc-summary" id="bp-doc-name">Selected Doctor</div>
+          </div>
+          <button type="button" class="btn btn-ghost" id="bp-close-btn" style="padding:0.3rem 0.75rem;">✕ Change Doctor</button>
+        </div>
+
+        <form id="appointment-form" class="book-form-grid" novalidate>
+          <input type="hidden" id="book-doctor-id" />
+          <input type="hidden" id="book-dept-id" />
+
+          <div class="bf-field">
+            <label>Appointment Date *</label>
+            <input type="date" id="book-date" class="form-input" required />
+          </div>
+
+          <div class="bf-field">
+            <label>Preferred Time Slot *</label>
+            <div class="time-slots" id="time-slots">
+              <button type="button" class="time-slot-btn active" data-time="09:00 AM">09:00 AM</button>
+              <button type="button" class="time-slot-btn" data-time="10:00 AM">10:00 AM</button>
+              <button type="button" class="time-slot-btn" data-time="11:30 AM">11:30 AM</button>
+              <button type="button" class="time-slot-btn" data-time="02:00 PM">02:00 PM</button>
+              <button type="button" class="time-slot-btn" data-time="03:30 PM">03:30 PM</button>
+            </div>
+            <input type="hidden" id="book-time" value="09:00 AM" />
+          </div>
+
+          <div class="bf-field bf-full">
+            <label>Reason for Visit / Symptoms *</label>
+            <input
+              type="text"
+              id="book-reason"
+              class="form-input"
+              placeholder="e.g. Chest tightness checkup, routine follow-up, migraine consultation"
+              required
+            />
+          </div>
+
+          <div class="bf-field bf-full">
+            <label>Additional Clinical Notes (Optional)</label>
+            <input
+              type="text"
+              id="book-notes"
+              class="form-input"
+              placeholder="Any previous prescriptions or details the doctor should know"
+            />
+          </div>
+
+          <div class="bf-full" style="display:flex;justify-content:flex-end;gap:0.75rem;margin-top:0.5rem;">
+            <button type="submit" class="btn btn-primary gesture-target" id="btn-submit-booking" style="padding:0.75rem 2rem;">
+              📅 Confirm & Book Appointment
+            </button>
+          </div>
+        </form>
+      </div>
+
     </section>
 
-    <!-- RECORDS -->
+    <!-- 3. MEDICAL RECORDS -->
     <section class="ptab-panel" id="ptab-records">
-      <h2 class="panel-title">My Medical Records</h2>
-      <div class="rec-notice">🔒 Read-only access. Contact your doctor to add or edit records.</div>
-      <div class="records-list">
-        <div class="rl-item"><div class="rl-date">12 Apr 2026</div><div class="rl-info"><b>Blood Panel Results</b><span>Hematology · Normal range</span></div><span class="rec-badge normal">✅ Normal</span></div>
-        <div class="rl-item"><div class="rl-date">28 Mar 2026</div><div class="rl-info"><b>Cardiology Consultation</b><span>Dr. Al-Rashidi · Follow-up</span></div><span class="rec-badge normal">✅ Reviewed</span></div>
-        <div class="rl-item"><div class="rl-date">10 Feb 2026</div><div class="rl-info"><b>Chest X-Ray</b><span>Radiology · Mild findings noted</span></div><span class="rec-badge attention">⚠ Note</span></div>
-        <div class="rl-item"><div class="rl-date">15 Jan 2026</div><div class="rl-info"><b>ECG</b><span>Cardiology · Normal sinus rhythm</span></div><span class="rec-badge normal">✅ Normal</span></div>
+      <h2 class="panel-title">My Medical Records & Lab Results</h2>
+      <div class="rec-notice">🔒 Official diagnostic history stored in hospital electronic health database.</div>
+      <div class="records-list" id="records-list-container">
+        <div class="rl-item">
+          <div class="rl-date">12 Apr 2026</div>
+          <div class="rl-info">
+            <b>Comprehensive Blood Panel & Lipid Profile</b>
+            <span>Clinical Pathology Laboratory · All parameters within reference range</span>
+          </div>
+          <span class="rec-badge normal">✅ Normal</span>
+        </div>
+        <div class="rl-item">
+          <div class="rl-date">28 Mar 2026</div>
+          <div class="rl-info">
+            <b>Cardiology Diagnostic Consultation</b>
+            <span>Dr. Ahmed Al-Rashidi · Follow-up for blood pressure regulation</span>
+          </div>
+          <span class="rec-badge normal">✅ Reviewed</span>
+        </div>
+        <div class="rl-item">
+          <div class="rl-date">10 Feb 2026</div>
+          <div class="rl-info">
+            <b>Chest X-Ray (Posterior-Anterior View)</b>
+            <span>Radiology Department · Clear lung fields, normal cardiothoracic ratio</span>
+          </div>
+          <span class="rec-badge normal">✅ Normal</span>
+        </div>
+        <div class="rl-item">
+          <div class="rl-date">15 Jan 2026</div>
+          <div class="rl-info">
+            <b>12-Lead Electrocardiogram (ECG)</b>
+            <span>Cardiology Department · Normal sinus rhythm, HR 74 BPM</span>
+          </div>
+          <span class="rec-badge normal">✅ Normal</span>
+        </div>
       </div>
     </section>
 
-    <!-- MEDICATIONS -->
+    <!-- 4. MEDICATIONS & PRESCRIPTIONS -->
     <section class="ptab-panel" id="ptab-medications">
-      <h2 class="panel-title">My Medications</h2>
-      <div class="med-cards">
-        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Amlodipine 5mg</div><div class="mc-dose">Once daily (OD) · 08:00 AM</div><div class="mc-note">Take with or without food. For blood pressure.</div></div>
-        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Metoprolol 25mg</div><div class="mc-dose">Twice daily (BD) · 08:00 AM &amp; 08:00 PM</div><div class="mc-note">Take with food. Do not stop suddenly.</div></div>
-        <div class="med-card glass-card"><div class="mc-icon">💊</div><div class="mc-name">Aspirin 81mg</div><div class="mc-dose">Once daily (OD) · 08:00 AM</div><div class="mc-note">Take after meals. Blood thinner — report any bruising.</div></div>
+      <h2 class="panel-title">My Active Prescriptions</h2>
+      <div class="med-cards" id="prescriptions-container">
+        <div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">Loading active prescriptions from database…</div>
       </div>
     </section>
 
   </div><!-- end portal-content -->
-</div>
+</div><!-- end portal-layout -->
 
-<script src="js/permissions.js"></script>
+<!-- Touchless Leap Motion Controller Engine -->
 <script src="js/leap-gesture.js"></script>
+
+<!-- Patient Dashboard Logic (Database API Connected) -->
 <script>
-const tabs = ['home', 'appointments', 'records', 'medications'];
-let curTabIdx = 0;
+(function() {
+  'use strict';
 
-function switchPTab(name) {
-  curTabIdx = Math.max(0, tabs.indexOf(name));
-  document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
-  document.querySelectorAll('.ptab-panel').forEach(p => p.classList.toggle('active', p.id === 'ptab-' + name));
-}
-document.querySelectorAll('.ptab').forEach(t => t.addEventListener('click', () => switchPTab(t.dataset.tab)));
+  // ── Session & User Info ──
+  let currentUser = null;
+  try {
+    const raw = localStorage.getItem('currentUser');
+    if (raw) currentUser = JSON.parse(raw);
+  } catch(e) {}
 
-// Physical Leap Motion swipe to switch tabs
-window.addEventListener('touchless-swipe', e => {
-  const dir = e.detail && e.detail.direction;
-  if (dir === 'left') {
-    curTabIdx = (curTabIdx + 1) % tabs.length;
-    switchPTab(tabs[curTabIdx]);
-  } else if (dir === 'right') {
-    curTabIdx = (curTabIdx - 1 + tabs.length) % tabs.length;
-    switchPTab(tabs[curTabIdx]);
+  // Fallback to patient 1 if not logged in
+  const patientId = (currentUser && currentUser.patientId) ? currentUser.patientId : 1;
+
+  if (currentUser) {
+    document.getElementById('ptb-user-name').textContent = currentUser.fullName;
+    document.getElementById('patient-name').textContent = currentUser.fullName;
+    document.getElementById('patient-avatar').textContent = currentUser.fullName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    if (currentUser.civilId) {
+      document.getElementById('patient-meta').textContent = `Civil ID: ${currentUser.civilId} · Blood: ${currentUser.bloodType || 'O+'} · Active Patient`;
+    }
   }
-});
 
-function bookAppt() { alert('✅ Appointment request submitted!\nYou will receive a confirmation notification.'); }
-setInterval(() => {
-  const c = document.getElementById('ptb-clock');
-  if (c) c.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
-}, 1000);
+  // Logout handler
+  document.getElementById('logout-btn').addEventListener('click', (e) => {
+    localStorage.removeItem('currentUser');
+  });
+
+  // ── Clock ──
+  function updateClock() {
+    const c = document.getElementById('ptb-clock');
+    if (c) c.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+  }
+  updateClock(); setInterval(updateClock, 1000);
+
+  // ── Tabs Navigation ──
+  const tabs = ['home', 'appointments', 'records', 'medications'];
+  let curTabIdx = 0;
+
+  window.switchPTab = function(name) {
+    curTabIdx = Math.max(0, tabs.indexOf(name));
+    document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    document.querySelectorAll('.ptab-panel').forEach(p => p.classList.toggle('active', p.id === 'ptab-' + name));
+  };
+  document.querySelectorAll('.ptab').forEach(t => t.addEventListener('click', () => switchPTab(t.dataset.tab)));
+
+  // Physical Leap Motion swipe to switch tabs
+  window.addEventListener('touchless-swipe', e => {
+    const dir = e.detail && e.detail.direction;
+    if (dir === 'left') {
+      curTabIdx = (curTabIdx + 1) % tabs.length;
+      switchPTab(tabs[curTabIdx]);
+    } else if (dir === 'right') {
+      curTabIdx = (curTabIdx - 1 + tabs.length) % tabs.length;
+      switchPTab(tabs[curTabIdx]);
+    }
+  });
+
+  // ── 1. Load Departments (for filter pills) ──
+  async function loadDepartments() {
+    try {
+      const res = await fetch('/api/departments');
+      const data = await res.json();
+      if (!data.success) return;
+
+      const container = document.getElementById('dept-pills-container');
+      data.departments.forEach(dept => {
+        const btn = document.createElement('button');
+        btn.className = 'dept-pill gesture-target';
+        btn.dataset.dept = dept.id;
+        btn.textContent = `${dept.icon} ${dept.name}`;
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.dept-pill').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          loadDoctors(dept.id, document.getElementById('doc-search-input').value);
+        });
+        container.appendChild(btn);
+      });
+
+      // "All Departments" listener
+      container.querySelector('.dept-pill[data-dept=""]').addEventListener('click', (e) => {
+        document.querySelectorAll('.dept-pill').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        loadDoctors('', document.getElementById('doc-search-input').value);
+      });
+
+    } catch (err) {
+      console.error('Error loading departments:', err);
+    }
+  }
+
+  // ── 2. Load & Search Doctors ──
+  async function loadDoctors(departmentId = '', search = '') {
+    const container = document.getElementById('doctors-grid-container');
+    container.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">Searching database…</div>';
+
+    let url = '/api/doctors?';
+    if (departmentId) url += `department_id=${encodeURIComponent(departmentId)}&`;
+    if (search) url += `search=${encodeURIComponent(search)}&`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.success || !data.doctors || data.doctors.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted);font-size:0.88rem;padding:1.5rem;">No physicians match your search criteria. Try a different specialty or keyword.</div>';
+        return;
+      }
+
+      container.innerHTML = '';
+      data.doctors.forEach(doc => {
+        const card = document.createElement('div');
+        card.className = 'doctor-card gesture-target';
+        card.dataset.docId = doc.id;
+        card.dataset.deptId = doc.department_id;
+        card.innerHTML = `
+          <div class="dc-top">
+            <div class="dc-avatar">${doc.avatar || '👨‍⚕️'}</div>
+            <div>
+              <div class="dc-name">${doc.full_name}</div>
+              <div class="dc-spec">${doc.specialization}</div>
+              <span class="dc-dept-badge">${doc.department_icon} ${doc.department_name} · ${doc.department_floor}</span>
+            </div>
+          </div>
+          <div class="dc-info">
+            📍 Room: <b>${doc.room_number}</b> · Available: <b>${doc.available_days}</b><br>
+            ⭐ Rating: <b>${doc.rating} / 5.0</b>
+          </div>
+          <div class="dc-bottom">
+            <div class="dc-fee">${doc.consultation_fee} KWD</div>
+            <button type="button" class="dc-select-btn gesture-target">Select & Book →</button>
+          </div>
+        `;
+
+        card.addEventListener('click', () => selectDoctor(doc));
+        container.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error('Error loading doctors:', err);
+      container.innerHTML = '<div style="color:#fca5a5;font-size:0.85rem;padding:1rem;">Failed to retrieve doctors from server.</div>';
+    }
+  }
+
+  // Doctor search input debounce
+  let searchTimer;
+  const searchInput = document.getElementById('doc-search-input');
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      const activePill = document.querySelector('.dept-pill.active');
+      const deptId = activePill ? activePill.dataset.dept : '';
+      loadDoctors(deptId, searchInput.value);
+    }, 280);
+  });
+
+  // ── 3. Select Doctor & Open Booking Form ──
+  function selectDoctor(doc) {
+    document.querySelectorAll('.doctor-card').forEach(c => c.classList.remove('selected'));
+    const selectedCard = document.querySelector(`.doctor-card[data-doc-id="${doc.id}"]`);
+    if (selectedCard) selectedCard.classList.add('selected');
+
+    document.getElementById('book-doctor-id').value = doc.id;
+    document.getElementById('book-dept-id').value = doc.department_id;
+    document.getElementById('bp-doc-name').textContent = `${doc.full_name} — ${doc.specialization} (${doc.department_name}, ${doc.room_number})`;
+
+    // Set default date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('book-date').value = tomorrow.toISOString().split('T')[0];
+    document.getElementById('book-date').min = new Date().toISOString().split('T')[0];
+
+    const panel = document.getElementById('booking-panel');
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.getElementById('bp-close-btn').addEventListener('click', () => {
+    document.getElementById('booking-panel').style.display = 'none';
+  });
+
+  // Time slot buttons
+  document.querySelectorAll('.time-slot-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('book-time').value = btn.dataset.time;
+    });
+  });
+
+  // ── 4. Submit Appointment Booking ──
+  document.getElementById('appointment-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const doctorId = parseInt(document.getElementById('book-doctor-id').value);
+    const departmentId = parseInt(document.getElementById('book-dept-id').value);
+    const appointmentDate = document.getElementById('book-date').value;
+    const appointmentTime = document.getElementById('book-time').value;
+    const reason = document.getElementById('book-reason').value.trim();
+    const notes = document.getElementById('book-notes').value.trim();
+
+    if (!doctorId || !appointmentDate || !appointmentTime || !reason) {
+      alert('Please select a doctor, appointment date, time, and provide a reason for the visit.');
+      return;
+    }
+
+    const submitBtn = document.getElementById('btn-submit-booking');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Booking in Database…';
+
+    try {
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patientId,
+          doctorId,
+          departmentId,
+          appointmentDate,
+          appointmentTime,
+          reason,
+          notes
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        alert(data.error || 'Failed to book appointment.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📅 Confirm & Book Appointment';
+        return;
+      }
+
+      // Success!
+      alert(`✅ Appointment Confirmed!\nYour appointment with the specialist on ${appointmentDate} at ${appointmentTime} has been saved to the database.`);
+      document.getElementById('booking-panel').style.display = 'none';
+      document.getElementById('book-reason').value = '';
+      document.getElementById('book-notes').value = '';
+      submitBtn.disabled = false;
+      submitBtn.textContent = '📅 Confirm & Book Appointment';
+
+      // Reload appointments list
+      loadAppointments();
+
+    } catch (err) {
+      console.error('Booking error:', err);
+      alert('Error communicating with the hospital database.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '📅 Confirm & Book Appointment';
+    }
+  });
+
+  // ── 5. Load Patient Appointments from Database ──
+  async function loadAppointments() {
+    const container = document.getElementById('appointments-list-container');
+    try {
+      const res = await fetch(`/api/appointments?patient_id=${patientId}`);
+      const data = await res.json();
+
+      if (!data.success || !data.appointments || data.appointments.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">No upcoming appointments found. Use the specialist list below to book a visit.</div>';
+        document.getElementById('qc-appt-val').textContent = 'None Scheduled';
+        return;
+      }
+
+      container.innerHTML = '';
+      const nextAppt = data.appointments[0];
+      document.getElementById('qc-appt-val').textContent = `${nextAppt.appointment_date} · ${nextAppt.appointment_time}`;
+      document.getElementById('qc-appt-sub').textContent = `${nextAppt.doctor_name} (${nextAppt.department_name})`;
+
+      data.appointments.forEach(a => {
+        const item = document.createElement('div');
+        item.className = 'apl-item upcoming';
+        item.innerHTML = `
+          <div class="apl-date">📅 ${a.appointment_date} · ⏰ ${a.appointment_time}</div>
+          <div class="apl-doc">${a.doctor_name} — <small style="color:var(--teal)">${a.doctor_specialization}</small></div>
+          <div class="apl-loc">📍 ${a.department_name} · ${a.room_number || 'Clinic'} (${a.department_floor})</div>
+          <div class="apl-reason">Reason: ${a.reason}</div>
+          <span class="apl-badge ${a.status}">${a.status}</span>
+        `;
+        container.appendChild(item);
+      });
+
+    } catch (err) {
+      console.error('Error loading appointments:', err);
+      container.innerHTML = '<div style="color:#fca5a5;font-size:0.85rem;padding:1rem;">Failed to retrieve appointments from database.</div>';
+    }
+  }
+
+  // ── 6. Load Prescriptions from Database ──
+  async function loadPrescriptions() {
+    const container = document.getElementById('prescriptions-container');
+    try {
+      const res = await fetch(`/api/prescriptions?patient_id=${patientId}`);
+      const data = await res.json();
+
+      if (!data.success || !data.prescriptions || data.prescriptions.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">No active prescriptions recorded in your profile.</div>';
+        document.getElementById('qc-meds-val').textContent = 'None';
+        return;
+      }
+
+      container.innerHTML = '';
+      document.getElementById('qc-meds-val').textContent = `${data.prescriptions.length} Active`;
+
+      data.prescriptions.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'med-card glass-card';
+        card.innerHTML = `
+          <div class="mc-icon">💊</div>
+          <div>
+            <div class="mc-name">${p.medication_name} — ${p.dosage}</div>
+            <div class="mc-dose">${p.frequency} · Duration: ${p.duration}</div>
+            <div class="mc-note">${p.instructions || 'Take as directed by your physician.'}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Prescribed by: <b>${p.doctor_name}</b> (${p.doctor_specialization})</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error('Error loading prescriptions:', err);
+    }
+  }
+
+  // ── 7. Load Vitals from Database ──
+  async function loadVitals() {
+    try {
+      const res = await fetch(`/api/vitals?patient_id=${patientId}`);
+      const data = await res.json();
+      if (!data.success || !data.vitals || data.vitals.length === 0) return;
+
+      const latest = data.vitals[0];
+      if (latest.heart_rate) document.getElementById('vital-hr').textContent = latest.heart_rate;
+      if (latest.blood_pressure) document.getElementById('vital-bp').textContent = latest.blood_pressure;
+      if (latest.spo2) document.getElementById('vital-spo2').textContent = latest.spo2 + '%';
+      if (latest.temperature) document.getElementById('vital-temp').textContent = latest.temperature + '°C';
+
+    } catch (err) {
+      console.error('Error loading vitals:', err);
+    }
+  }
+
+  // ── Initial Boot ──
+  loadDepartments();
+  loadDoctors();
+  loadAppointments();
+  loadPrescriptions();
+  loadVitals();
+
+})();
 </script>
 </body>
 </html>
