@@ -316,9 +316,29 @@ The **Patient Appointment Kiosk (`dashboard-patient.html`)** is ready for live h
 
 ---
 
-## 6. Zero-Dependency Deployment Instruction
+## 6. Zero-Dependency Deployment Instruction (Node.js & SQLite)
 
-To launch the entire system on any laptop without installing third-party npm packages:
+To launch the system using Node.js and embedded SQLite:
 1. Ensure Node.js (v22+) is installed.
 2. Double-click **`start-touchless-hms.bat`**.
 3. The server automatically launches on `http://localhost:3000` and opens the Patient Appointment Kiosk in the default browser.
+
+---
+
+## 7. PHP & MySQL Deployment Instruction (XAMPP & phpMyAdmin)
+
+If your academic supervisor explicitly requires a **PHP and MySQL (phpMyAdmin)** stack:
+1. **Start XAMPP:**
+   - Open **XAMPP Control Panel** (`C:\xampp2\xampp-control.exe`).
+   - Click **Start** on **Apache** and **MySQL**.
+2. **Import MySQL Database:**
+   - Open your browser to `http://localhost/phpmyadmin`.
+   - Click the **Import** tab.
+   - Choose the file: `database/touchless_hms_mysql.sql`.
+   - Click **Import** (or **Go**).
+   - This creates the `touchless_hms` database with all tables, constraints, foreign keys (`patient_id`, `doctor_id`, `department_id`), and Kuwait hospital seed data!
+3. **Launch PHP Server:**
+   - Double-click **`start-php-backend.bat`**.
+   - It automatically starts the PHP 8.4 REST API engine on `http://localhost:3000` connected to MySQL via PDO.
+   - All bookings, registrations, and logins save directly into MySQL and are visible in phpMyAdmin!
+
