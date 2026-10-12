@@ -74,9 +74,9 @@
     <div class="login-card glass-card">
 
       <!-- Auth Mode Switcher (Sign In vs Register) -->
-      <div class="auth-mode-switch" style="display:flex;gap:0.5rem;margin-bottom:1.5rem;background:rgba(255,255,255,0.04);padding:0.35rem;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
-        <button type="button" class="mode-btn active" id="btn-mode-login" style="flex:1;padding:0.6rem;border-radius:8px;border:none;background:var(--teal);color:#050c18;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">🔑 Sign In</button>
-        <button type="button" class="mode-btn" id="btn-mode-register" style="flex:1;padding:0.6rem;border-radius:8px;border:none;background:transparent;color:var(--text-secondary);font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">📝 Register (New Patient)</button>
+      <div class="auth-mode-switch" style="display:flex;gap:0.5rem;margin-bottom:1.25rem;background:rgba(255,255,255,0.04);padding:0.35rem;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+        <button type="button" class="mode-btn active" id="btn-mode-login" style="flex:1;padding:0.55rem;border-radius:8px;border:none;background:var(--teal);color:#050c18;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">🔑 Sign In</button>
+        <button type="button" class="mode-btn" id="btn-mode-register" style="flex:1;padding:0.55rem;border-radius:8px;border:none;background:transparent;color:var(--text-secondary);font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s;">➕ Register (Patient)</button>
       </div>
 
       <!-- Card Header -->
@@ -200,14 +200,16 @@
           <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters" required />
         </div>
 
-        <div class="form-group">
-          <label class="form-label"><span>🪪</span> Civil ID Number</label>
-          <input type="text" id="reg-civilid" class="form-input" placeholder="e.g. 296051201948" />
-        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label"><span>🪪</span> Civil ID Number</label>
+            <input type="text" id="reg-civilid" class="form-input" placeholder="e.g. 296051201948" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-label"><span>📱</span> Phone Number</label>
-          <input type="tel" id="reg-phone" class="form-input" placeholder="e.g. +965 99112233" />
+          <div class="form-group">
+            <label class="form-label"><span>📱</span> Phone Number</label>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="e.g. +965 99112233" />
+          </div>
         </div>
 
         <div class="form-group">

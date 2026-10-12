@@ -112,6 +112,11 @@
     currentRole = role;
     const cfg = ROLES[role];
 
+    // Clinical staff (Doctor/Nurse) must Sign In; switch out of patient registration
+    if (role !== 'patient' && isRegisterMode) {
+      setAuthMode(false);
+    }
+
     if (!isRegisterMode) {
       roleIcon.textContent     = cfg.icon;
       roleTitle.textContent    = cfg.title;

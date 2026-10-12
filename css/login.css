@@ -38,11 +38,9 @@
 
 /* ── Body override ── */
 .login-body {
-  overflow: hidden; /* no scroll on login page */
+  overflow-y: auto;
+  min-height: 100vh;
   display: flex; align-items: stretch; justify-content: stretch;
-}
-@media (max-width: 900px) {
-  .login-body { overflow-y: auto; }
 }
 
 /* ── Outer Wrapper ── */
@@ -130,15 +128,17 @@
 ══════════════════════════════════════ */
 .login-main {
   flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2.5rem 2rem; overflow-y: auto;
+  align-items: center; justify-content: flex-start;
+  padding: 1.75rem 1.5rem; overflow-y: auto;
+  min-height: 100vh;
   background: var(--bg-primary);
 }
 
 /* Login Card */
 .login-card {
-  width: 100%; max-width: 460px;
-  padding: 2.5rem; border-radius: var(--radius-xl) !important;
+  width: 100%; max-width: 470px;
+  margin: auto 0;
+  padding: 1.75rem 2rem; border-radius: var(--radius-xl) !important;
   background: rgba(255,255,255,0.04) !important;
   border: 1px solid rgba(255,255,255,0.1) !important;
   backdrop-filter: blur(24px);
@@ -153,17 +153,17 @@
 
 /* Card Header */
 .login-card-header {
-  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem;
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;
 }
 .lch-icon {
-  width: 52px; height: 52px; border-radius: var(--radius-md); font-size: 1.5rem;
+  width: 48px; height: 48px; border-radius: var(--radius-md); font-size: 1.4rem;
   background: linear-gradient(135deg, rgba(0,212,170,0.2), rgba(59,130,246,0.2));
   border: 1px solid rgba(0,212,170,0.3);
   display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
 }
 .login-card-header h2 {
-  font-size: 1.35rem; margin-bottom: 0.15rem;
+  font-size: 1.3rem; margin-bottom: 0.15rem;
   font-family: var(--font-display); font-weight: 700;
 }
 .login-card-header p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
@@ -172,7 +172,7 @@
 .role-tabs {
   display: flex; gap: 0.35rem; background: rgba(255,255,255,0.04);
   border: 1px solid var(--border-glass); border-radius: var(--radius-md);
-  padding: 0.25rem; margin-bottom: 1.75rem; overflow-x: auto;
+  padding: 0.25rem; margin-bottom: 1.25rem; overflow-x: auto;
 }
 .role-tab {
   flex: 1; min-width: 68px; padding: 0.45rem 0.5rem;
@@ -187,9 +187,19 @@
 .role-tab:hover:not(.active) { background: rgba(255,255,255,0.07); color: var(--text-primary); }
 
 /* ── Form Groups ── */
-.login-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.login-form { display: flex; flex-direction: column; gap: 1.1rem; }
+#register-form { gap: 0.75rem; }
 
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+@media (max-width: 480px) {
+  .form-row-2 { grid-template-columns: 1fr; }
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
 
 .form-label {
   font-size: 0.78rem; font-weight: 600; color: var(--text-secondary);
