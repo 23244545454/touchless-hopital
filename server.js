@@ -64,7 +64,10 @@ function parseBody(req) {
 // ---------------------------------------------------------------------
 async function handleApiRequest(req, res, parsedUrl) {
   const method = req.method.toUpperCase();
-  const pathname = parsedUrl.pathname;
+  let pathname = parsedUrl.pathname;
+  if (pathname.endsWith('.php')) {
+    pathname = pathname.slice(0, -4);
+  }
   const query = parsedUrl.query;
 
   // Handle CORS preflight
@@ -79,10 +82,18 @@ async function handleApiRequest(req, res, parsedUrl) {
 
   try {
     // -----------------------------------------------------------------
-    // AUTH: REGISTER
-    // POST /api/auth/register
+    // AUTH: HEALTH CHECK
+    // GET /api/auth or GET /api/auth.php
     // -----------------------------------------------------------------
-    if (pathname === '/api/auth/register' && method === 'POST') {
+    if (pathname === '/api/auth' && method === 'GET') {
+      return sendJson(res, 200, { success: true, message: 'Node.js Touchless HMS Auth API Online' });
+    }
+
+    // -----------------------------------------------------------------
+    // AUTH: REGISTER
+    // POST /api/auth/register or POST /api/auth.php?action=register
+    // -----------------------------------------------------------------
+    if ((pathname === '/api/auth/register' || (pathname === '/api/auth' && query.action === 'register')) && method === 'POST') {
       const data = await parseBody(req);
       const { fullName, email, password, phone, civilId, dob, gender, bloodType, emergencyContact } = data;
 
@@ -121,9 +132,9 @@ async function handleApiRequest(req, res, parsedUrl) {
 
     // -----------------------------------------------------------------
     // AUTH: LOGIN
-    // POST /api/auth/login
+    // POST /api/auth/login or POST /api/auth.php?action=login
     // -----------------------------------------------------------------
-    if (pathname === '/api/auth/login' && method === 'POST') {
+    if ((pathname === '/api/auth/login' || (pathname === '/api/auth' && (query.action === 'login' || !query.action))) && method === 'POST') {
       const data = await parseBody(req);
       const { email, password } = data;
 
@@ -217,8 +228,8 @@ async function handleApiRequest(req, res, parsedUrl) {
     // GET /api/doctors/:id
     // -----------------------------------------------------------------
     const docMatch = pathname.match(/^\/api\/doctors\/(\d+)$/);
-    if (docMatch && method === 'GET') {
-      const docId = parseInt(docMatch[1]);
+    if ((docMatch || (pathname === '/api/doctors' && query.id)) && method === 'GET') {
+      const docId = parseInt(query.id || (docMatch ? docMatch[1] : 0));
       const doctor = db.get(`
         SELECT doc.id, doc.user_id, doc.department_id, doc.specialization, doc.room_number,
                doc.bio, doc.available_days, doc.consultation_fee, doc.rating,

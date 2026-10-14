@@ -5,13 +5,28 @@
 
 require_once __DIR__ . '/db.php';
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+
+// ---------------------------------------------------------------------
+// 0. HEALTH CHECK (GET)
+// ---------------------------------------------------------------------
+if ($method === 'GET') {
+    sendResponse(200, [
+        'success'   => true,
+        'backend'   => 'PHP ' . PHP_VERSION . " ($dbType)",
+        'status'    => 'Authentication service online',
+        'endpoints' => [
+            'login'    => 'POST api/auth.php?action=login (or /api/auth/login)',
+            'register' => 'POST api/auth.php?action=register (or /api/auth/register)'
+        ]
+    ]);
+}
 
 // ---------------------------------------------------------------------
 // 1. REGISTER NEW PATIENT
 // ---------------------------------------------------------------------
-if ($method === 'POST' && ($action === 'register' || strpos($_SERVER['REQUEST_URI'], 'register') !== false)) {
+if ($method === 'POST' && ($action === 'register' || strpos($_SERVER['REQUEST_URI'] ?? '', 'register') !== false)) {
     $data = getJsonBody();
     $fullName = trim($data['fullName'] ?? '');
     $email    = strtolower(trim($data['email'] ?? ''));

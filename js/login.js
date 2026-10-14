@@ -194,7 +194,8 @@
       setLoginLoading(true);
 
       try {
-        const response = await fetch('/api/auth/login', {
+        const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+        const response = await fetcher('api/auth.php?action=login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
@@ -260,7 +261,8 @@
       if (regBtnText) regBtnText.textContent = 'Creating Account…';
 
       try {
-        const response = await fetch('/api/auth/register', {
+        const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+        const response = await fetcher('api/auth.php?action=register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fullName, email, password, civilId, phone, bloodType })

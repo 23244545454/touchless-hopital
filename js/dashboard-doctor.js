@@ -169,7 +169,8 @@
     if (!tl) return;
     const docId = loggedUser?.doctorId || 1;
     try {
-      const res = await fetch(`/api/appointments?doctor_id=${docId}`);
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher(`api/appointments.php?doctor_id=${docId}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.appointments) && data.appointments.length > 0) {
@@ -482,7 +483,8 @@
       const patientIdNum = parseInt(String(patIdVal).replace('P-', '')) || 1;
 
       try {
-        await fetch('/api/prescriptions', {
+        const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+        await fetcher('api/prescriptions.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -514,7 +516,8 @@
 
   async function fetchLivePatients() {
     try {
-      const res = await fetch('/api/patients');
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher('api/patients.php');
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.patients) && data.patients.length > 0) {

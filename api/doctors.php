@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 $deptId = isset($_GET['department_id']) ? (int)$_GET['department_id'] : 0;
+$docId  = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 $sql = '
@@ -23,6 +24,11 @@ $sql = '
     WHERE 1=1
 ';
 $params = [];
+
+if ($docId > 0) {
+    $sql .= ' AND doc.id = ?';
+    $params[] = $docId;
+}
 
 if ($deptId > 0) {
     $sql .= ' AND doc.department_id = ?';
@@ -42,6 +48,17 @@ $sql .= ' ORDER BY doc.id ASC';
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $doctors = $stmt->fetchAll();
+
+if ($docId > 0) {
+    if (empty($doctors)) {
+        sendResponse(404, ['error' => 'Doctor not found']);
+    }
+    sendResponse(200, [
+        'success' => true,
+        'backend' => 'PHP ' . PHP_VERSION,
+        'doctor'  => $doctors[0]
+    ]);
+}
 
 sendResponse(200, [
     'success' => true,

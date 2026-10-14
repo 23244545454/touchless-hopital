@@ -19,6 +19,9 @@ if ($uri === '/api/departments') {
 }
 
 if ($uri === '/api/doctors' || strpos($uri, '/api/doctors/') === 0) {
+    if (preg_match('#^/api/doctors/(\d+)$#', $uri, $m)) {
+        $_GET['id'] = $m[1];
+    }
     require __DIR__ . '/api/doctors.php';
     exit;
 }

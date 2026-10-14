@@ -237,7 +237,8 @@
   </div><!-- end portal-content -->
 </div><!-- end portal-layout -->
 
-<!-- Touchless Leap Motion Controller Engine -->
+<!-- Universal API Engine & Touchless Leap Motion Controller -->
+<script src="js/api.js"></script>
 <script src="js/leap-gesture.js"></script>
 
 <!-- Patient Dashboard Logic (Database API Connected) -->
@@ -302,7 +303,8 @@
   // ── 1. Load Departments (for filter pills) ──
   async function loadDepartments() {
     try {
-      const res = await fetch('/api/departments');
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher('api/departments.php');
       const data = await res.json();
       if (!data.success) return;
 
@@ -337,12 +339,13 @@
     const container = document.getElementById('doctors-grid-container');
     container.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:1rem;">Searching database…</div>';
 
-    let url = '/api/doctors?';
+    let url = 'api/doctors.php?';
     if (departmentId) url += `department_id=${encodeURIComponent(departmentId)}&`;
     if (search) url += `search=${encodeURIComponent(search)}&`;
 
     try {
-      const res = await fetch(url);
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher(url);
       const data = await res.json();
 
       if (!data.success || !data.doctors || data.doctors.length === 0) {
@@ -452,7 +455,8 @@
     submitBtn.textContent = 'Booking in Database…';
 
     try {
-      const res = await fetch('/api/appointments', {
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher('api/appointments.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -498,7 +502,8 @@
   async function loadAppointments() {
     const container = document.getElementById('appointments-list-container');
     try {
-      const res = await fetch(`/api/appointments?patient_id=${patientId}`);
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher(`api/appointments.php?patient_id=${patientId}`);
       const data = await res.json();
 
       if (!data.success || !data.appointments || data.appointments.length === 0) {
@@ -535,7 +540,8 @@
   async function loadPrescriptions() {
     const container = document.getElementById('prescriptions-container');
     try {
-      const res = await fetch(`/api/prescriptions?patient_id=${patientId}`);
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher(`api/prescriptions.php?patient_id=${patientId}`);
       const data = await res.json();
 
       if (!data.success || !data.prescriptions || data.prescriptions.length === 0) {
@@ -570,7 +576,8 @@
   // ── 7. Load Vitals from Database ──
   async function loadVitals() {
     try {
-      const res = await fetch(`/api/vitals?patient_id=${patientId}`);
+      const fetcher = (window.HMS_API && window.HMS_API.fetch) ? window.HMS_API.fetch : fetch;
+      const res = await fetcher(`api/vitals.php?patient_id=${patientId}`);
       const data = await res.json();
       if (!data.success || !data.vitals || data.vitals.length === 0) return;
 

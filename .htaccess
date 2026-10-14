@@ -1,0 +1,43 @@
+# =====================================================================
+# Touchless HMS — Apache URL Rewriter & Routing Configuration
+# Compatible with XAMPP, WampServer, LAMP, and Apache 2.4+
+# =====================================================================
+
+<IfModule mod_negotiation.c>
+    # Enable MultiViews so /api/doctors resolves to /api/doctors.php even without mod_rewrite
+    Options +MultiViews +FollowSymLinks
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent rewriting if file or directory physically exists
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # --- API Authentication Routes ---
+    RewriteRule ^api/auth/login/?$ api/auth.php?action=login [QSA,L]
+    RewriteRule ^api/auth/register/?$ api/auth.php?action=register [QSA,L]
+    RewriteRule ^api/auth/(.*)$ api/auth.php?action=$1 [QSA,L]
+
+    # --- Parameterized Resource Routes ---
+    RewriteRule ^api/appointments/([0-9]+)/?$ api/appointments.php?id=$1 [QSA,L]
+    RewriteRule ^api/doctors/([0-9]+)/?$ api/doctors.php?id=$1 [QSA,L]
+
+    # --- General REST API to PHP Script Mapping ---
+    # e.g., /api/doctors -> api/doctors.php, /api/departments -> api/departments.php
+    RewriteCond %{DOCUMENT_ROOT}/api/$1.php -f [OR]
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^api/([a-zA-Z0-9_-]+)/?$ api/$1.php [QSA,L]
+
+    # Fallback for relative subdirectory Apache installations
+    RewriteRule ^api/([a-zA-Z0-9_-]+)/?$ api/$1.php [QSA,L]
+</IfModule>
+
+# Ensure CORS headers on all Apache responses
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>

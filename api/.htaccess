@@ -1,0 +1,31 @@
+# =====================================================================
+# Touchless HMS — API Subdirectory Apache Configuration
+# =====================================================================
+
+<IfModule mod_negotiation.c>
+    Options +MultiViews +FollowSymLinks
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent loop if actual file exists
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Subdirectory-relative rewrite rules:
+    # When request reaches /api/auth/login:
+    RewriteRule ^auth/login/?$ auth.php?action=login [QSA,L]
+    RewriteRule ^auth/register/?$ auth.php?action=register [QSA,L]
+    RewriteRule ^auth/(.*)$ auth.php?action=$1 [QSA,L]
+
+    RewriteRule ^appointments/([0-9]+)/?$ appointments.php?id=$1 [QSA,L]
+    RewriteRule ^doctors/([0-9]+)/?$ doctors.php?id=$1 [QSA,L]
+
+    # Map /api/<name> to /api/<name>.php
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.php [QSA,L]
+
+    RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.php [QSA,L]
+</IfModule>
