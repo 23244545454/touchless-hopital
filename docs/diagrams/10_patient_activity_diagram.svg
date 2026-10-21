@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 800" width="920" height="800">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="920" height="800" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="920" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.10: UML Activity Diagram — Hands-Free Patient Kiosk Workflow</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+    <circle cx="460" cy="85" r="14" fill="#0f172a"/>
+    <line x1="460" y1="99" x2="460" y2="120" stroke="#0f172a" stroke-width="1.6" marker-end="url(#arrow-dark)"/>
+  
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="120" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="146" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Patient Approaches Kiosk</tspan><tspan x="460" dy="13">& Displays Hands</tspan></text>
+      </g>
+    
+      <g transform="translate(460, 205)">
+        <polygon points="0,-22 36,0 0,22 -36,0" fill="#f8fafc" stroke="#0284c7" stroke-width="1.6"/>
+        <text x="0" y="32" font-size="9.5" font-weight="600" fill="#0369a1" text-anchor="middle">Hand in Range?</text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="260" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="286" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Browse Department Pills</tspan><tspan x="460" dy="13">via Virtual Hand Cursor</tspan></text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="335" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="361" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Dwell Over Dept (1.2s)</tspan><tspan x="460" dy="13">SVG Radial Fill Animates</tspan></text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="410" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="436" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Async Fetch Doctors</tspan><tspan x="460" dy="13">from api/doctors.php</tspan></text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="485" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="511" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Air-Tap Doctor Card</tspan><tspan x="460" dy="13">&amp; Select Consultation</tspan></text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="560" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="586" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Select Date &amp; Time Slot</tspan><tspan x="460" dy="13">in Booking Panel</tspan></text>
+      </g>
+    
+      <g transform="translate(460, 645)">
+        <polygon points="0,-22 36,0 0,22 -36,0" fill="#f8fafc" stroke="#0284c7" stroke-width="1.6"/>
+        <text x="0" y="32" font-size="9.5" font-weight="600" fill="#0369a1" text-anchor="middle">Validation Pass?</text>
+      </g>
+    
+      <g filter="url(#soft-shadow)">
+        <rect x="360" y="695" width="200" height="44" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+        <text x="460" y="721" font-size="11" font-weight="600" fill="#0f766e" text-anchor="middle"><tspan x="460" dy="-6">Commit Appointment</tspan><tspan x="460" dy="13">to Database &amp; Play Chime</tspan></text>
+      </g>
+    
+    <line x1="460" y1="739" x2="460" y2="765" stroke="#10b981" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <g transform="translate(460, 778)">
+      <circle cx="0" cy="0" r="13" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+      <circle cx="0" cy="0" r="7" fill="#10b981"/>
+    </g>
+  
+    <line x1="460" y1="164" x2="460" y2="183" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="460" y1="227" x2="460" y2="260" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="470" y="248" font-size="9" fill="#0d9488">[Yes]</text>
+
+    <!-- No hand loops back -->
+    <path d="M 424 205 C 320 205, 320 142, 360 142" fill="none" stroke="#ef4444" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="330" y="195" font-size="9" fill="#dc2626">[No]</text>
+
+    <line x1="460" y1="304" x2="460" y2="335" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="460" y1="379" x2="460" y2="410" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="460" y1="454" x2="460" y2="485" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="460" y1="529" x2="460" y2="560" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="460" y1="604" x2="460" y2="623" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <line x1="460" y1="667" x2="460" y2="695" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="470" y="683" font-size="9" fill="#0d9488">[Yes]</text>
+
+    <!-- Fail loops back to form -->
+    <path d="M 424 645 C 300 645, 300 582, 360 582" fill="none" stroke="#ef4444" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="310" y="635" font-size="9" fill="#dc2626">[Invalid / Conflict]</text>
+  </svg>

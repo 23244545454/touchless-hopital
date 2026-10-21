@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 720" width="1040" height="720">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="1040" height="720" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="1040" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.3: Level-1 Functional Data Flow Diagram (DFD)</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+      <g transform="translate(140, 150)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">1.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Gesture Acquisition</tspan><tspan x="0" dy="13">& Interpretation</tspan></text>
+      </g>
+    
+      <g transform="translate(440, 150)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">2.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Identity Auth &</tspan><tspan x="0" dy="13">RBAC Controller</tspan></text>
+      </g>
+    
+      <g transform="translate(740, 150)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">3.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Specialist Directory</tspan><tspan x="0" dy="13">& Search Filter</tspan></text>
+      </g>
+    
+      <g transform="translate(740, 420)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">4.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Hands-Free Appointment</tspan><tspan x="0" dy="13">Booking Engine</tspan></text>
+      </g>
+    
+      <g transform="translate(440, 420)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">5.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Physician Clinical</tspan><tspan x="0" dy="13">Encounter Desk</tspan></text>
+      </g>
+    
+      <g transform="translate(140, 420)" filter="url(#card-shadow)">
+        <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+        <line x1="-54" y1="-20" x2="54" y2="-20" stroke="#0d9488" stroke-width="1"/>
+        <text x="0" y="-30" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">6.0</text>
+        <text x="0" y="5" font-size="10.5" font-weight="600" fill="#0f172a" text-anchor="middle"><tspan x="0" dy="-6">Nurse Ward Telemetry</tspan><tspan x="0" dy="13">& Alarm Monitor</tspan></text>
+      </g>
+    
+      <g transform="translate(250, 270)" filter="url(#soft-shadow)">
+        <path d="M 170 0 L 0 0 L 0 44 L 170 44" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+        <line x1="42" y1="0" x2="42" y2="44" stroke="#475569" stroke-width="1.2"/>
+        <text x="21" y="27" font-size="11" font-weight="700" fill="#0d9488" text-anchor="middle">D1</text>
+        <text x="105" y="27" font-size="11" font-weight="600" fill="#1e293b" text-anchor="middle">Users & RBAC Store</text>
+      </g>
+    
+      <g transform="translate(550, 270)" filter="url(#soft-shadow)">
+        <path d="M 170 0 L 0 0 L 0 44 L 170 44" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+        <line x1="42" y1="0" x2="42" y2="44" stroke="#475569" stroke-width="1.2"/>
+        <text x="21" y="27" font-size="11" font-weight="700" fill="#0d9488" text-anchor="middle">D2</text>
+        <text x="105" y="27" font-size="11" font-weight="600" fill="#1e293b" text-anchor="middle">Departments & Doctors</text>
+      </g>
+    
+      <g transform="translate(840, 270)" filter="url(#soft-shadow)">
+        <path d="M 170 0 L 0 0 L 0 44 L 170 44" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+        <line x1="42" y1="0" x2="42" y2="44" stroke="#475569" stroke-width="1.2"/>
+        <text x="21" y="27" font-size="11" font-weight="700" fill="#0d9488" text-anchor="middle">D3</text>
+        <text x="105" y="27" font-size="11" font-weight="600" fill="#1e293b" text-anchor="middle">Appointments DB</text>
+      </g>
+    
+      <g transform="translate(250, 560)" filter="url(#soft-shadow)">
+        <path d="M 170 0 L 0 0 L 0 44 L 170 44" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+        <line x1="42" y1="0" x2="42" y2="44" stroke="#475569" stroke-width="1.2"/>
+        <text x="21" y="27" font-size="11" font-weight="700" fill="#0d9488" text-anchor="middle">D4</text>
+        <text x="105" y="27" font-size="11" font-weight="600" fill="#1e293b" text-anchor="middle">Patient Vitals Log</text>
+      </g>
+    
+      <g transform="translate(550, 560)" filter="url(#soft-shadow)">
+        <path d="M 170 0 L 0 0 L 0 44 L 170 44" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+        <line x1="42" y1="0" x2="42" y2="44" stroke="#475569" stroke-width="1.2"/>
+        <text x="21" y="27" font-size="11" font-weight="700" fill="#0d9488" text-anchor="middle">D5</text>
+        <text x="105" y="27" font-size="11" font-weight="600" fill="#1e293b" text-anchor="middle">E-Prescriptions Store</text>
+      </g>
+    
+    <!-- Sensor to P1.0 -->
+    <path d="M 50 150 L 86 150" fill="none" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
+    <text x="18" y="140" class="flow-label" fill="#7c3aed">Bone Stream</text>
+
+    <!-- P1.0 to P2.0 -->
+    <path d="M 194 150 L 386 150" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="235" y="140" class="flow-label">Validated Gestures</text>
+
+    <!-- P2.0 to D1 -->
+    <path d="M 390 180 C 350 210, 340 230, 335 270" fill="none" stroke="#0d9488" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="310" y="230" class="flow-label">Verify Hash</text>
+
+    <!-- P2.0 to P3.0 -->
+    <path d="M 494 150 L 686 150" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="545" y="140" class="flow-label">User Session Token</text>
+
+    <!-- P3.0 to D2 -->
+    <path d="M 700 185 C 670 215, 650 230, 635 270" fill="none" stroke="#0d9488" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="610" y="230" class="flow-label">Query Depts</text>
+
+    <!-- P3.0 to P4.0 -->
+    <path d="M 740 204 L 740 366" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="748" y="290" class="flow-label">Selected Doctor Card</text>
+
+    <!-- P4.0 to D3 -->
+    <path d="M 794 420 C 850 420, 880 370, 890 314" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="830" y="445" class="flow-label">INSERT Appointment</text>
+
+    <!-- D3 to P5.0 -->
+    <path d="M 840 290 C 700 300, 560 360, 494 400" fill="none" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arrow-blue)"/>
+    <text x="640" y="340" class="flow-label" fill="#0369a1">Schedule Roster</text>
+
+    <!-- P5.0 to D5 -->
+    <path d="M 470 474 C 490 510, 520 540, 550 570" fill="none" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="515" y="525" class="flow-label">Issue Rx</text>
+
+    <!-- D4 to P5.0 -->
+    <path d="M 380 560 C 400 520, 420 490, 430 474" fill="none" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arrow-blue)"/>
+    <text x="350" y="515" class="flow-label" fill="#0369a1">Patient Vitals</text>
+
+    <!-- P1.0 to P6.0 -->
+    <path d="M 140 204 L 140 366" fill="none" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="148" y="290" class="flow-label">Wave Dismissal</text>
+
+    <!-- D4 to P6.0 -->
+    <path d="M 250 580 C 190 580, 160 520, 145 474" fill="none" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arrow-blue)"/>
+    <text x="160" y="550" class="flow-label" fill="#0369a1">Alarm Stream</text>
+  </svg>

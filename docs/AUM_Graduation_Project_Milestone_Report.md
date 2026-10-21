@@ -85,40 +85,10 @@ The functional scope encompasses four interconnected process domains:
 
 ### 1.1.2 Use Case Modeling & Actor Descriptions
 
-```mermaid
-graph TD
-    subgraph System Boundary: Touchless HMS
-        UC1([Authenticate / Biometric Login])
-        UC2([Filter Doctors by Department])
-        UC3([Search Specialist Roster])
-        UC4([Book Clinical Appointment])
-        UC5([View Personal Health Summary])
-        UC6([Manage Assigned Patient Queue])
-        UC7([Issue E-Prescription])
-        UC8([Update Clinical Encounter Status])
-        UC9([Monitor Ward Telemetry Vitals])
-        UC10([Touchless Alarm Acknowledgment])
-        UC11([Maintain Department & System Data])
-    end
 
-    ActorPatient((🧑 Patient)) --> UC1
-    ActorPatient --> UC2
-    ActorPatient --> UC3
-    ActorPatient --> UC4
-    ActorPatient --> UC5
+![Figure 1.1: UML Use Case Diagram — System Scope & Actors](diagrams/01_use_case_diagram.svg)
+*Figure 1.1: UML Use Case Diagram — System Scope & Actors*
 
-    ActorDoctor((👨‍⚕️ Doctor)) --> UC1
-    ActorDoctor --> UC6
-    ActorDoctor --> UC7
-    ActorDoctor --> UC8
-
-    ActorNurse((💉 Nurse)) --> UC1
-    ActorNurse --> UC9
-    ActorNurse --> UC10
-
-    ActorAdmin((⚙️ Administrator)) --> UC11
-    ActorAdmin --> UC1
-```
 
 #### Detailed Use Case Specifications
 
@@ -155,40 +125,15 @@ The data flow modeling details how data traverses physical boundaries, processin
 
 #### Level-0 Context Data Flow Diagram
 
-```mermaid
-flowchart LR
-    P[🧑 Patient / Outpatient] -->|Hand Gestures, Civil ID, Booking Data| HMS((Touchless HMS Engine))
-    D[👨‍⚕️ Doctor / Specialist] -->|Encounter Notes, E-Prescriptions| HMS
-    N[💉 Nurse / Ward Staff] -->|Vital Inputs, Alarm Gestures| HMS
+![Figure 1.2: Level-0 Context Data Flow Diagram (DFD)](diagrams/02_dfd_level0.svg)
+*Figure 1.2: Level-0 Context Data Flow Diagram (DFD)*
 
-    HMS -->|Doctor Schedules, Appointment Confirmations| P
-    HMS -->|Patient History, Vitals Telemetry| D
-    HMS -->|Ward Alerts, Telemetry Visuals| N
-
-    HMS <-->|SQL Queries / Result Sets| DB[(Relational Database)]
-    Sensor[📡 Leap Motion / Optical Sensor] -->|Frame Skeletal Data| HMS
-```
 
 #### Level-1 Functional Data Flow Diagram
 
-```mermaid
-flowchart TD
-    Sensor[📡 Leap Motion LM-010] -->|Raw Bone Vectors| P0[Process 0: Gesture Interpreter]
-    P0 -->|Normalized Dwell / Push / Swipe| P1[Process 1: Access Control & RBAC]
-    P0 -->|Navigation Commands| P2[Process 2: Specialist Directory & Search]
-    P0 -->|Selection Gestures| P3[Process 3: Appointment Scheduling Engine]
+![Figure 1.3: Level-1 Functional Data Flow Diagram (DFD)](diagrams/03_dfd_level1.svg)
+*Figure 1.3: Level-1 Functional Data Flow Diagram (DFD)*
 
-    P1 <-->|User Auth Query| D1[(Store: Users & Profiles)]
-    P2 <-->|Dept & Doctor Catalog| D2[(Store: Departments & Doctors)]
-    P3 -->|New Appointment Insert| D3[(Store: Appointments)]
-
-    D3 -->|Schedule List| P4[Process 4: Clinical Encounter Management]
-    P4 -->|Prescription Orders| D4[(Store: Prescriptions)]
-    P4 <-->|Vitals Retrieval| D5[(Store: Patient Vitals)]
-
-    P5[Process 5: Nurse Telemetry Monitor] <-->|Real-time Vitals & Alarms| D5
-    P0 -->|Touchless Alarm Dismissal| P5
-```
 
 ---
 
@@ -200,63 +145,10 @@ Structural modeling captures the static architectural organization of Touchless 
 
 Touchless HMS is organized into a clean **3-Tier Service-Oriented Architecture (SOA)** ensuring high separation of concerns, robust security boundaries, and modular maintainability:
 
-```mermaid
-graph TB
-    subgraph Presentation Tier: Contactless Frontend Kiosk & Portals
-        UI_Kiosk[Patient Kiosk Interface<br/>dashboard-patient.html]
-        UI_Doc[Doctor Clinical Dashboard<br/>dashboard-doctor.html]
-        UI_Nurse[Nurse Ward Telemetry<br/>dashboard-nurse.html]
-        UI_Auth[Authentication & Registration<br/>login.html]
-        SDK_Gesture[Touchless Gesture Engine<br/>js/leap-gesture.js + js/api.js]
-    end
 
-    subgraph Application Tier: High-Performance RESTful Engine
-        API_Router[Universal Routing & Rewrite Engine<br/>.htaccess / router.php]
-        API_Auth[Auth Controller<br/>api/auth.php]
-        API_Doc[Doctor Directory Controller<br/>api/doctors.php]
-        API_Appt[Appointment Engine<br/>api/appointments.php]
-        API_Rx[Prescription Controller<br/>api/prescriptions.php]
-        API_Vit[Vitals Telemetry Controller<br/>api/vitals.php]
-    end
+![Figure 1.4: Multi-Tier System Architecture & Component Diagram](diagrams/04_system_architecture.svg)
+*Figure 1.4: Multi-Tier System Architecture & Component Diagram*
 
-    subgraph Persistence Tier: Dual-Engine Relational Storage
-        DB_Connector[Database Connection Engine<br/>api/db.php]
-        DB_MySQL[(MySQL / MariaDB Engine<br/>Production Server)]
-        DB_SQLite[(SQLite Embedded Database<br/>Offline Kiosk Fallback)]
-    end
-
-    subgraph Hardware & Sensor Layer
-        HW_LM[Leap Motion Controller LM-010]
-        HW_WS[WebSocket Stream ws://127.0.0.1:6437]
-        HW_Cam[Webcam Fallback via MediaPipe Hands]
-    end
-
-    HW_LM --> HW_WS --> SDK_Gesture
-    HW_Cam --> SDK_Gesture
-    SDK_Gesture --> UI_Kiosk
-    SDK_Gesture --> UI_Doc
-    SDK_Gesture --> UI_Nurse
-
-    UI_Kiosk -->|JSON over HTTP / Fetch| API_Router
-    UI_Doc -->|JSON over HTTP / Fetch| API_Router
-    UI_Nurse -->|JSON over HTTP / Fetch| API_Router
-    UI_Auth -->|JSON over HTTP / Fetch| API_Router
-
-    API_Router --> API_Auth
-    API_Router --> API_Doc
-    API_Router --> API_Appt
-    API_Router --> API_Rx
-    API_Router --> API_Vit
-
-    API_Auth --> DB_Connector
-    API_Doc --> DB_Connector
-    API_Appt --> DB_Connector
-    API_Rx --> DB_Connector
-    API_Vit --> DB_Connector
-
-    DB_Connector -->|PDO Driver| DB_MySQL
-    DB_Connector -.->|Graceful Fallback| DB_SQLite
-```
 
 ---
 
@@ -264,113 +156,10 @@ graph TB
 
 The class structure defines the data attributes, operations, and relational multiplicity enforced throughout the application and persistence tiers:
 
-```mermaid
-classDiagram
-    class User {
-        +int id
-        +string full_name
-        +string email
-        +string password_hash
-        +string role
-        +string phone
-        +string avatar
-        +datetime created_at
-        +login(email, password) bool
-        +register(userData) User
-        +verifyPassword(plain) bool
-    }
 
-    class Department {
-        +int id
-        +string name
-        +string floor
-        +string description
-        +string icon
-        +datetime created_at
-        +getDoctorsCount() int
-        +listAll() List~Department~
-    }
+![Figure 1.5: Detailed UML Class Diagram — Attributes, Methods & Relationships](diagrams/05_class_diagram.svg)
+*Figure 1.5: Detailed UML Class Diagram — Attributes, Methods & Relationships*
 
-    class Doctor {
-        +int id
-        +int user_id
-        +int department_id
-        +string specialization
-        +string room_number
-        +string bio
-        +string available_days
-        +decimal consultation_fee
-        +float rating
-        +getUpcomingAppointments() List~Appointment~
-        +issuePrescription(data) Prescription
-    }
-
-    class Patient {
-        +int id
-        +int user_id
-        +string civil_id
-        +date date_of_birth
-        +string gender
-        +string blood_type
-        +string emergency_contact
-        +string medical_history
-        +bookAppointment(doctor_id, date, time, reason) Appointment
-        +getPrescriptions() List~Prescription~
-        +getLatestVitals() Vitals
-    }
-
-    class Appointment {
-        +int id
-        +int patient_id
-        +int doctor_id
-        +int department_id
-        +string appointment_date
-        +string appointment_time
-        +string status
-        +string reason
-        +string notes
-        +datetime created_at
-        +confirm() void
-        +complete(notes) void
-        +cancel() void
-    }
-
-    class Prescription {
-        +int id
-        +int appointment_id
-        +int patient_id
-        +int doctor_id
-        +string medication_name
-        +string dosage
-        +string frequency
-        +string duration
-        +string instructions
-        +datetime created_at
-        +renderPrintable() string
-    }
-
-    class Vitals {
-        +int id
-        +int patient_id
-        +int heart_rate
-        +string blood_pressure
-        +int spo2
-        +decimal temperature
-        +datetime recorded_at
-        +isAlarmTriggered() bool
-    }
-
-    User "1" <|-- "1" Doctor : specializes
-    User "1" <|-- "1" Patient : profile
-    Department "1" o-- "0..*" Doctor : employs
-    Department "1" o-- "0..*" Appointment : categorizes
-    Patient "1" --> "0..*" Appointment : schedules
-    Doctor "1" --> "0..*" Appointment : conducts
-    Patient "1" --> "0..*" Prescription : receives
-    Doctor "1" --> "0..*" Prescription : writes
-    Appointment "1" --> "0..*" Prescription : originates
-    Patient "1" --> "0..*" Vitals : tracks
-```
 
 ---
 
@@ -396,56 +185,17 @@ Behavioral modeling captures dynamic interaction patterns, time-sequenced commun
 
 The following sequence illustrates the complete end-to-end execution of a touchless booking transaction initiated from the physical kiosk:
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Patient as 🧑 Patient (Kiosk User)
-    participant Sensor as 📡 Leap Motion (LM-010)
-    participant SDK as 💻 Gesture Engine (leap-gesture.js)
-    participant UI as 🖥️ Kiosk UI (dashboard-patient.html)
-    participant API as ⚡ REST API (api/appointments.php)
-    participant DB as 🗄️ Relational Database (PDO)
 
-    Patient->>Sensor: Positions hand over sensor & hovers over Doctor card
-    Sensor-->>SDK: Streams bone vectors & 3D hand coordinates (60 fps)
-    SDK->>SDK: Detects dwell collision on `.doctor-card` (elapsed = 1.2s)
-    SDK->>UI: Triggers selection event & plays dwell confirmation chime
-    UI->>UI: Displays booking modal with auto-populated doctor & date
-    Patient->>Sensor: Performs forward air-push / screen-tap gesture
-    Sensor-->>SDK: Detects rapid +Z acceleration vector
-    SDK->>UI: Submits appointment booking form
-    UI->>API: POST api/appointments.php {patientId, doctorId, date, time, reason}
-    API->>DB: INSERT INTO appointments (patient_id, doctor_id, date, status, ...)
-    DB-->>API: Returns inserted row ID (e.g. ID: 5)
-    API-->>UI: 201 Created {success: true, appointment: {...}}
-    UI->>UI: Closes modal, renders success alert, refreshes upcoming visits list
-    UI-->>Patient: Displays confirmed visit details hands-free
-```
+![Figure 1.6: UML Sequence Diagram — Contactless Appointment Booking](diagrams/06_sequence_booking.svg)
+*Figure 1.6: UML Sequence Diagram — Contactless Appointment Booking*
+
 
 #### Sequence 2: Physician Clinical Encounter & E-Prescription Creation
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Doctor as 👨‍⚕️ Physician
-    participant UI as 🩺 Doctor Portal (dashboard-doctor.html)
-    participant API as ⚡ REST API (api/prescriptions.php)
-    participant DB as 🗄️ Relational Database (PDO)
 
-    Doctor->>UI: Selects scheduled patient encounter (e.g., Sarah Al-Mansouri)
-    UI->>API: GET api/appointments.php?doctor_id=1
-    API->>DB: SELECT * FROM appointments JOIN patients ...
-    DB-->>API: Returns active patient queue
-    API-->>UI: 200 OK with appointments array
-    UI->>Doctor: Renders clinical history, vitals, and previous diagnoses
-    Doctor->>UI: Enters medication details (Amlodipine 5mg, 30 days)
-    Doctor->>UI: Clicks "Issue Prescription" (or dwell selects button)
-    UI->>API: POST api/prescriptions.php {patientId, doctorId, medication, dosage, ...}
-    API->>DB: INSERT INTO prescriptions (appointment_id, patient_id, ...)
-    DB-->>API: Commit transaction & return inserted ID
-    API-->>UI: 201 Created {success: true, message: "Prescription saved"}
-    UI->>Doctor: Displays confirmation toast & updates prescription history log
-```
+![Figure 1.7: UML Sequence Diagram — Doctor Clinical Encounter & E-Prescription](diagrams/07_sequence_prescription.svg)
+*Figure 1.7: UML Sequence Diagram — Doctor Clinical Encounter & E-Prescription*
+
 
 ---
 
@@ -453,29 +203,10 @@ sequenceDiagram
 
 The Leap Motion gesture recognition pipeline operates as a deterministic finite-state machine (FSM) that translates continuous spatial sensor input into discrete user interface commands:
 
-```mermaid
-stateDiagram-v2
-    [*] --> Idle: System initialized / Sensor connected
-    Idle --> HandDetected: Optical sensor tracks 1 or 2 hands
-    HandDetected --> Idle: Hand exits sensor frustum (out of range)
 
-    state HandDetected {
-        [*] --> Tracking
-        Tracking --> Hovering: Cursor enters bounding box of .gesture-target
-        Hovering --> Tracking: Cursor leaves element boundary before timeout
-        Hovering --> DwellComplete: Hand remains stationary within element for 1.2s
-        DwellComplete --> ExecutingClick: Radial dwell progress reaches 100%
+![Figure 1.8: Touchless Gesture Recognition Finite-State Machine (FSM)](diagrams/08_gesture_state_machine.svg)
+*Figure 1.8: Touchless Gesture Recognition Finite-State Machine (FSM)*
 
-        Tracking --> PushDetected: Hand moves forward with +Z velocity > 250 mm/s
-        PushDetected --> ExecutingClick: Instantaneous touchless screen tap
-
-        Tracking --> SwipeDetected: Palm horizontal velocity > 400 mm/s
-        SwipeDetected --> ExecutingNavigation: Triggers Tab Switch / Page Advance
-
-        ExecutingClick --> Tracking: Action dispatched & audio chime synthesized
-        ExecutingNavigation --> Tracking: UI view shifted
-    }
-```
 
 ---
 
@@ -483,17 +214,10 @@ stateDiagram-v2
 
 Appointments within Touchless HMS transition through five strictly validated lifecycle states:
 
-```mermaid
-stateDiagram-v2
-    [*] --> Scheduled: Patient books visit via Kiosk
-    Scheduled --> Confirmed: Clinic reception / automated SMS confirms booking
-    Scheduled --> Cancelled: Patient or clinic cancels before appointment date
-    Confirmed --> Cancelled: Patient cancels or fails to attend
-    Confirmed --> InProgress: Doctor initiates encounter in Doctor Portal
-    InProgress --> Completed: Doctor finishes consultation and issues e-prescription
-    Completed --> [*]
-    Cancelled --> [*]
-```
+
+![Figure 1.9: Clinical Appointment Transactional Lifecycle State Machine](diagrams/09_appointment_lifecycle.svg)
+*Figure 1.9: Clinical Appointment Transactional Lifecycle State Machine*
+
 
 ---
 
@@ -501,31 +225,10 @@ stateDiagram-v2
 
 The flow of patient actions across the touchless kiosk is modeled in the activity diagram below:
 
-```mermaid
-flowchart TD
-    Start([Kiosk Boot & Idle State]) --> DetectHand{Patient Approaches Sensor?}
-    DetectHand -- No --> Start
-    DetectHand -- Yes --> ShowCursor[Render Touchless Hand Cursor on Screen]
 
-    ShowCursor --> BrowseDepts[Browse Hospital Departments]
-    BrowseDepts --> DwellDept[Dwell Select Department Pill for 1.2s]
-    DwellDept --> FetchDocs[Async API Call: Fetch Doctors in Department]
-    FetchDocs --> RenderDocs[Render Doctor Cards with Specialization & Fee]
+![Figure 1.10: UML Activity Diagram — Hands-Free Patient Kiosk Workflow](diagrams/10_patient_activity_diagram.svg)
+*Figure 1.10: UML Activity Diagram — Hands-Free Patient Kiosk Workflow*
 
-    RenderDocs --> SelectDoc[Air-Tap or Dwell Select Doctor]
-    SelectDoc --> OpenModal[Display Modal: Date, Time & Reason]
-    OpenModal --> ChooseTime[Select Time Slot via Push Gesture]
-    ChooseTime --> SubmitAppt[Confirm Booking with Air Push]
-
-    SubmitAppt --> ValidateData{Are Fields Valid & No Conflicts?}
-    ValidateData -- No --> ShowError[Render Inline Error Alert]
-    ShowError --> OpenModal
-
-    ValidateData -- Yes --> CommitDB[(Commit Appointment to Database)]
-    CommitDB --> ShowSuccess[Display Visual Chime & Success Modal]
-    ShowSuccess --> RefreshQueue[Refresh Upcoming Visits Timeline]
-    RefreshQueue --> End([Patient Finished / Idle Timeout])
-```
 
 ---
 
@@ -537,100 +240,10 @@ Database modeling defines the relational architecture, referential integrity rul
 
 The relational architecture is in **Third Normal Form (3NF)**. Every table possesses an atomic primary key, and non-key attributes are fully and directly dependent solely upon the primary key:
 
-```mermaid
-erDiagram
-    DEPARTMENTS ||--o{ DOCTORS : "employs"
-    DEPARTMENTS ||--o{ APPOINTMENTS : "categorizes"
-    USERS ||--|| DOCTORS : "authenticates"
-    USERS ||--|| PATIENTS : "authenticates"
-    PATIENTS ||--o{ APPOINTMENTS : "books"
-    DOCTORS ||--o{ APPOINTMENTS : "attends"
-    PATIENTS ||--o{ PRESCRIPTIONS : "receives"
-    DOCTORS ||--o{ PRESCRIPTIONS : "prescribes"
-    APPOINTMENTS ||--o{ PRESCRIPTIONS : "originates"
-    PATIENTS ||--o{ VITALS : "records"
 
-    DEPARTMENTS {
-        int id PK
-        string name UK
-        string floor
-        string description
-        string icon
-        datetime created_at
-    }
+![Figure 1.11: Relational Entity-Relationship Diagram (ERD) — 3NF Architecture](diagrams/11_erd_database.svg)
+*Figure 1.11: Relational Entity-Relationship Diagram (ERD) — 3NF Architecture*
 
-    USERS {
-        int id PK
-        string full_name
-        string email UK
-        string password_hash
-        string role "CHECK role IN ('patient','doctor','nurse','admin')"
-        string phone
-        string avatar
-        datetime created_at
-    }
-
-    DOCTORS {
-        int id PK
-        int user_id FK, UK
-        int department_id FK
-        string specialization
-        string room_number
-        string bio
-        string available_days
-        decimal consultation_fee
-        float rating
-        datetime created_at
-    }
-
-    PATIENTS {
-        int id PK
-        int user_id FK, UK
-        string civil_id UK
-        date date_of_birth
-        string gender "CHECK gender IN ('male','female','other')"
-        string blood_type
-        string emergency_contact
-        text medical_history
-        datetime created_at
-    }
-
-    APPOINTMENTS {
-        int id PK
-        int patient_id FK
-        int doctor_id FK
-        int department_id FK
-        date appointment_date
-        string appointment_time
-        string status "CHECK status IN ('scheduled','confirmed','in_progress','completed','cancelled')"
-        string reason
-        text notes
-        datetime created_at
-    }
-
-    PRESCRIPTIONS {
-        int id PK
-        int appointment_id FK
-        int patient_id FK
-        int doctor_id FK
-        string medication_name
-        string dosage
-        string frequency
-        string duration
-        text instructions
-        datetime created_at
-    }
-
-    VITALS {
-        int id PK
-        int patient_id FK
-        int heart_rate
-        string blood_pressure
-        int spo2
-        decimal temperature
-        datetime recorded_at
-    }
-```
 
 ---
 
@@ -943,28 +556,10 @@ The software is structured around three primary graphical workstations:
 
 The remaining 45% of project development will proceed according to the following structured roadmap:
 
-```mermaid
-gantt
-    title Touchless HMS — Remaining Development Timeline to Final Defense
-    dateFormat  YYYY-MM-DD
-    section Milestone 2 Complete
-    Midterm Milestone Submission & Demo :done, 2026-10-14, 2026-10-21
 
-    section Phase 3: Hardware Refinement
-    Ultraleap Gemini v5 Integration     :active, 2026-10-22, 2026-11-05
-    3D Kiosk Sensor Mount Printing       :2026-10-28, 2026-11-10
-    Fine Pinch & Zoom Gesture Tuning    :2026-11-05, 2026-11-18
+![Figure 2.1: Software Development Implementation Roadmap & Gantt Chart](diagrams/12_gantt_roadmap.svg)
+*Figure 2.1: Software Development Implementation Roadmap & Gantt Chart*
 
-    section Phase 4: Clinical Features
-    Server-Sent Events (SSE) Vitals     :2026-11-10, 2026-11-24
-    PDF Prescription Export Engine      :2026-11-18, 2026-12-01
-    Nurse Bed Management Full Sync      :2026-11-25, 2026-12-08
-
-    section Phase 5: Testing & Defense
-    Clinical Usability & Latency Tests  :2026-12-01, 2026-12-15
-    Final Graduation Report Compilation :2026-12-08, 2026-12-20
-    Final Graduation Defense & Demo     :2026-12-22, 2026-12-28
-```
 
 1. **Hardware & Tracking Optimization (Weeks 9–10):**
    * Finalize integration of the Ultraleap Gemini v5 hand tracking runtime with Mr. Anas.

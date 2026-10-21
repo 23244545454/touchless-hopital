@@ -189,65 +189,26 @@ Functional modeling represents the processes, data transformations, inputs, and 
 </ul>
 
 <h3>1.1.2 Use Case Diagram & Actor Descriptions</h3>
-<div class="diagram-box">
-+-----------------------------------------------------------------------------------+
-|                        SYSTEM BOUNDARY: TOUCHLESS HMS                             |
-|                                                                                   |
-|  [🧑 PATIENT]                                                                     |
-|       |-----> (UC-1: Authenticate / Gesture Login)                                |
-|       |-----> (UC-2: Filter Doctors by Department)                                |
-|       |-----> (UC-3: Search Specialist Physician Directory)                       |
-|       |-----> (UC-4: Hands-Free Appointment Booking)                              |
-|       |-----> (UC-5: View Personal Health History & Prescriptions)                |
-|                                                                                   |
-|  [👨‍⚕️ DOCTOR]                                                                     |
-|       |-----> (UC-1: Authenticate / Gesture Login)                                |
-|       |-----> (UC-6: View Assigned Patient Queue & Clinical Timeline)             |
-|       |-----> (UC-7: Issue Digital E-Prescriptions to Relational Database)        |
-|       |-----> (UC-8: Complete Clinical Encounters & Record Diagnostic Notes)      |
-|                                                                                   |
-|  [💉 NURSE]                                                                       |
-|       |-----> (UC-1: Authenticate / Gesture Login)                                |
-|       |-----> (UC-9: Monitor Ward Bed Telemetry & Physiological Vitals)           |
-|       |-----> (UC-10: Contactless Alarm Acknowledgment via Air-Wave Gesture)     |
-|                                                                                   |
-|  [⚙️ ADMINISTRATOR]                                                               |
-|       |-----> (UC-11: Manage Department Rosters & System Configuration)           |
-+-----------------------------------------------------------------------------------+
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/01_use_case_diagram.svg" alt="UML Use Case Diagram — System Scope & Actors" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.1: UML Use Case Diagram — System Scope & Actors</div>
 </div>
-<div class="caption">Figure 1.1: Comprehensive Use Case Diagram for Touchless HMS</div>
 
 <h3>1.1.3 Data Flow Modeling (Level-0 and Level-1 DFD)</h3>
 <p>
 The Level-0 Context Diagram establishes the operational boundary between external entities (Patients, Doctors, Nurses, Leap Motion Optical Sensors) and the centralized Touchless HMS Engine. The Level-1 DFD decomposes this boundary into functional sub-processes:
 </p>
 
-<div class="diagram-box">
-[📡 Leap Motion Sensor] --(3D Hand Coordinates)--> [Process 0: Gesture Interpreter]
-                                                           |
-           +-----------------------------------------------+-----------------------------------+
-           | (Dwell / Tap Events)                          | (Swipe Commands)                  | (Wave Events)
-           v                                               v                                   v
-[Process 1: Auth & RBAC]                [Process 2: Specialist Directory]           [Process 5: Ward Telemetry]
-     ^              ^                                ^                                      ^
-     | (Auth Data)  |                                | (Query Dept & Docs)                  | (Vital Stream)
-     v              v                                v                                      v
-[(D1: Users)]   [(D2: Patients)]            [(D3: Departments & Doctors)]             [(D5: Vitals Log)]
-                                                           |
-                                                           v
-                                            [Process 3: Appointment Booking]
-                                                           |
-                                                           v
-                                                [(D4: Appointments DB)]
-                                                           ^
-                                                           | (Schedule & Notes)
-                                                           v
-                                            [Process 4: Doctor Encounter Desk]
-                                                           |
-                                                           v
-                                                [(D6: Prescriptions DB)]
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/02_dfd_level0.svg" alt="Level-0 Context Data Flow Diagram (DFD)" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.2: Level-0 Context Data Flow Diagram (DFD)</div>
 </div>
-<div class="caption">Figure 1.2: Level-1 Data Flow Diagram (DFD) Illustrating System Processes and Data Stores</div>
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/03_dfd_level1.svg" alt="Level-1 Functional Data Flow Diagram (DFD)" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.3: Level-1 Functional Data Flow Diagram (DFD)</div>
+</div>
 
 ---
 
@@ -266,80 +227,20 @@ Touchless HMS employs an industry-standard <strong>3-Tier Service-Oriented Archi
   <li><strong>Data Persistence Tier (Dual-Engine Relational Storage):</strong> Powered by `api/db.php`, a dual-engine PDO abstraction layer that connects to local MySQL / MariaDB (Port 3306), with automatic failover to embedded SQLite (`database/touchless_hms.db`).</li>
 </ol>
 
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/04_system_architecture.svg" alt="Multi-Tier System Architecture & Component Diagram" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.4: Multi-Tier System Architecture & Component Diagram</div>
+</div>
 <h3>1.2.2 UML Class Diagram</h3>
 <p>
 The class diagram below depicts the structural relationships, attributes, and primary methods governing the system entities:
 </p>
 
-<div class="diagram-box">
-+-------------------------+            +-----------------------------+
-|          User           |            |         Department          |
-+-------------------------+            +-----------------------------+
-| - id: int               |            | - id: int                   |
-| - full_name: string     |            | - name: string              |
-| - email: string         |            | - floor: string             |
-| - password_hash: string |            | - description: string       |
-| - role: string          |            | - icon: string              |
-| - phone: string         |            +-----------------------------+
-+-------------------------+            | + getDoctorsCount(): int    |
-| + login(): bool         |            | + listAll(): Department[]   |
-| + register(): User      |            +-----------------------------+
-+-------------------------+                           |
-          ^                                           | 1..*
-          | 1..1                                      v
-    +-----+--------------------+               +-----------------------------+
-    |                          |               |           Doctor            |
-+-----------------------+  +----------------+  +-----------------------------+
-|        Patient        |  |     Doctor     |  | - id: int                   |
-+-----------------------+  +----------------+  | - user_id: int              |
-| - id: int             |  | (extends User) |  | - department_id: int        |
-| - user_id: int        |  +----------------+  | - specialization: string    |
-| - civil_id: string    |                      | - room_number: string       |
-| - blood_type: string  |                      | - consultation_fee: decimal |
-| - medical_hist: string|                      | - rating: float             |
-+-----------------------+                      +-----------------------------+
-| + bookAppt(): Appt    |                      | + getSchedule(): Appt[]     |
-| + getVitals(): Vitals |                      | + issuePrescription(): Rx   |
-+-----------------------+                      +-----------------------------+
-           | 1                                                | 1
-           |                                                  |
-           | 0..*                                             | 0..*
-           v                                                  v
-+----------------------------------------------------------------------------+
-|                                Appointment                                 |
-+----------------------------------------------------------------------------+
-| - id: int                                                                  |
-| - patient_id: int  (FK -> Patient.id)                                      |
-| - doctor_id: int   (FK -> Doctor.id)                                       |
-| - department_id: int (FK -> Department.id)                                 |
-| - appointment_date: date                                                   |
-| - appointment_time: string                                                 |
-| - status: enum('scheduled', 'confirmed', 'in_progress', 'completed')       |
-| - reason: string                                                           |
-+----------------------------------------------------------------------------+
-| + confirm(): void                                                          |
-| + complete(notes): void                                                    |
-| + cancel(): void                                                           |
-+----------------------------------------------------------------------------+
-           | 1                                                | 1
-           |                                                  |
-           | 0..*                                             | 0..*
-           v                                                  v
-+---------------------------------------+      +-----------------------------+
-|             Prescription              |      |           Vitals            |
-+---------------------------------------+      +-----------------------------+
-| - id: int                             |      | - id: int                   |
-| - appointment_id: int (FK)            |      | - patient_id: int (FK)      |
-| - patient_id: int (FK)                |      | - heart_rate: int           |
-| - doctor_id: int (FK)                 |      | - blood_pressure: string    |
-| - medication_name: string             |      | - spo2: int                 |
-| - dosage: string                      |      | - temperature: decimal      |
-| - instructions: string                |      | - recorded_at: datetime     |
-+---------------------------------------+      +-----------------------------+
-| + renderPDF(): string                 |      | + checkAlarmTrigger(): bool |
-+---------------------------------------+      +-----------------------------+
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/05_class_diagram.svg" alt="Detailed UML Class Diagram — Attributes, Methods & Relationships" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.5: Detailed UML Class Diagram — Attributes, Methods & Relationships</div>
 </div>
-<div class="caption">Figure 1.3: UML Class Diagram with Explicit Relational Associations and Methods</div>
 
 ---
 
@@ -353,61 +254,42 @@ Behavioral modeling details how Touchless HMS responds to real-time events, user
 The sequence diagram below traces the interaction across hardware sensors, client scripts, REST APIs, and database engines during hands-free booking:
 </p>
 
-<div class="diagram-box">
-Patient              Leap Sensor        leap-gesture.js        Kiosk UI             api/appointments.php       Database (PDO)
-   |                      |                    |                   |                          |                      |
-   |-- Hover over Card -->|                    |                   |                          |                      |
-   |                      |-- Frame stream --->|                   |                          |                      |
-   |                      |   (x, y, z coords) |                   |                          |                      |
-   |                      |                    |-- Dwell 1.2s ---->|                          |                      |
-   |                      |                    |   Trigger select  |-- Render booking modal ->|                      |
-   |-- Air-Push gesture ->|                    |                   |                          |                      |
-   |                      |-- +Z acceleration->|                   |                          |                      |
-   |                      |                    |-- Dispatch tap -->|                          |                      |
-   |                      |                    |                   |-- POST appointment ----->|                      |
-   |                      |                    |                   |   (patient, doctor, date)|-- INSERT query ----->|
-   |                      |                    |                   |                          |                      |-- Commit row
-   |                      |                    |                   |                          |<-- Return lastId ----|
-   |                      |                    |                   |<-- 201 Created Response -|                      |
-   |                      |                    |                   |-- Render success chime --|                      |
-   |<-- Visual & Audio Confirmation -------------------------------|-- Refresh queue timeline-|                      |
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/06_sequence_booking.svg" alt="UML Sequence Diagram — Contactless Appointment Booking" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.6: UML Sequence Diagram — Contactless Appointment Booking</div>
 </div>
-<div class="caption">Figure 1.4: Sequence Diagram for Contactless Patient Appointment Booking</div>
+<h3>1.3.2 Sequence Diagram: Physician Clinical Encounter & E-Prescription</h3>
+<p>The sequence diagram below models the clinician workflow when conducting an examination and issuing an electronic prescription:</p>
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/07_sequence_prescription.svg" alt="UML Sequence Diagram — Doctor Clinical Encounter & E-Prescription" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.7: UML Sequence Diagram — Doctor Clinical Encounter & E-Prescription</div>
+</div>
 
 <h3>1.3.2 Gesture Recognition State Machine</h3>
 <p>
 The Leap Motion gesture interpreter operates as a deterministic finite-state machine (FSM):
 </p>
-<ul>
-  <li><strong>IDLE:</strong> Sensor active; scanning optical volume for hand detection.</li>
-  <li><strong>TRACKING:</strong> Hands acquired; normalizing bone positions and tracking screen cursor.</li>
-  <li><strong>HOVERING:</strong> Cursor intersects a `.gesture-target` element. Initiates radial SVG dwell timer (0% to 100% over 1.2s). If hand leaves boundary prematurely, state resets to TRACKING.</li>
-  <li><strong>AIR_PUSH:</strong> Evaluates forward palm velocity along the Z-axis. When $V_z > 250\text{ mm/s}$, an instant screen tap event is fired.</li>
-  <li><strong>SWIPE:</strong> Evaluates horizontal palm velocity. When $|V_x| > 400\text{ mm/s}$, a tab navigation or page scroll command is executed.</li>
-  <li><strong>ACTION_EXECUTED:</strong> Dispatches mouse/pointer events to the DOM, triggers an 880 Hz Web Audio confirmation tone, and resets state.</li>
-</ul>
 
-<h3>1.3.3 Clinical Appointment Lifecycle State Machine</h3>
-<div class="diagram-box">
-  [*] ---> [SCHEDULED] (Patient books visit through Kiosk)
-                |
-                v
-          [CONFIRMED]   (Reception confirms or automated validation occurs)
-                |
-                +----------------------------+
-                |                            |
-                v                            v
-          [IN_PROGRESS]                 [CANCELLED]
-          (Doctor opens encounter)      (Patient/Doctor cancels visit)
-                |                            |
-                v                            v
-          [COMPLETED]                       [*]
-          (E-Prescription issued)
-                |
-                v
-               [*]
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/08_gesture_state_machine.svg" alt="Touchless Gesture Recognition Finite-State Machine (FSM)" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.8: Touchless Gesture Recognition Finite-State Machine (FSM)</div>
 </div>
-<div class="caption">Figure 1.5: Appointment Transactional Lifecycle State Machine</div>
+
+<h3>1.3.4 Clinical Appointment Lifecycle State Machine</h3>
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/09_appointment_lifecycle.svg" alt="Clinical Appointment Transactional Lifecycle State Machine" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.9: Clinical Appointment Transactional Lifecycle State Machine</div>
+</div>
+<h3>1.3.5 Patient Kiosk Activity Diagram</h3>
+<p>The activity diagram below illustrates the sequential operational decisions, optical tracking validations, and asynchronous transactions executed during hands-free kiosk check-in:</p>
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/10_patient_activity_diagram.svg" alt="UML Activity Diagram — Hands-Free Patient Kiosk Workflow" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.10: UML Activity Diagram — Hands-Free Patient Kiosk Workflow</div>
+</div>
 
 ---
 
@@ -421,47 +303,11 @@ Database modeling defines the relational architecture, referential integrity rul
 The relational database is normalized to <strong>Third Normal Form (3NF)</strong>. Every table possesses an atomic primary key, and non-key attributes are fully and directly dependent solely upon the primary key:
 </p>
 
-<div class="diagram-box">
-+--------------------+            +--------------------+            +--------------------+
-|    DEPARTMENTS     |            |       USERS        |            |      PATIENTS      |
-+--------------------+            +--------------------+            +--------------------+
-| *id (PK)           | 1        1 | *id (PK)           | 1        1 | *id (PK)           |
-|  name (UK)         |<-----------|  full_name         |<-----------|  user_id (FK, UK)  |
-|  floor             |            |  email (UK)        |            |  civil_id (UK)     |
-|  description       |            |  password_hash     |            |  date_of_birth     |
-|  icon              |            |  role              |            |  blood_type        |
-+--------------------+            +--------------------+            +--------------------+
-          | 1                               | 1                               | 1
-          |                                 |                                 |
-          | 1..*                            | 1..1                            | 0..*
-          v                                 v                                 v
-+--------------------+            +--------------------+            +--------------------+
-|      DOCTORS       |            |      DOCTORS       |            |    APPOINTMENTS    |
-+--------------------+            +--------------------+            +--------------------+
-| *id (PK)           |            | *id (PK)           | 1        * | *id (PK)           |
-|  user_id (FK, UK)  |            |  user_id (FK, UK)  |<-----------|  patient_id (FK)   |
-|  department_id (FK)|<-----------|  department_id (FK)|            |  doctor_id (FK)    |
-|  specialization    |            |  specialization    |            |  department_id (FK)|
-|  room_number       |            |  room_number       |            |  appointment_date  |
-|  consultation_fee  |            +--------------------+            |  appointment_time  |
-+--------------------+                                              |  status            |
-                                                                    +--------------------+
-                                                                              | 1
-                                                                              | 0..*
-                                                                              v
-                                                                    +--------------------+
-                                                                    |   PRESCRIPTIONS    |
-                                                                    +--------------------+
-                                                                    | *id (PK)           |
-                                                                    |  appointment_id(FK)|
-                                                                    |  patient_id (FK)   |
-                                                                    |  doctor_id (FK)    |
-                                                                    |  medication_name   |
-                                                                    |  dosage            |
-                                                                    |  instructions      |
-                                                                    +--------------------+
+
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/11_erd_database.svg" alt="Relational Entity-Relationship Diagram (ERD) — 3NF Architecture" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 1.11: Relational Entity-Relationship Diagram (ERD) — 3NF Architecture</div>
 </div>
-<div class="caption">Figure 1.6: Relational Entity-Relationship Diagram (ERD) with Crow's Foot Cardinality</div>
 
 <h3>1.4.2 Comprehensive Data Dictionary</h3>
 <table>
@@ -663,23 +509,11 @@ Features clean glassmorphism styling with role switcher tabs (Patient / Doctor /
 
 <h2>2.6 Remaining Work & Implementation Roadmap to Final Defense</h2>
 
-<div class="diagram-box">
-PHASE 3: Hardware Refinement & Sensor Mounting (Weeks 9 - 10)
-  * Finalize Ultraleap Gemini v5 hand tracking runtime with Mr. Anas.
-  * 3D-print ergonomic kiosk mount (45-degree angle).
-  * Fine-tune pinch and zoom gesture boundaries for radiology viewing.
 
-PHASE 4: Clinical Subsystems & Telemetry Broadcasting (Weeks 11 - 12)
-  * Implement Server-Sent Events (SSE) for real-time vital telemetry.
-  * Build MOH-compliant PDF e-prescription generator with QR verification.
-  * Complete full bidirectional synchronization across nurse ward monitors.
-
-PHASE 5: Usability Testing, Dissertation Compilation & Defense (Weeks 13 - 15)
-  * Conduct quantitative user testing (task completion time & error rates).
-  * Compile final graduation thesis following AUM academic standards.
-  * Rehearse live hardware and software demonstration for final examination.
+<div style="text-align: center; margin: 18pt 0;">
+  <img src="diagrams/12_gantt_roadmap.svg" alt="Software Development Implementation Roadmap & Gantt Chart" style="max-width: 100%; height: auto; border: 1pt solid #cbd5e1; border-radius: 6pt; box-shadow: 0 4px 10px rgba(0,0,0,0.06);" />
+  <div class="caption">Figure 2.1: Software Development Implementation Roadmap & Gantt Chart</div>
 </div>
-<div class="caption">Figure 2.1: Structured Development Roadmap Leading to Final Capstone Defense</div>
 
 ---
 

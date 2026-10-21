@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" width="980" height="560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="980" height="560" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="980" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.8: Touchless Gesture Recognition Finite-State Machine (FSM)</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+    <circle cx="80" cy="130" r="14" fill="#0f172a"/>
+    <line x1="94" y1="130" x2="140" y2="130" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arrow-dark)"/>
+  
+      <g transform="translate(140, 95)" filter="url(#soft-shadow)">
+        <rect width="170" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="170" height="5" rx="2" fill="#0d9488"/>
+        <text x="85" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">IDLE</text>
+        <text x="85" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Optical Frustum Clear</text>
+      </g>
+    
+      <g transform="translate(420, 95)" filter="url(#soft-shadow)">
+        <rect width="190" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="190" height="5" rx="2" fill="#0d9488"/>
+        <text x="95" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">HAND_TRACKING</text>
+        <text x="95" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Bone Vectors Normalized</text>
+      </g>
+    
+      <g transform="translate(720, 95)" filter="url(#soft-shadow)">
+        <rect width="200" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="200" height="5" rx="2" fill="#0d9488"/>
+        <text x="100" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">HOVERING</text>
+        <text x="100" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Cursor on .gesture-target</text>
+      </g>
+    
+      <g transform="translate(720, 270)" filter="url(#soft-shadow)">
+        <rect width="200" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="200" height="5" rx="2" fill="#0d9488"/>
+        <text x="100" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">DWELL_COMPLETE</text>
+        <text x="100" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Elapsed Time &gt;= 1.2s (100%)</text>
+      </g>
+    
+      <g transform="translate(420, 270)" filter="url(#soft-shadow)">
+        <rect width="190" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="190" height="5" rx="2" fill="#0d9488"/>
+        <text x="95" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">AIR_PUSH_DETECTED</text>
+        <text x="95" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">+Z Velocity &gt; 250 mm/s</text>
+      </g>
+    
+      <g transform="translate(140, 270)" filter="url(#soft-shadow)">
+        <rect width="170" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="170" height="5" rx="2" fill="#0d9488"/>
+        <text x="85" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">SWIPE_DETECTED</text>
+        <text x="85" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">|Vx| &gt; 400 mm/s</text>
+      </g>
+    
+      <g transform="translate(420, 430)" filter="url(#soft-shadow)">
+        <rect width="230" height="70" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="230" height="5" rx="2" fill="#0d9488"/>
+        <text x="115" y="24" font-size="11.5" font-weight="700" fill="#0f766e" text-anchor="middle">ACTION_EXECUTED</text>
+        <text x="115" y="42" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">DOM Click + Audio Tone (880Hz)</text>
+      </g>
+    
+    <!-- Idle to Tracking -->
+    <line x1="310" y1="130" x2="420" y2="130" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="365" y="122" class="flow-label" text-anchor="middle">Hand Enters Sensor</text>
+
+    <!-- Tracking to Hovering -->
+    <line x1="610" y1="130" x2="720" y2="130" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="665" y="122" class="flow-label" text-anchor="middle">Cursor Enters Element</text>
+
+    <!-- Hovering to Dwell Complete -->
+    <line x1="820" y1="165" x2="820" y2="270" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="830" y="215" class="flow-label">Dwell Progress = 100%</text>
+
+    <!-- Tracking to Air Push -->
+    <line x1="515" y1="165" x2="515" y2="270" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="525" y="215" class="flow-label" fill="#0369a1">Fast Forward Thrust</text>
+
+    <!-- Tracking to Swipe -->
+    <path d="M 450 165 C 350 200, 280 230, 230 270" fill="none" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow-purple)"/>
+    <text x="290" y="225" class="flow-label" fill="#7c3aed">Horizontal Hand Sweep</text>
+
+    <!-- Triggers to Executed -->
+    <path d="M 770 340 C 730 390, 650 430, 600 430" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <line x1="515" y1="340" x2="515" y2="430" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <path d="M 230 340 C 260 390, 350 430, 420 445" fill="none" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow-purple)"/>
+
+    <!-- Executed back to Tracking -->
+    <path d="M 420 470 C 350 470, 360 220, 430 165" fill="none" stroke="#64748b" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrow-dark)"/>
+    <text x="320" y="380" font-size="9" fill="#64748b">Reset Event Loop</text>
+  </svg>

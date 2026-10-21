@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" width="1000" height="760">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="760" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="1000" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.4: Multi-Tier System Architecture & Component Diagram</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+      <rect x="50" y="70" width="900" height="160" rx="12" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.5" filter="url(#soft-shadow)"/>
+      <rect x="50" y="70" width="900" height="30" rx="12" fill="#0d9488" fill-opacity="0.1"/>
+      <rect x="50" y="70" width="6" height="30" rx="2" fill="#0d9488"/>
+      <text x="68" y="90" font-size="12" font-weight="700" fill="#0d9488">1. PRESENTATION TIER (CLIENT WORKSTATIONS & KIOSKS)</text>
+      <text x="400" y="90" font-size="10.5" font-weight="500" fill="#64748b">Responsive Web Portals & Hands-Free UI Engine</text>
+    
+      <g transform="translate(70, 115)" filter="url(#soft-shadow)">
+        <rect width="200" height="52" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/>
+        <rect width="200" height="4" rx="2" fill="#0d9488"/>
+        <text x="14" y="24" font-size="14">🧑</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Patient Kiosk</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">dashboard-patient.html</text>
+      </g>
+    
+      <g transform="translate(290, 115)" filter="url(#soft-shadow)">
+        <rect width="200" height="52" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/>
+        <rect width="200" height="4" rx="2" fill="#0d9488"/>
+        <text x="14" y="24" font-size="14">👨‍⚕️</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Doctor Portal</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">dashboard-doctor.html</text>
+      </g>
+    
+      <g transform="translate(510, 115)" filter="url(#soft-shadow)">
+        <rect width="200" height="52" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/>
+        <rect width="200" height="4" rx="2" fill="#0d9488"/>
+        <text x="14" y="24" font-size="14">💉</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Nurse Telemetry</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">dashboard-nurse.html</text>
+      </g>
+    
+      <g transform="translate(730, 115)" filter="url(#soft-shadow)">
+        <rect width="200" height="52" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/>
+        <rect width="200" height="4" rx="2" fill="#0d9488"/>
+        <text x="14" y="24" font-size="14">🔑</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Auth & Registration</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">login.html / RBAC</text>
+      </g>
+    
+      <g transform="translate(70, 175)" filter="url(#soft-shadow)">
+        <rect width="420" height="44" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+        <rect width="420" height="4" rx="2" fill="#0f766e"/>
+        <text x="14" y="24" font-size="14">✋</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Touchless Gesture Engine</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">js/leap-gesture.js (60fps Tracking & Audio Chime)</text>
+      </g>
+    
+      <g transform="translate(510, 175)" filter="url(#soft-shadow)">
+        <rect width="420" height="44" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+        <rect width="420" height="4" rx="2" fill="#0284c7"/>
+        <text x="14" y="24" font-size="14">⚡</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Adaptive API Client</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">js/api.js (Relative Path Resolution & Failover)</text>
+      </g>
+    
+      <rect x="50" y="250" width="900" height="190" rx="12" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.5" filter="url(#soft-shadow)"/>
+      <rect x="50" y="250" width="900" height="30" rx="12" fill="#0284c7" fill-opacity="0.1"/>
+      <rect x="50" y="250" width="6" height="30" rx="2" fill="#0284c7"/>
+      <text x="68" y="270" font-size="12" font-weight="700" fill="#0284c7">2. APPLICATION TIER (RESTFUL API & ROUTER ENGINE)</text>
+      <text x="400" y="270" font-size="10.5" font-weight="500" fill="#64748b">Stateless PHP Controllers & URL Rewriting</text>
+    
+      <g transform="translate(70, 295)" filter="url(#soft-shadow)">
+        <rect width="420" height="48" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+        <rect width="420" height="4" rx="2" fill="#0284c7"/>
+        <text x="14" y="24" font-size="14">🔄</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Apache URL Rewrite Engine</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">.htaccess (mod_rewrite + MultiViews Routing)</text>
+      </g>
+    
+      <g transform="translate(510, 295)" filter="url(#soft-shadow)">
+        <rect width="420" height="48" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+        <rect width="420" height="4" rx="2" fill="#0284c7"/>
+        <text x="14" y="24" font-size="14">🌐</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">PHP Built-in Server Router</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">router.php (Port 3000 Development Runtime)</text>
+      </g>
+    
+      <g transform="translate(70, 360)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+        <rect width="160" height="4" rx="2" fill="#0369a1"/>
+        <text x="14" y="24" font-size="14">👤</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Auth Controller</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/auth.php</text>
+      </g>
+    
+      <g transform="translate(245, 360)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+        <rect width="160" height="4" rx="2" fill="#0369a1"/>
+        <text x="14" y="24" font-size="14">🩺</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Doctors API</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/doctors.php</text>
+      </g>
+    
+      <g transform="translate(420, 360)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+        <rect width="160" height="4" rx="2" fill="#0369a1"/>
+        <text x="14" y="24" font-size="14">📅</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Appointments API</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/appointments.php</text>
+      </g>
+    
+      <g transform="translate(595, 360)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+        <rect width="160" height="4" rx="2" fill="#0369a1"/>
+        <text x="14" y="24" font-size="14">💊</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Prescriptions API</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/prescriptions.php</text>
+      </g>
+    
+      <g transform="translate(770, 360)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+        <rect width="160" height="4" rx="2" fill="#0369a1"/>
+        <text x="14" y="24" font-size="14">📊</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Vitals Telemetry</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/vitals.php</text>
+      </g>
+    
+      <rect x="50" y="460" width="900" height="140" rx="12" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.5" filter="url(#soft-shadow)"/>
+      <rect x="50" y="460" width="900" height="30" rx="12" fill="#f59e0b" fill-opacity="0.1"/>
+      <rect x="50" y="460" width="6" height="30" rx="2" fill="#f59e0b"/>
+      <text x="68" y="480" font-size="12" font-weight="700" fill="#f59e0b">3. DATA PERSISTENCE TIER (DUAL-ENGINE RELATIONAL STORAGE)</text>
+      <text x="400" y="480" font-size="10.5" font-weight="500" fill="#64748b">High Availability Dual-Engine Storage with Foreign Keys</text>
+    
+      <g transform="translate(70, 505)" filter="url(#soft-shadow)">
+        <rect width="380" height="75" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+        <rect width="380" height="4" rx="2" fill="#d97706"/>
+        <text x="14" y="24" font-size="14">🔌</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Dual-Engine PDO Connector</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">api/db.php (Evaluates MySQL, Cascades to SQLite)</text>
+      </g>
+    
+      <g transform="translate(480, 505)" filter="url(#soft-shadow)">
+        <rect width="210" height="75" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+        <rect width="210" height="4" rx="2" fill="#d97706"/>
+        <text x="14" y="24" font-size="14">🐬</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">MySQL / MariaDB</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">Production Engine (Port 3306)</text>
+      </g>
+    
+      <g transform="translate(710, 505)" filter="url(#soft-shadow)">
+        <rect width="220" height="75" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+        <rect width="220" height="4" rx="2" fill="#d97706"/>
+        <text x="14" y="24" font-size="14">🗄️</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Embedded SQLite3</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">database/touchless_hms.db</text>
+      </g>
+    
+      <rect x="50" y="620" width="900" height="115" rx="12" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.5" filter="url(#soft-shadow)"/>
+      <rect x="50" y="620" width="900" height="30" rx="12" fill="#7c3aed" fill-opacity="0.1"/>
+      <rect x="50" y="620" width="6" height="30" rx="2" fill="#7c3aed"/>
+      <text x="68" y="640" font-size="12" font-weight="700" fill="#7c3aed">4. HARDWARE & SENSOR LAYER</text>
+      <text x="400" y="640" font-size="10.5" font-weight="500" fill="#64748b">Physical Hand Tracking & Optical Telemetry</text>
+    
+      <g transform="translate(70, 665)" filter="url(#soft-shadow)">
+        <rect width="270" height="55" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+        <rect width="270" height="4" rx="2" fill="#7c3aed"/>
+        <text x="14" y="24" font-size="14">📡</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Leap Motion LM-010</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">Infrared 3D Stereo Optical Tracking</text>
+      </g>
+    
+      <g transform="translate(365, 665)" filter="url(#soft-shadow)">
+        <rect width="270" height="55" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+        <rect width="270" height="4" rx="2" fill="#7c3aed"/>
+        <text x="14" y="24" font-size="14">🔌</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Leap Daemon WebSocket</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">ws://127.0.0.1:6437/v6.json</text>
+      </g>
+    
+      <g transform="translate(660, 665)" filter="url(#soft-shadow)">
+        <rect width="270" height="55" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+        <rect width="270" height="4" rx="2" fill="#7c3aed"/>
+        <text x="14" y="24" font-size="14">📷</text>
+        <text x="34" y="22" font-size="11.5" font-weight="700" fill="#1e293b">Webcam Computer Vision</text>
+        <text x="34" y="38" font-size="9.5" font-weight="500" fill="#64748b">Google MediaPipe Hands Fallback</text>
+      </g>
+    
+    <line x1="280" y1="230" x2="280" y2="295" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="720" y1="230" x2="720" y2="295" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <line x1="260" y1="420" x2="260" y2="505" stroke="#d97706" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="500" y1="665" x2="500" y2="220" stroke="#7c3aed" stroke-width="1.8" stroke-dasharray="4,4"/>
+  </svg>

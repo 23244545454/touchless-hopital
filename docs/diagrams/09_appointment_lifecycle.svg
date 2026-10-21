@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="920" height="480">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="920" height="480" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="920" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.9: Clinical Appointment Transactional Lifecycle State Machine</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+    <circle cx="60" cy="150" r="12" fill="#0f172a"/>
+    <line x1="72" y1="150" x2="110" y2="150" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arrow-dark)"/>
+  
+      <g transform="translate(110, 120)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+        <rect width="160" height="5" rx="2" fill="#0d9488"/>
+        <text x="80" y="22" font-size="11.5" font-weight="700" fill="#0d9488" text-anchor="middle">SCHEDULED</text>
+        <text x="80" y="38" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Created at Kiosk</text>
+      </g>
+    
+      <g transform="translate(350, 120)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.8"/>
+        <rect width="160" height="5" rx="2" fill="#0284c7"/>
+        <text x="80" y="22" font-size="11.5" font-weight="700" fill="#0284c7" text-anchor="middle">CONFIRMED</text>
+        <text x="80" y="38" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">SMS / Clinic Validated</text>
+      </g>
+    
+      <g transform="translate(590, 120)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+        <rect width="160" height="5" rx="2" fill="#7c3aed"/>
+        <text x="80" y="22" font-size="11.5" font-weight="700" fill="#7c3aed" text-anchor="middle">IN_PROGRESS</text>
+        <text x="80" y="38" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Doctor Consultation</text>
+      </g>
+    
+      <g transform="translate(590, 310)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#10b981" stroke-width="1.8"/>
+        <rect width="160" height="5" rx="2" fill="#10b981"/>
+        <text x="80" y="22" font-size="11.5" font-weight="700" fill="#10b981" text-anchor="middle">COMPLETED</text>
+        <text x="80" y="38" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Prescription Issued</text>
+      </g>
+    
+      <g transform="translate(230, 310)" filter="url(#soft-shadow)">
+        <rect width="160" height="60" rx="8" fill="#ffffff" stroke="#ef4444" stroke-width="1.8"/>
+        <rect width="160" height="5" rx="2" fill="#ef4444"/>
+        <text x="80" y="22" font-size="11.5" font-weight="700" fill="#ef4444" text-anchor="middle">CANCELLED</text>
+        <text x="80" y="38" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">Patient/Doctor Dropped</text>
+      </g>
+    
+    <g transform="translate(840, 340)">
+      <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+      <circle cx="0" cy="0" r="8" fill="#10b981"/>
+    </g>
+    <g transform="translate(130, 340)">
+      <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#ef4444" stroke-width="2"/>
+      <circle cx="0" cy="0" r="8" fill="#ef4444"/>
+    </g>
+  
+    <line x1="270" y1="150" x2="350" y2="150" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="310" y="142" font-size="9.5" font-weight="600" fill="#0f766e" text-anchor="middle">Verify</text>
+
+    <line x1="510" y1="150" x2="590" y2="150" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="550" y="142" font-size="9.5" font-weight="600" fill="#0369a1" text-anchor="middle">Encounter Start</text>
+
+    <line x1="670" y1="180" x2="670" y2="310" stroke="#10b981" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="680" y="245" font-size="9.5" font-weight="600" fill="#166534">Issue Rx &amp; Complete</text>
+
+    <line x1="750" y1="340" x2="826" y2="340" stroke="#10b981" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+    <!-- Cancellation branches -->
+    <path d="M 190 180 L 250 310" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="180" y="245" font-size="9" font-weight="600" fill="#dc2626">Cancel Early</text>
+
+    <path d="M 430 180 L 330 310" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="400" y="245" font-size="9" font-weight="600" fill="#dc2626">No Show / Cancel</text>
+
+    <line x1="230" y1="340" x2="144" y2="340" stroke="#ef4444" stroke-width="1.6" marker-end="url(#arrow)"/>
+  </svg>

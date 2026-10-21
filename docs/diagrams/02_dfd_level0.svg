@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap');
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 11.5px; font-weight: 500; fill: #64748b; }
+      .actor-label { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .uc-box { fill: #f0fdfa; stroke: #0d9488; stroke-width: 1.6; }
+      .uc-text { font-size: 11.5px; font-weight: 600; fill: #0f766e; text-anchor: middle; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+      .shadow { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
+      .node-text { font-size: 12px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .desc-text { font-size: 10px; font-weight: 400; fill: #64748b; text-anchor: middle; }
+      .flow-label { font-size: 9.5px; font-weight: 500; fill: #0369a1; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <!-- Diagram Header Bar -->
+  <rect x="0" y="0" width="960" height="52" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="0" y="0" width="6" height="52" fill="#0d9488"/>
+  <text x="24" y="26" class="title">Figure 1.2: Level-0 Context Data Flow Diagram (DFD)</text>
+  <text x="24" y="42" class="subtitle">Touchless Hospital Management System (Touchless HMS) — Senior Graduation Project Report</text>
+
+    <g transform="translate(480, 280)" filter="url(#card-shadow)">
+      <circle cx="0" cy="0" r="105" fill="#f0fdfa" stroke="#0d9488" stroke-width="2.5"/>
+      <circle cx="0" cy="0" r="95" fill="#ffffff" stroke="#99f6e4" stroke-width="1.5"/>
+      <text x="0" y="-35" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle">0.0</text>
+      <text x="0" y="-12" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">Touchless Hospital</text>
+      <text x="0" y="8" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">Management System</text>
+      <text x="0" y="28" font-size="12" font-weight="600" fill="#0d9488" text-anchor="middle">(Touchless HMS)</text>
+      <text x="0" y="48" font-size="10" font-weight="400" fill="#64748b" text-anchor="middle">Central Engine &amp; REST Services</text>
+    </g>
+  
+      <g transform="translate(70, 120)" filter="url(#soft-shadow)">
+        <rect width="140" height="74" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+        <rect width="140" height="6" rx="4" fill="#0d9488"/>
+        <text x="70" y="32" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">🧑 Outpatient / Patient</text>
+        <text x="70" y="52" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Kiosk User</text>
+      </g>
+    
+      <g transform="translate(70, 380)" filter="url(#soft-shadow)">
+        <rect width="140" height="74" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+        <rect width="140" height="6" rx="4" fill="#0d9488"/>
+        <text x="70" y="32" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">👨‍⚕️ Specialist Doctor</text>
+        <text x="70" y="52" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Clinical Workstation</text>
+      </g>
+    
+      <g transform="translate(750, 120)" filter="url(#soft-shadow)">
+        <rect width="140" height="74" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+        <rect width="140" height="6" rx="4" fill="#0d9488"/>
+        <text x="70" y="32" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">💉 Nursing Staff</text>
+        <text x="70" y="52" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Ward Telemetry Station</text>
+      </g>
+    
+      <g transform="translate(750, 380)" filter="url(#soft-shadow)">
+        <rect width="140" height="74" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+        <rect width="140" height="6" rx="4" fill="#0d9488"/>
+        <text x="70" y="32" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">🗄️ Relational Database</text>
+        <text x="70" y="52" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">MySQL & SQLite PDO</text>
+      </g>
+    
+      <g transform="translate(410, 70)" filter="url(#soft-shadow)">
+        <rect width="140" height="74" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+        <rect width="140" height="6" rx="4" fill="#0d9488"/>
+        <text x="70" y="32" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">📡 Leap Motion LM-010</text>
+        <text x="70" y="52" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">3D Optical Hand Sensor</text>
+      </g>
+    
+    <path d="M 210 145 C 300 145, 360 210, 390 230" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="230" y="165" class="flow-label">Hand Gestures, Civil ID, Booking Data</text>
+
+    <path d="M 390 260 C 330 220, 280 180, 210 175" fill="none" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="230" y="210" class="flow-label" fill="#0369a1">Doctor Rosters, Booking Confirmation</text>
+
+    <!-- Doctor <-> System -->
+    <path d="M 210 405 C 300 405, 360 360, 390 330" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="220" y="380" class="flow-label">Encounter Notes, E-Prescriptions</text>
+
+    <path d="M 390 355 C 330 380, 270 425, 210 435" fill="none" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="220" y="445" class="flow-label" fill="#0369a1">Patient Queue, Medical Dossier</text>
+
+    <!-- Nurse <-> System -->
+    <path d="M 750 145 C 670 145, 600 210, 570 230" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="590" y="165" class="flow-label">Vitals Records, Alarm Wave Gesture</text>
+
+    <path d="M 570 260 C 630 220, 680 180, 750 175" fill="none" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="595" y="210" class="flow-label" fill="#0369a1">Ward Telemetry &amp; Critical Alerts</text>
+
+    <!-- DB <-> System -->
+    <path d="M 570 330 C 620 360, 670 405, 750 405" fill="none" stroke="#0d9488" stroke-width="1.6" marker-end="url(#arrow)"/>
+    <text x="585" y="380" class="flow-label">Parameterized SQL Queries (PDO)</text>
+
+    <path d="M 750 435 C 670 435, 620 380, 570 355" fill="none" stroke="#0284c7" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+    <text x="585" y="445" class="flow-label" fill="#0369a1">Relational Result Sets &amp; Row Counts</text>
+
+    <!-- Sensor -> System -->
+    <path d="M 480 144 L 480 175" fill="none" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
+    <text x="490" y="162" font-size="9.5px" font-weight="600" fill="#7c3aed">WebSocket 3D Skeletal Stream</text>
+  </svg>
